@@ -11,31 +11,38 @@ include_directories(gtest/include)
 # Set Library dir
 link_directories(gtest/lib)
 
+# Add Subdirectories of source files
+file(GLOB SRC_LIBRARIES src/lib/*)
+file(GLOB SRC_TINYXML src/lib/tinyxml/*)
+file(GLOB SRC_CLASSES src/classes/*)
+file(GLOB SRC_PARSER src/parser/*)
+file(GLOB SRC_UTILS src/utils/*)
+file(GLOB SRC_TESTS src/tests/*)
+
 # Set source files for RELEASE target
-set(RELEASE_SOURCE_FILES src/main_release.cpp
-        src/lib/DesignByContract.h
-        src/lib/tinyxml/tinystr.cpp
-        src/lib/tinyxml/tinystr.h
-        src/lib/tinyxml/tinyxml.cpp
-        src/lib/tinyxml/tinyxml.h
-        src/lib/tinyxml/tinyxmlerror.cpp
-        src/lib/tinyxml/tinyxmlparser.cpp)
+set(RELEASE_SOURCE_FILES
+        src/main_release.cpp
+        ${SRC_LIBRARIES}
+        ${SRC_TINYXML}
+        ${SRC_CLASSES}
+        ${SRC_PARSER}
+        ${SRC_UTILS})
 
 # Set source files for DEBUG target
-set(DEBUG_SOURCE_FILES src/main_debug.cpp
-        src/lib/DesignByContract.h
-        src/lib/tinyxml/tinystr.cpp
-        src/lib/tinyxml/tinystr.h
-        src/lib/tinyxml/tinyxml.cpp
-        src/lib/tinyxml/tinyxml.h
-        src/lib/tinyxml/tinyxmlerror.cpp
-        src/lib/tinyxml/tinyxmlparser.cpp)
+set(DEBUG_SOURCE_FILES
+        src/main_debug.cpp
+        ${SRC_LIBRARIES}
+        ${SRC_TINYXML}
+        ${SRC_CLASSES}
+        ${SRC_PARSER}
+        ${SRC_UTILS}
+        ${SRC_TESTS})
 
 # Create RELEASE target
-add_executable(Project_Software_Engineering ${RELEASE_SOURCE_FILES})
+add_executable(PSE_Release ${RELEASE_SOURCE_FILES})
 
 # Create DEBUG target
-add_executable(Project_Software_Engineering_debug ${DEBUG_SOURCE_FILES})
+add_executable(PSE_Debug ${DEBUG_SOURCE_FILES})
 
 # Link library
-target_link_libraries(Project_Software_Engineering_debug gtest)
+target_link_libraries(PSE_Debug gtest)
