@@ -14,6 +14,10 @@ namespace AirplaneEnums {
         kApproaching,
         kStandingAtGate
     };
+
+    extern const std::map<std::string, EStatus> gStringToAirplaneStatus;
+
+    extern const std::map<EStatus, std::string> gAirplaneStatusToString;
 }
 
 
@@ -22,8 +26,8 @@ private:
     const std::string number;
     const std::string callsign;
     const std::string model;
-
     AirplaneEnums::EStatus status;
+
     Airport* airport;
     Runway* runway;
 
@@ -39,9 +43,7 @@ public:
     Airplane(const std::string& _number,
              const std::string& _callsign,
              const std::string& _model,
-             AirplaneEnums::EStatus _status = AirplaneEnums::kInvalidStatus,
-             Airport* _airport = NULL,
-             Runway* _runway = NULL);
+             AirplaneEnums::EStatus _status = AirplaneEnums::kInvalidStatus);
 
     /**
      * PRE: \n
@@ -106,6 +108,7 @@ public:
     /**
      * PRE: \n
      * REQUIRE(properlyInitialized(), "Airplane was not properly initialized."); \n
+     * REQUIRE(_runway != NULL, "Referenced Runway is a NULLPTR."); \n
      * REQUIRE(runway->getAirport() != NULL, "Referenced Runway is not linked to any airport."); \n
      * REQUIRE(runway->getAirport() == getAirport(), "Referenced Runway is not linked to Airplane's airport."); \n
      * POST: \n

@@ -12,6 +12,7 @@ class Airport;
 class Runway {
 private:
     const std::string runwayName;
+
     const Airport* airport;
 
     const Runway* init;
@@ -23,8 +24,7 @@ public:
      * POST: \n
      * ENSURE(properlyInitialized(), "Runway was not properly initialized.");
      */
-    Runway(const std::string& _runwayName,
-           const Airport* _airport);
+    Runway(const std::string& _runwayName);
 
     /**
      * PRE: \n
@@ -50,9 +50,9 @@ public:
      * PRE: \n
      * REQUIRE(properlyInitialized(), "Runway was not properly initialized."); \n
      * POST: \n
-     * ENSURE(airport == _airport, "References Airport was not properly set.");
+     * ENSURE(airport == _airport, "Referenced Airport was not properly set.");
      */
-    //void Runway::setAirport(const Airport* _airport);
+    void setAirport(const Airport* _airport);
 
     /**
      * PRE: \n

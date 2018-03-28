@@ -91,11 +91,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a634c1fc832b707603688974ce8d3c8f7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a634c1fc832b707603688974ce8d3c8f7"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a634c1fc832b707603688974ce8d3c8f7">Airplane</a> (const std::string &amp;_number, const std::string &amp;_callsign, const std::string &amp;_model, AirplaneEnums::EStatus _status=AirplaneEnums::kInvalidStatus, <a class="el" href="classAirport.html">Airport</a> *_airport=NULL, <a class="el" href="classRunway.html">Runway</a> *_runway=NULL)</td></tr>
-<tr class="memdesc:a634c1fc832b707603688974ce8d3c8f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
+<tr class="memitem:a6e9865296aab29401fbcabb7c5ace4a3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6e9865296aab29401fbcabb7c5ace4a3"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a6e9865296aab29401fbcabb7c5ace4a3">Airplane</a> (const std::string &amp;_number, const std::string &amp;_callsign, const std::string &amp;_model, AirplaneEnums::EStatus _status=AirplaneEnums::kInvalidStatus)</td></tr>
+<tr class="memdesc:a6e9865296aab29401fbcabb7c5ace4a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
 ENSURE(properlyInitialized(), "Airplane was not properly initialized.");. <br /></td></tr>
-<tr class="separator:a634c1fc832b707603688974ce8d3c8f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a6e9865296aab29401fbcabb7c5ace4a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23a9ff56fa01d797950e63f8d237e706"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a23a9ff56fa01d797950e63f8d237e706"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a23a9ff56fa01d797950e63f8d237e706">Airplane</a> (const <a class="el" href="classAirplane.html">Airplane</a> *_airplane)</td></tr>
 <tr class="memdesc:a23a9ff56fa01d797950e63f8d237e706"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
@@ -151,6 +151,7 @@ ENSURE(airport == _airport, "Property 'airport' was not correctly set in Airplan
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a9c851d5a547c4af142a9b661a713d91c">setRunway</a> (<a class="el" href="classRunway.html">Runway</a> *_runway)</td></tr>
 <tr class="memdesc:a9c851d5a547c4af142a9b661a713d91c"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
 REQUIRE(properlyInitialized(), "Airplane was not properly initialized."); <br />
+REQUIRE(_runway != NULL, "Referenced Runway is a NULLPTR."); <br />
 REQUIRE(runway-&gt;<a class="el" href="classAirplane.html#ab359711b20fb5ba0b0aa445d828ca898" title="PRE:  REQUIRE(properlyInitialized(), &quot;Airplane was not properly initialized.&quot;);. ">getAirport()</a> != NULL, "Referenced Runway is not linked to any airport."); <br />
 REQUIRE(runway-&gt;<a class="el" href="classAirplane.html#ab359711b20fb5ba0b0aa445d828ca898" title="PRE:  REQUIRE(properlyInitialized(), &quot;Airplane was not properly initialized.&quot;);. ">getAirport()</a> == <a class="el" href="classAirplane.html#ab359711b20fb5ba0b0aa445d828ca898" title="PRE:  REQUIRE(properlyInitialized(), &quot;Airplane was not properly initialized.&quot;);. ">getAirport()</a>, "Referenced Runway is not linked to Airplane's airport."); <br />
 POST: <br />

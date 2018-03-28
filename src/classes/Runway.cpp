@@ -4,18 +4,11 @@ bool Runway::properlyInitialized() const {
     return this == init;
 }
 
-Runway::Runway(const std::string& _runwayName,
-               const Airport* _airport)
-        : runwayName(_runwayName),
-          airport(_airport),
-          init(this) {
+Runway::Runway(const std::string& _runwayName) : runwayName(_runwayName), airport(NULL), init(this) {
     ENSURE(properlyInitialized(), "Runway was not properly initialized.");
 }
 
-Runway::Runway(const Runway* _runway)
-        : runwayName(_runway->getRunwayName()),
-          airport(_runway->getAirport()),
-          init(this) {
+Runway::Runway(const Runway* _runway) : runwayName(_runway->getRunwayName()), airport(_runway->getAirport()), init(this) {
     REQUIRE(_runway->properlyInitialized(), "Reference Runway was not properly initialized.");
     ENSURE(properlyInitialized(), "Runway was not properly initialized.");
 }
@@ -30,11 +23,11 @@ const Airport* Runway::getAirport() const {
     return airport;
 }
 
-/*void Runway::setAirport(const Airport* _airport) {
+void Runway::setAirport(const Airport* _airport) {
     REQUIRE(properlyInitialized(), "Runway was not properly initialized.");
     airport = _airport;
-    ENSURE(airport == _airport, "References Airport was not properly set.");
-}*/
+    ENSURE(airport == _airport, "Referenced Airport was not properly set.");
+}
 
 void Runway::printInfo(std::ostream& stream) const
 {

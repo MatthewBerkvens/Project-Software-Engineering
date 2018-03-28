@@ -37,15 +37,13 @@ bool Airplane::properlyInitialized() const {
 Airplane::Airplane(const std::string& _number,
                    const std::string& _callsign,
                    const std::string& _model,
-                   AirplaneEnums::EStatus _status,
-                   Airport* _airport,
-                   Runway* _runway)
+                   AirplaneEnums::EStatus _status)
         : number(_number),
           callsign(_callsign),
           model(_model),
           status(_status),
-          airport(_airport),
-          runway(_runway),
+          airport(NULL),
+          runway(NULL),
           init(this) {
     ENSURE(properlyInitialized(), "Airplane was not properly initialized");
 }
@@ -108,6 +106,7 @@ void Airplane::setAirport(Airport* _airport) {
 
 void Airplane::setRunway(Runway* _runway) {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+    REQUIRE(_runway != NULL, "Referenced Runway is a NULLPTR.");
     REQUIRE(_runway->getAirport() != NULL, "Referenced Runway is not linked to any airport.");
     REQUIRE(_runway->getAirport() == getAirport(), "Referenced Runway is not linked to Airplane's airport.");
     runway = _runway;

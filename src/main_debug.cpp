@@ -8,7 +8,7 @@
 int main() {
     std::cout << "Hello, Debug!" << std::endl;
 
-    Airport airport = Airport("airport", "iata", "callsign", 5);
+    /*Airport airport = Airport("airport", "iata", "callsign", 5);
     Runway runway = Runway("runway", &airport);
     airport.addRunway(&runway);
 
@@ -26,6 +26,11 @@ int main() {
 
     airport.printInfo(std::cout);
     runway.printInfo(std::cout);
-    airplane.printInfo(std::cout);
+    airplane.printInfo(std::cout);*/
+
+    Parser parser;
+
+    parser.parseFile("simpleScenario.xml", std::cout);
+
     return 0;
 }

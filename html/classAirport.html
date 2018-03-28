@@ -91,11 +91,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adef14a6b49b8c9ba0de855396dd4da15"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adef14a6b49b8c9ba0de855396dd4da15"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirport.html#adef14a6b49b8c9ba0de855396dd4da15">Airport</a> (const std::string &amp;_airportName, const std::string &amp;_iata, const std::string &amp;_callsign, unsigned int _gates)</td></tr>
-<tr class="memdesc:adef14a6b49b8c9ba0de855396dd4da15"><td class="mdescLeft">&#160;</td><td class="mdescRight">POST: <br />
+<tr class="memitem:a12d4fc8f6375a6aede4ded304c9cd763"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a12d4fc8f6375a6aede4ded304c9cd763"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirport.html#a12d4fc8f6375a6aede4ded304c9cd763">Airport</a> (const std::string &amp;_airportName, const std::string &amp;_iata, const std::string &amp;_callsign, const unsigned int _gates)</td></tr>
+<tr class="memdesc:a12d4fc8f6375a6aede4ded304c9cd763"><td class="mdescLeft">&#160;</td><td class="mdescRight">POST: <br />
 ENSURE(properlyInitialized(), "Airport was not properly initialized.");. <br /></td></tr>
-<tr class="separator:adef14a6b49b8c9ba0de855396dd4da15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a12d4fc8f6375a6aede4ded304c9cd763"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f52f34ace2f2a382fe9a0a9f4de54ef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6f52f34ace2f2a382fe9a0a9f4de54ef"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirport.html#a6f52f34ace2f2a382fe9a0a9f4de54ef">Airport</a> (<a class="el" href="classAirport.html">Airport</a> *_airport)</td></tr>
 <tr class="memdesc:a6f52f34ace2f2a382fe9a0a9f4de54ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
@@ -139,7 +139,7 @@ REQUIRE(properlyInitialized(), "Airport was not properly initialized."); <br />
 REQUIRE(vectorContains&lt;Runway*&gt;(runways, _runway), "Referenced Runway was not found, can't be deleted."); <br />
 POST: <br />
 ENSURE(!vectorContains&lt;Runway*&gt;(runways, _runway), "Referenced Runway was not properly deleted."); <br />
-ENSURE(_runway-&gt;getAirport() == NULL, "References Airport was not properly unlinked from this airport");.  <a href="#a07c43d95a11bb281bb18e7b27a6ed9ec">More...</a><br /></td></tr>
+ENSURE(_runway-&gt;getAirport() == NULL, "Referenced Airport was not properly unlinked from this airport");.  <a href="#a07c43d95a11bb281bb18e7b27a6ed9ec">More...</a><br /></td></tr>
 <tr class="separator:a07c43d95a11bb281bb18e7b27a6ed9ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -162,7 +162,7 @@ REQUIRE(properlyInitialized(), "Airport was not properly initialized."); <br />
 REQUIRE(vectorContains&lt;Runway*&gt;(runways, _runway), "Referenced Runway was not found, can't be deleted."); <br />
 POST: <br />
 ENSURE(!vectorContains&lt;Runway*&gt;(runways, _runway), "Referenced Runway was not properly deleted."); <br />
-ENSURE(_runway-&gt;getAirport() == NULL, "References Airport was not properly unlinked from this airport");. </p>
+ENSURE(_runway-&gt;getAirport() == NULL, "Referenced Airport was not properly unlinked from this airport");. </p>
 <p>PRE: <br />
 REQUIRE(properlyInitialized(), "Airport was not properly initialized."); </p>
 

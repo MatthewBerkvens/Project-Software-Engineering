@@ -14,8 +14,9 @@ private:
     const std::string airportName;
     const std::string iata;
     const std::string callsign;
+    const unsigned int gates;
+
     RunwayVector runways;
-    unsigned int gates;
 
     const Airport* init;
 
@@ -29,7 +30,7 @@ public:
     Airport(const std::string& _airportName,
             const std::string& _iata,
             const std::string& _callsign,
-            unsigned int _gates);
+            const unsigned int _gates);
 
     /**
      * PRE: \n
@@ -80,7 +81,7 @@ public:
      * REQUIRE(vectorContains<Runway*>(runways, _runway), "Referenced Runway was not found, can't be deleted."); \n
      * POST: \n
      * ENSURE(!vectorContains<Runway*>(runways, _runway), "Referenced Runway was not properly deleted."); \n
-     * ENSURE(_runway->getAirport() == NULL, "References Airport was not properly unlinked from this airport");
+     * ENSURE(_runway->getAirport() == NULL, "Referenced Airport was not properly unlinked from this airport");
      */
     //void deleteRunway(Runway* _runway);
 
