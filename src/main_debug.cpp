@@ -1,36 +1,42 @@
 #include <iostream>
 #include "parser/parser.h"
+#include "classes/Simulator.h"
 #include "classes/Airport.h"
 #include "classes/Runway.h"
 #include "classes/Airplane.h"
 #include "utils/utils.h"
 
+#include <iostream>
+#include <sstream>
+
 int main() {
     std::cout << "Hello, Debug!" << std::endl;
 
-    /*Airport airport = Airport("airport", "iata", "callsign", 5);
-    Runway runway = Runway("runway", &airport);
-    airport.addRunway(&runway);
+    Parser parser(std::cout);
 
-    Airplane airplane = Airplane("nr", "callsign", "model", AirplaneEnums::kApproaching);
+    std::pair<ParseEnum::EResult, Airport*> pairResult = parser.parseFile("simpleScenario.xml");
 
+    ParseEnum::EResult parserResult = pairResult.first;
+    if (parserResult == ParseEnum::kSuccess) {
+        Airport* airport = pairResult.second;
 
-    //const Airport* runwayAirport = runway.getAirport();
-    //REQUIRE(runwayAirport == &airport, "Runway's linked airport does not match");
+        /*for (unsigned int i = 0; i < airport->getAirplanes().size(); ++i) {
+            airport->getAirplanes()[i]->printInfo(std::cout);
+        }
 
-    airplane.setAirport(&airport);
+        for (unsigned int i = 0; i < airport->getRunways().size(); ++i) {
+            airport->getRunways()[i]->printInfo(std::cout);
+        }
 
-    //REQUIRE(airplane.getAirport() == runwayAirport, "Airplane's linked airport does not match");
+        airport->printInfo(std::cout);*/
+        airport->getModifiableGates()[2] = airport->getAirplanes()[0];
 
-    airplane.setRunway(&runway);
+        Simulator simulator(airport, std::cout, std::cout, std::cout);
+        delete airport;
+        simulator.Simulate();
 
-    airport.printInfo(std::cout);
-    runway.printInfo(std::cout);
-    airplane.printInfo(std::cout);*/
-
-    Parser parser;
-
-    parser.parseFile("simpleScenario.xml", std::cout);
+        //delete airport;
+    }
 
     return 0;
 }

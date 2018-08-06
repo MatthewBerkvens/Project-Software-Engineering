@@ -1,37 +1,81 @@
 #include "Runway.h"
 
-bool Runway::properlyInitialized() const {
-    return this == init;
+namespace RunwayEnums {
+    #define etype(x) #x
+        const char* strEType[] = { ERUNWAYTYPES };
+    #undef etype
+
+    const char* EnumToString(EType f)
+    {
+        return strEType[static_cast<int>(f)];
+    }
+
+    EType StringToTypeEnum(const char *f)
+    {
+        const int n = sizeof(strEType) / sizeof(strEType[0]);
+        for (int i = 0; i < n; ++i)
+        {
+            if (strcasecmp(strEType[i], f) == 0) return (EType)i;
+        }
+        return kInvalidType;
+    }
 }
 
-Runway::Runway(const std::string& _runwayName) : runwayName(_runwayName), airport(NULL), init(this) {
+Runway::Runway(const std::string& _name, const unsigned int _length, const RunwayEnums::EType _type) : Location(_name), length(_length), type(_type) {
     ENSURE(properlyInitialized(), "Runway was not properly initialized.");
 }
 
-Runway::Runway(const Runway* _runway) : runwayName(_runway->getRunwayName()), airport(_runway->getAirport()), init(this) {
+Runway::Runway(const Runway* _runway) : Location(_runway), length(_runway->getLength()), type(_runway->getType()) {
     REQUIRE(_runway->properlyInitialized(), "Reference Runway was not properly initialized.");
     ENSURE(properlyInitialized(), "Runway was not properly initialized.");
 }
 
-const std::string& Runway::getRunwayName() const {
+const unsigned int Runway::getLength() const {
     REQUIRE(properlyInitialized(), "Runway was not properly initialized.");
-    return runwayName;
+    return length;
 }
 
-const Airport* Runway::getAirport() const {
+const RunwayEnums::EType Runway::getType() const {
     REQUIRE(properlyInitialized(), "Runway was not properly initialized.");
-    return airport;
+    return type;
 }
 
-void Runway::setAirport(const Airport* _airport) {
+const Airplane* Runway::getAirplane() const {
     REQUIRE(properlyInitialized(), "Runway was not properly initialized.");
-    airport = _airport;
-    ENSURE(airport == _airport, "Referenced Airport was not properly set.");
+    return airplane;
+}
+
+void Runway::setAirplane(const Airplane* _airplane) {
+    REQUIRE(properlyInitialized(), "Runway was not properly initialized.");
+    airplane = _airplane;
+    ENSURE(airplane == _airplane, "Referenced Airplane was not properly set.");
+}
+
+const Airplane* Runway::getCrossingAirplane() const {
+    REQUIRE(properlyInitialized(), "Runway was not properly initialized.");
+    return crossingAirplane;
+}
+
+void Runway::setCrossingAirplane(const Airplane* _crossingAirplane) {
+    REQUIRE(properlyInitialized(), "Runway was not properly initialized.");
+    crossingAirplane = _crossingAirplane;
+    ENSURE(crossingAirplane == _crossingAirplane, "Referenced Crossing Airplane was not properly set.");
+}
+
+
+bool Runway::isVacant() const {
+    REQUIRE(properlyInitialized(), "Runway was not properly initialized.");
+    return crossingAirplane == NULL && airplane == NULL;
+}
+
+bool Runway::canCross() const {
+    REQUIRE(properlyInitialized(), "Runway was not properly initialized.");
+    return crossingAirplane == NULL && (airplane->getStatus() == AirplaneEnums::kEmergencyLanding || airplane->getStatus() == AirplaneEnums::kReadyForTakeoff);
 }
 
 void Runway::printInfo(std::ostream& stream) const
 {
     REQUIRE(properlyInitialized(), "Runway was not properly initialized.");
-    stream << "Runway: " << getRunwayName() << std::endl;
+    stream << "Runway " << getName() << ": " << getLength() << "m, " << (getType() == RunwayEnums::kGrass ? "Grass" : "Asphalt") << std::endl;
     stream << std::endl;
 }

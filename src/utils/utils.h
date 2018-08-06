@@ -11,15 +11,20 @@
 #include <fstream>
 #include <sstream>
 
+class Airport;
+typedef std::vector<Airport*> AirportVector;
+typedef std::vector<Airport*>::iterator AirportVectorIterator;
+typedef std::vector<Airport*>::const_iterator AirportVectorConstIterator;
+
 class Runway;
 typedef std::vector<Runway*> RunwayVector;
 typedef std::vector<Runway*>::iterator RunwayVectorIterator;
 typedef std::vector<Runway*>::const_iterator RunwayVectorConstIterator;
 
-class Airport;
-typedef std::vector<Airport*> AirportVector;
-typedef std::vector<Airport*>::iterator AirportVectorIterator;
-typedef std::vector<Airport*>::const_iterator AirportVectorConstIterator;
+class Airplane;
+typedef std::vector<Airplane*> AirplaneVector;
+typedef std::vector<Airplane*>::iterator AirplaneVectorIterator;
+typedef std::vector<Airplane*>::const_iterator AirplaneVectorConstIterator;
 
 /**
  * Returns true if string only contains alphabetical characters (lower & uppercase), digits, or spaces
@@ -43,6 +48,12 @@ bool tryCastStringToUnsignedInt(const std::string& str, unsigned int* i);
  * REQUIRE(elem != NULL, "Referenced TiXmlElement was a NULLPTR");
  */
 std::string getRowAndColumnStr(const TiXmlElement* elem);
+
+std::string getRowAndColumnStr(const TiXmlNode* node);
+
+std::string getRowAndColumnStr(const TiXmlText* text);
+
+std::string convertToNATOAlphabet(std::string& string);
 
 template<typename AType>
 bool vectorContains(std::vector<AType> vector, AType element)

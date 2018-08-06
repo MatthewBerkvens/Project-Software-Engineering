@@ -3,7 +3,9 @@
 
 #include "../lib/tinyxml/tinyxml.h"
 #include "../lib/DesignByContract.h"
+
 #include "../utils/utils.h"
+#include "../utils/consistency_checker.h"
 
 #include "../classes/Airport.h"
 #include "../classes/Runway.h"
@@ -13,6 +15,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <set>
 
 namespace ParseEnum {
     enum EResult {
@@ -25,12 +28,15 @@ namespace ParseEnum {
 
 class Parser {
 private:
-
+    std::ostream& errorStream;
 public:
-    Parser();
+    Parser(std::ostream& _errorStream);
 
-    ParseEnum::EResult parseFile(const char* fileName, std::ostream& errorStream);
+    std::pair<ParseEnum::EResult, Airport*> parseFile(const char* fileName);
+
+    std::map<std::string, std::string> convertXmlNodeToMap(TiXmlElement* object);
+
+    std::map<int, std::pair<bool, std::string> > extractTaxiRoute(TiXmlElement* object);
 };
-
 
 #endif
