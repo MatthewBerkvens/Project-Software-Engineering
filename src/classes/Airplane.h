@@ -161,9 +161,8 @@ private:
     unsigned long gate;
 
     Runway* runway;
-
     Location* currentLocation;
-    std::queue<Location*> taxiRoute;
+    Runway* takeoffRunway;
 
     const Airplane* init;
 
@@ -332,13 +331,25 @@ public:
      * PRE: \n
      * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
      */
-    Location* getCurrentLocation();
+    Location* getCurrentLocation() const;
 
     /**
      * PRE: \n
      * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
      */
     void setCurrentLocation(Location* _location);
+
+    /**
+     * PRE: \n
+     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     */
+    Runway* getTakeoffRunway() const;
+
+    /**
+     * PRE: \n
+     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     */
+    void setTakeoffRunway(Runway* _runway);
 
     void fly();
 

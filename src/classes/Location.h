@@ -12,8 +12,8 @@ protected:
 
     bool properlyInitialized() const;
 
-    const Location* previousLocation;
-    const Location* nextLocation;
+    Location* previousLocation;
+    Location* nextLocation;
 
     const Airport* airport;
 
@@ -26,13 +26,13 @@ public:
 
     const std::string& getName() const;
 
-    const Location* getPreviousLocation() const;
+    Location* getPreviousLocation() const;
 
-    void setPreviousLocation(const Location* _previousLocation);
+    void setPreviousLocation(Location* _previousLocation);
 
-    const Location* getNextLocation() const;
+    Location* getNextLocation() const;
 
-    void setNextLocation(const Location* _nextLocation);
+    void setNextLocation(Location* _nextLocation);
 
     const Airport* getAirport() const;
 

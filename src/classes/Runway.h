@@ -38,8 +38,8 @@ private:
     unsigned int length;
     RunwayEnums::EType type;
 
-    const Airplane* airplane;
-    const Airplane* crossingAirplane;
+    Airplane* airplane;
+    Airplane* crossingAirplane;
 
 public:
     /**
@@ -72,25 +72,25 @@ public:
      * PRE: \n
      * REQUIRE(properlyInitialized(), "Runway was not properly initialized.");
      */
-    const Airplane* getAirplane() const;
+    Airplane* getAirplane() const;
 
     /**
      * PRE: \n
      * REQUIRE(properlyInitialized(), "Runway was not properly initialized.");
      */
-    void setAirplane(const Airplane* _airplane);
+    void setAirplane(Airplane* _airplane);
 
     /**
      * PRE: \n
      * REQUIRE(properlyInitialized(), "Runway was not properly initialized.");
      */
-    const Airplane* getCrossingAirplane() const;
+    Airplane* getCrossingAirplane() const;
 
     /**
      * PRE: \n
      * REQUIRE(properlyInitialized(), "Runway was not properly initialized.");
      */
-    void setCrossingAirplane(const Airplane* _crossingAirplane);
+    void setCrossingAirplane(Airplane* _crossingAirplane);
 
     bool isVacant() const;
 

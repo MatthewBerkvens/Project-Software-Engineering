@@ -2,378 +2,324 @@
 
 Parser::Parser(std::ostream& _errorStream) : errorStream(_errorStream) {};
 
-std::pair<ParseEnum::EResult, Airport*> Parser::parseFile(const char* fileName) {
+std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFile(const char* fileName) {
     TiXmlDocument xmlFile;
+
+    std::map<std::string, Airport*> allAirports;
 
     if (!xmlFile.LoadFile(fileName)) {
         errorStream << "Error loading file: " << xmlFile.ErrorDesc() << std::endl;
         xmlFile.Clear();
-        return std::pair<ParseEnum::EResult, Airport*>(ParseEnum::kAborted, NULL);
+        return std::pair<ParseEnum::EResult, std::map<std::string, Airport*> >(ParseEnum::kAborted, allAirports);
     }
 
     if (xmlFile.FirstChildElement() == NULL) {
         errorStream << "Error loading file: root missing" << std::endl;
         xmlFile.Clear();
-        return std::pair<ParseEnum::EResult, Airport*>(ParseEnum::kPartial, NULL);
+        return std::pair<ParseEnum::EResult, std::map<std::string, Airport*> >(ParseEnum::kPartial, allAirports);
     }
 
     ParseEnum::EResult parseResult = ParseEnum::kSuccess;
-    Airport* airport;
-    std::vector<Runway*> runways;
-    std::vector<Airplane*> airplanes;
+
+    Airport* lastAirport;
 
     for (TiXmlElement* object = xmlFile.FirstChildElement(); object != NULL; object = object->NextSiblingElement()) {
         std::string objectName = object->Value();
         if (objectName == "AIRPORT") {
             std::string airportName;
-            std::string iata;
-            std::string callsign;
-            unsigned int gates = 0;
+            std::string airportIATA;
+            std::string airportCallsign;
+            unsigned int airportGates = 0;
 
             bool invalidAirport = false;
 
-            std::map<std::string, std::string> xmltomap = convertXmlNodeToMap(object);
+            std::map<std::string, std::string> airportMap = convertXmlNodeToMap(object);
 
-            for (TiXmlElement* elem = object->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement()) {
-                std::string elemName = elem->Value();
-                std::string elemValue = "";
-
-                TiXmlNode* node = elem->FirstChild();
-                if (node != NULL) {
-                    TiXmlText* textNode = node->ToText();
-                    if (textNode != NULL) {
-                        std::string textNodeValue = textNode->Value();
-                        if (isString(textNodeValue)) {
-                            elemValue = textNodeValue;
-                        } else {
-                            errorStream << object->Value() << ": '" << elemName << "' attribute is not a valid string (only the alphabet, digits and spaces are allowed). " << getRowAndColumnStr(elem)
-                                        << std::endl;
-                            invalidAirport = true;
-                            continue;
-                        }
-                    } else {
-                        errorStream << object->Value() << ": '" << elemName << "' attribute does not contain text. " << getRowAndColumnStr(elem) << std::endl;
-                        invalidAirport = true;
-                        continue;
-                    }
-                } else {
-                    errorStream << object->Value() << ": '" << elemName << "' attribute does not contain anything. " << getRowAndColumnStr(elem) << std::endl;
-                    invalidAirport = true;
-                    continue;
-                }
-
-                if (elemName == "name") {
-                    airportName = elemValue;
-                } else if (elemName == "iata") {
-                    iata = elemValue;
-                } else if (elemName == "callsign") {
-                    callsign = elemValue;
-                } else if (elemName == "gates") {
-                    unsigned int nodeTextAsInt;
-                    if (tryCastStringToUnsignedInt(elemValue, &nodeTextAsInt)) {
-                        if (nodeTextAsInt > 0) {
-                            gates = nodeTextAsInt;
-                        } else {
-                            errorStream << objectName << ": '" << elemName << "' attribute must be a strictly positive integer. " << getRowAndColumnStr(elem) << std::endl;
-                            invalidAirport = true;
-                        }
-                    } else {
-                        errorStream << objectName << ": '" << elemName << "' attribute is not an unsigned integer. " << getRowAndColumnStr(elem) << std::endl;
-                        invalidAirport = true;
-                    }
-                } else {
-                    errorStream << objectName << ": '" << elemName << "' invalid attribute. " << getRowAndColumnStr(elem) << std::endl;
-                    invalidAirport = true;
-                }
-            }
-
-
-            if (airportName.empty()) {
-                errorStream << objectName << ": 'airportName' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
+            if (!airportMap["name"].empty()) {
+                airportName = airportMap["name"];
+            } else {
                 invalidAirport = true;
+                errorStream << objectName << ": 'name' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
-            if (iata.empty()) {
+
+            if (!airportMap["iata"].empty()) {
+                airportIATA = airportMap["iata"];
+            } else {
+                invalidAirport = true;
                 errorStream << objectName << ": 'iata' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
-                invalidAirport = true;
             }
-            if (callsign.empty()) {
+
+            if (!airportMap["callsign"].empty()) {
+                airportCallsign = airportMap["callsign"];
+            } else {
+                invalidAirport = true;
                 errorStream << objectName << ": 'callsign' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
-                invalidAirport = true;
             }
-            if (gates == 0) {
-                errorStream << objectName << ": 'gates' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
+
+            if (!airportMap["gates"].empty()) {
+                unsigned int gatesAsInt;
+                if (tryCastStringToUnsignedInt(airportMap["gates"], &gatesAsInt)) {
+                    airportGates = gatesAsInt;
+                } else {
+                    invalidAirport = true;
+                    errorStream << objectName << ": 'gates' attribute is not an unsigned integer. " << getRowAndColumnStr(object) << std::endl;
+                }
+            } else {
                 invalidAirport = true;
+                errorStream << objectName << ": 'gates' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
+            }
+
+            if (allAirports[airportIATA] != NULL) {
+                invalidAirport = true;
+                errorStream << objectName << ": duplicate airport IATA. " << getRowAndColumnStr(object) << std::endl;
             }
 
             if (invalidAirport) {
                 parseResult = ParseEnum::kPartial;
             } else {
-                airport = new Airport(airportName, iata, callsign, gates);
+                Airport* newAirport = new Airport(airportName, airportIATA, airportCallsign, airportGates);
+                allAirports[airportIATA] = newAirport;
+                lastAirport = newAirport;
             }
         } else if (objectName == "RUNWAY") {
             std::string runwayName = "";
             unsigned int runwayLength = 0;
             RunwayEnums::EType runwayType = RunwayEnums::kInvalidType;
-            Airport* linkedAirport = NULL;
+            Airport* runwayAirport = NULL;
 
             bool invalidRunway = false;
 
-            std::map<std::string, std::string> xmltomap = convertXmlNodeToMap(object);
+            std::map<std::string, std::string> runwayMap = convertXmlNodeToMap(object);
 
-            std::map<int, std::pair<bool, std::string> > taxiRouteToMap = extractTaxiRoute(object->FirstChildElement("TAXIROUTE"));
+            std::vector<std::pair<bool, std::string> > taxirouteMap = extractTaxiRoute(object->FirstChildElement("TAXIROUTE"));
 
-            for (TiXmlElement* elem = object->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement()) {
-                std::string elemName = elem->Value();
-                std::string elemValue = "";
-
-                TiXmlNode* node = elem->FirstChild();
-                if (node != NULL) {
-                    TiXmlText* textNode = node->ToText();
-                    if (textNode != NULL) {
-                        std::string textNodeValue = textNode->Value();
-                        if (isString(textNodeValue)) {
-                            elemValue = textNodeValue;
-                        } else {
-                            errorStream << object->Value() << ": '" << elemName << "' attribute is not a valid string (only the alphabet, digits and spaces are allowed). " << getRowAndColumnStr(elem)
-                                        << std::endl;
-                            invalidRunway = true;
-                            continue;
-                        }
-                    } else {
-                        errorStream << object->Value() << ": '" << elemName << "' attribute does not contain text. " << getRowAndColumnStr(elem) << std::endl;
-                        invalidRunway = true;
-                        continue;
-                    }
-                } else {
-                    errorStream << object->Value() << ": '" << elemName << "' attribute does not contain anything. " << getRowAndColumnStr(elem) << std::endl;
-                    invalidRunway = true;
-                    continue;
-                }
-
-                if (elemName == "name") {
-                    runwayName = elemValue;
-                } else if (elemName == "airport") {
-                    if (airport != NULL && airport->getIata() == elemValue) {
-                        linkedAirport = airport;
-                    } else {
-                        errorStream << objectName << ": referenced airport does not exist, make sure to declare runways after the referenced airport. " << getRowAndColumnStr(elem) << std::endl;
-                        invalidRunway = true;
-                    }
-                } else if (elemName == "length") {
-                    unsigned int nodeTextAsInt;
-                    if (tryCastStringToUnsignedInt(elemValue, &nodeTextAsInt)) {
-                        if (nodeTextAsInt > 0) {
-                            runwayLength = nodeTextAsInt;
-                        } else {
-                            errorStream << objectName << ": '" << elemName << "' attribute must be a strictly positive integer. " << getRowAndColumnStr(elem) << std::endl;
-                            invalidRunway = true;
-                        }
-                    }
-                } else if (elemName == "type") {
-                    RunwayEnums::EType temp = RunwayEnums::StringToTypeEnum(elemValue.c_str());
-                    if (temp != RunwayEnums::kInvalidType) {
-                        runwayType = temp;
-                    } else {
-                        errorStream << objectName << ": '" << elemName << "' attribute does not contain a valid option. " << getRowAndColumnStr(elem) << std::endl;
-                        invalidRunway = true;
-                    }
-                } else {
-                    errorStream << objectName << ": '" << elemName << "' invalid attribute. " << getRowAndColumnStr(elem) << std::endl;
-                    invalidRunway = true;
-                }
-            }
-
-
-            if (runwayName.empty()) {
+            if (!runwayMap["name"].empty()) {
+                runwayName = runwayMap["name"];
+            } else {
+                invalidRunway = true;
                 errorStream << objectName << ": 'name' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
-                invalidRunway = true;
             }
-            if (runwayLength == 0) {
+
+            if (!runwayMap["length"].empty()) {
+                unsigned int lengthAsInt;
+                if (tryCastStringToUnsignedInt(runwayMap["length"], &lengthAsInt)) {
+                    runwayLength = lengthAsInt;
+                } else {
+                    invalidRunway = true;
+                    errorStream << objectName << ": 'length' attribute is not an unsigned integer. " << getRowAndColumnStr(object) << std::endl;
+                }
+            } else {
+                invalidRunway = true;
                 errorStream << objectName << ": 'length' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
-                invalidRunway = true;
             }
-            if (runwayType == RunwayEnums::kInvalidType) {
-                errorStream << objectName << ": 'type' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
+
+            if (!runwayMap["airport"].empty()) {
+                runwayAirport = allAirports[runwayMap["airport"]];
+                if (runwayAirport == NULL) {
+                    invalidRunway = true;
+                    errorStream << objectName << ": referenced airport does not exist, make sure to declare runways after the referenced airport. " << getRowAndColumnStr(object) << std::endl;
+                }
+            } else {
                 invalidRunway = true;
-            }
-            if (linkedAirport == NULL) {
                 errorStream << objectName << ": 'airport' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
+            }
+
+            if (!runwayMap["type"].empty()) {
+                RunwayEnums::EType tempType = RunwayEnums::StringToTypeEnum(runwayMap["type"].c_str());
+                if (tempType != RunwayEnums::kInvalidType) {
+                    runwayType = tempType;
+                } else {
+                    invalidRunway = true;
+                    errorStream << objectName << ": 'type' attribute does not contain a valid option. " << getRowAndColumnStr(object) << std::endl;
+                }
+            } else {
                 invalidRunway = true;
+                errorStream << objectName << ": 'type' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
             if (invalidRunway) {
                 parseResult = ParseEnum::kPartial;
-            }
-            else {
+            } else {
                 Runway* newRunway = new Runway(runwayName, runwayLength, runwayType);
-                newRunway->setAirport(linkedAirport);
-                linkedAirport->addRunway(newRunway);
-                runways.push_back(newRunway);
+                newRunway->setAirport(runwayAirport);
+
+                runwayAirport->addRunway(newRunway);
+                runwayAirport->addLocation(newRunway);
+
+                //adding all locations first
+                for (unsigned int i = 0; i < taxirouteMap.size(); i++) {
+                    std::pair<bool, std::string> currentNode = taxirouteMap[i];
+                    std::string nodeName = currentNode.second;
+
+                    if (runwayAirport->getLocationByName(nodeName) == NULL) {
+                        //if currentNode.first is true, node is a crossing of a runway
+                        if (!currentNode.first) {
+                            Location* newLocation = new Location(nodeName);
+                            newLocation->setAirport(runwayAirport);
+                            runwayAirport->addLocation(newLocation);
+                        } else {
+                            invalidRunway = true;
+                            errorStream << objectName << ": Runways added in wrong order, this one has defined runways before they were added. " << getRowAndColumnStr(object) << std::endl;
+                        }
+                    }
+                }
+
+                for (unsigned int i = 0; i < taxirouteMap.size(); i++) {
+                    std::pair<bool, std::string> currentNode = taxirouteMap[i];
+                    std::string nodeName = currentNode.second;
+
+                    bool start_index = (i == 0);
+                    bool end_index = ((i + 1) == taxirouteMap.size());
+
+
+                    Location* previousLocation = NULL;
+                    Location* currentLocation = runwayAirport->getLocationByName(nodeName);
+                    Location* nextLocation = NULL;
+
+                    if (!start_index) {
+                        previousLocation = runwayAirport->getLocationByName(taxirouteMap[i-1].second);
+                        previousLocation->setNextLocation(currentLocation);
+                    }
+
+                    if (!end_index) {
+                        nextLocation = runwayAirport->getLocationByName(taxirouteMap[i+1].second);
+                    } else {
+                        nextLocation = newRunway;
+                    }
+
+                    nextLocation->setPreviousLocation(currentLocation);
+                    currentLocation->setPreviousLocation(previousLocation);
+                    currentLocation->setNextLocation(nextLocation);
+                }
             }
         } else if (objectName == "AIRPLANE") {
-            std::string number = "";
-            std::string callsign = "";
-            std::string model = "";
+            std::string airplaneNumber = "";
+            std::string airplaneCallsign = "";
+            std::string airplaneModel = "";
 
-            unsigned int fuelCapacity = 0;
-            unsigned int passengerCapacity = 0;
+            unsigned int airplaneFuelCapacity = 0;
+            unsigned int airplanePassengerCapacity = 0;
 
-            AirplaneEnums::EStatus status = AirplaneEnums::kInvalidStatus;
-            AirplaneEnums::EType type = AirplaneEnums::kInvalidType;
-            AirplaneEnums::ESize size = AirplaneEnums::kInvalidSize;
-            AirplaneEnums::EEngine engine = AirplaneEnums::kInvalidEngine;
+            AirplaneEnums::EStatus airplaneStatus = AirplaneEnums::kInvalidStatus;
+            AirplaneEnums::EType airplaneType = AirplaneEnums::kInvalidType;
+            AirplaneEnums::ESize airplaneSize = AirplaneEnums::kInvalidSize;
+            AirplaneEnums::EEngine airplaneEngine = AirplaneEnums::kInvalidEngine;
 
             bool invalidAirplane = false;
 
-            std::map<std::string, std::string> xmltomap = convertXmlNodeToMap(object);
+            std::map<std::string, std::string> airplaneMap = convertXmlNodeToMap(object);
 
-            for (TiXmlElement* elem = object->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement()) {
-                std::string elemName = elem->Value();
-                std::string elemValue;
+            if (!airplaneMap["number"].empty()) {
+                airplaneNumber = airplaneMap["number"];
+            } else {
+                invalidAirplane = true;
+                errorStream << objectName << ": 'number' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
+            }
 
-                TiXmlNode* node = elem->FirstChild();
-                if (node != NULL) {
-                    TiXmlText* textNode = node->ToText();
-                    if (textNode != NULL) {
-                        std::string textNodeValue = textNode->Value();
-                        if (isString(textNodeValue)) {
-                            elemValue = textNodeValue;
-                        } else {
-                            errorStream << object->Value() << ": '" << elemName << "' attribute is not a valid string (only the alphabet, digits and spaces are allowed). " << getRowAndColumnStr(elem)
-                                        << std::endl;
-                            invalidAirplane = true;
-                            continue;
-                        }
-                    } else {
-                        errorStream << object->Value() << ": '" << elemName << "' attribute does not contain text. " << getRowAndColumnStr(elem) << std::endl;
-                        invalidAirplane = true;
-                        continue;
-                    }
+            if (!airplaneMap["callsign"].empty()) {
+                airplaneCallsign = airplaneMap["callsign"];
+            } else {
+                invalidAirplane = true;
+                errorStream << objectName << ": 'callsign' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
+            }
+
+            if (!airplaneMap["model"].empty()) {
+                airplaneModel = airplaneMap["model"];
+            } else {
+                invalidAirplane = true;
+                errorStream << objectName << ": 'model' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
+            }
+
+            if (!airplaneMap["fuel"].empty()) {
+                unsigned int fuelCapacityAsInt;
+                if (tryCastStringToUnsignedInt(airplaneMap["fuel"], &fuelCapacityAsInt)) {
+                    airplaneFuelCapacity = fuelCapacityAsInt;
                 } else {
-                    errorStream << object->Value() << ": '" << elemName << "' attribute does not contain anything. " << getRowAndColumnStr(elem) << std::endl;
                     invalidAirplane = true;
-                    continue;
+                    errorStream << objectName << ": 'fuel' attribute is not an unsigned integer. " << getRowAndColumnStr(object) << std::endl;
                 }
+            } else {
+                invalidAirplane = true;
+                errorStream << objectName << ": 'fuel' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
+            }
 
-                if (elemName == "number") {
-                    number = elemValue;
-                } else if (elemName == "callsign") {
-                    callsign = elemValue;
-                } else if (elemName == "model") {
-                    model = elemValue;
-                } else if (elemName == "fuel") {
-                    unsigned int nodeTextAsInt;
-                    if (tryCastStringToUnsignedInt(elemValue, &nodeTextAsInt)) {
-                        if (nodeTextAsInt > 0) {
-                            fuelCapacity = nodeTextAsInt;
-                        } else {
-                            errorStream << objectName << ": '" << elemName << "' attribute must be a strictly positive integer. " << getRowAndColumnStr(elem) << std::endl;
-                            invalidAirplane = true;
-                        }
-                    }
-                } else if (elemName == "passengers") {
-                    unsigned int nodeTextAsInt;
-                    if (tryCastStringToUnsignedInt(elemValue, &nodeTextAsInt)) {
-                        if (nodeTextAsInt > 0) {
-                            passengerCapacity = nodeTextAsInt;
-                        } else {
-                            errorStream << objectName << ": '" << elemName << "' attribute must be a strictly positive integer. " << getRowAndColumnStr(elem) << std::endl;
-                            invalidAirplane = true;
-                        }
-                    }
-                } else if (elemName == "status") {
-                    AirplaneEnums::EStatus tempStatus = AirplaneEnums::StringToStatusEnum(elemValue.c_str());
-                    if (tempStatus != AirplaneEnums::kInvalidStatus) {
-                        if (tempStatus == AirplaneEnums::kStandingAtGate || tempStatus == AirplaneEnums::kApproaching) {
-                            status = tempStatus;
-                        } else {
-                            errorStream << objectName << ": '" << elemName << "' initial status of airplane must be \"Standing at gate\" or \"Approaching\". " << getRowAndColumnStr(object->FirstChildElement(elemName.c_str())) << std::endl;
-                            invalidAirplane = true;
-                        }
-                    } else {
-                        errorStream << objectName << ": '" << elemName << "' attribute is not a valid status. " << getRowAndColumnStr(object->FirstChildElement(elemName.c_str())) << std::endl;
-                        invalidAirplane = true;
-                    }
-                } else if (elemName == "type") {
-                    AirplaneEnums::EType temp = AirplaneEnums::StringToTypeEnum(elemValue.c_str());
-                    if (temp != AirplaneEnums::kInvalidType) {
-                        type = temp;
-                    } else {
-                        errorStream << objectName << ": '" << elemName << "' attribute does not contain a valid option. " << getRowAndColumnStr(elem) << std::endl;
-                        invalidAirplane = true;
-                    }
-                } else if (elemName == "size") {
-                    AirplaneEnums::ESize temp = AirplaneEnums::StringToSizeEnum(elemValue.c_str());
-                    if (temp != AirplaneEnums::kInvalidSize) {
-                        size = temp;
-                    } else {
-                        errorStream << objectName << ": '" << elemName << "' attribute does not contain a valid option. " << getRowAndColumnStr(elem) << std::endl;
-                        invalidAirplane = true;
-                    }
-                } else if (elemName == "engine") {
-                    AirplaneEnums::EEngine temp = AirplaneEnums::StringToEngineEnum(elemValue.c_str());
-                    if (temp != AirplaneEnums::kInvalidEngine) {
-                        engine = temp;
-                    } else {
-                        errorStream << objectName << ": '" << elemName << "' attribute does not contain a valid option. " << getRowAndColumnStr(elem) << std::endl;
-                        invalidAirplane = true;
-                    }
+            if (!airplaneMap["passengers"].empty()) {
+                unsigned int passengerCapacityAsInt;
+                if (tryCastStringToUnsignedInt(airplaneMap["passengers"], &passengerCapacityAsInt)) {
+                    airplanePassengerCapacity = passengerCapacityAsInt;
                 } else {
-                    errorStream << objectName << ": '" << elemName << "' invalid attribute. " << getRowAndColumnStr(elem) << std::endl;
                     invalidAirplane = true;
+                    errorStream << objectName << ": 'passengers' attribute is not an unsigned integer. " << getRowAndColumnStr(object) << std::endl;
                 }
+            } else {
+                invalidAirplane = true;
+                errorStream << objectName << ": 'passengers' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
+            if (!airplaneMap["status"].empty()) {
+                AirplaneEnums::EStatus tempStatus = AirplaneEnums::StringToStatusEnum(airplaneMap["status"].c_str());
+                if (tempStatus != AirplaneEnums::kInvalidStatus) {
+                    airplaneStatus = tempStatus;
+                } else {
+                    invalidAirplane = true;
+                    errorStream << objectName << ": 'status' attribute does not contain a valid option. " << getRowAndColumnStr(object) << std::endl;
+                }
+            } else {
+                invalidAirplane = true;
+                errorStream << objectName << ": 'status' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
+            }
 
-            if (number.empty()) {
-                errorStream << objectName << ": 'number' required attribute missing. " << getRowAndColumnStr(object) << std::endl;
+            if (!airplaneMap["type"].empty()) {
+                AirplaneEnums::EType tempType = AirplaneEnums::StringToTypeEnum(airplaneMap["type"].c_str());
+                if (tempType != AirplaneEnums::kInvalidType) {
+                    airplaneType = tempType;
+                } else {
+                    invalidAirplane = true;
+                    errorStream << objectName << ": 'type' attribute does not contain a valid option. " << getRowAndColumnStr(object) << std::endl;
+                }
+            } else {
                 invalidAirplane = true;
+                errorStream << objectName << ": 'type' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
-            if (callsign.empty()) {
-                errorStream << objectName << ": 'callsign' required attribute missing. " << getRowAndColumnStr(object) << std::endl;
+
+            if (!airplaneMap["size"].empty()) {
+                AirplaneEnums::ESize tempSize = AirplaneEnums::StringToSizeEnum(airplaneMap["size"].c_str());
+                if (tempSize != AirplaneEnums::kInvalidSize) {
+                    airplaneSize = tempSize;
+                } else {
+                    invalidAirplane = true;
+                    errorStream << objectName << ": 'size' attribute does not contain a valid option. " << getRowAndColumnStr(object) << std::endl;
+                }
+            } else {
                 invalidAirplane = true;
+                errorStream << objectName << ": 'size' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
-            if (model.empty()) {
-                errorStream << objectName << ": 'model' required attribute missing. " << getRowAndColumnStr(object) << std::endl;
+
+            if (!airplaneMap["engine"].empty()) {
+                AirplaneEnums::EEngine tempType = AirplaneEnums::StringToEngineEnum(airplaneMap["engine"].c_str());
+                if (tempType != AirplaneEnums::kInvalidEngine) {
+                    airplaneEngine = tempType;
+                } else {
+                    invalidAirplane = true;
+                    errorStream << objectName << ": 'engine' attribute does not contain a valid option. " << getRowAndColumnStr(object) << std::endl;
+                }
+            } else {
                 invalidAirplane = true;
+                errorStream << objectName << ": 'engine' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
-            if (fuelCapacity == 0) {
-                errorStream << objectName << ": 'fuel' required attribute missing. " << getRowAndColumnStr(object) << std::endl;
-                invalidAirplane = true;
-            }
-            if (passengerCapacity == 0) {
-                errorStream << objectName << ": 'passengers' required attribute missing. " << getRowAndColumnStr(object) << std::endl;
-                invalidAirplane = true;
-            }
-            if (status == AirplaneEnums::kInvalidStatus) {
-                errorStream << objectName << ": 'status' required attribute missing. " << getRowAndColumnStr(object) << std::endl;
-                invalidAirplane = true;
-            }
-            if (type == AirplaneEnums::kInvalidType) {
-                errorStream << objectName << ": 'type' required attribute missing. " << getRowAndColumnStr(object) << std::endl;
-                invalidAirplane = true;
-            }
-            if (size == AirplaneEnums::kInvalidSize) {
-                errorStream << objectName << ": 'size' required attribute missing. " << getRowAndColumnStr(object) << std::endl;
-                invalidAirplane = true;
-            }
-            if (engine == AirplaneEnums::kInvalidEngine) {
-                errorStream << objectName << ": 'engine' required attribute missing. " << getRowAndColumnStr(object) << std::endl;
-                invalidAirplane = true;
-            }
+
 
             if (invalidAirplane) {
                 parseResult = ParseEnum::kPartial;
             } else {
-                unsigned int altitude = status == AirplaneEnums::kApproaching ? 10000 : 0;
-                unsigned int fuel = fuelCapacity;
-                unsigned int passengers = status == AirplaneEnums::kApproaching ? passengerCapacity : 0;
+                unsigned int altitude = (airplaneStatus == AirplaneEnums::kApproaching ? 10000 : 0);
+                unsigned int fuel = airplaneFuelCapacity;
+                unsigned int passengers = (airplaneStatus == AirplaneEnums::kApproaching ? airplanePassengerCapacity : 0);
 
-                Airplane* newAirplane = new Airplane(number, callsign, model, 0, altitude, fuel, fuelCapacity, passengers, passengerCapacity, status, type, size, engine);
+                Airplane* newAirplane = new Airplane(airplaneNumber, airplaneCallsign, airplaneModel, 0, altitude, fuel, airplaneFuelCapacity, passengers, airplanePassengerCapacity, airplaneStatus, airplaneType, airplaneSize, airplaneEngine);
 
-                newAirplane->setAirport(airport);
-                airport->addAirplane(newAirplane);
-                airplanes.push_back(newAirplane);
+                newAirplane->setAirport(lastAirport);
+                lastAirport->addAirplane(newAirplane);
             }
         } else {
             errorStream << "Invalid object '" << objectName << "'. " << getRowAndColumnStr(object) << std::endl;
@@ -381,57 +327,64 @@ std::pair<ParseEnum::EResult, Airport*> Parser::parseFile(const char* fileName) 
         }
     }
 
-    AirplaneVectorIterator it_airplane = airport->getModifiableAirplanes().begin();
-    while (it_airplane != airport->getModifiableAirplanes() .end()) {
-        AirplaneEnums::EType airplaneType = (*it_airplane)->getType();
-        AirplaneEnums::ESize airplaneSize = (*it_airplane)->getSize();
-        AirplaneEnums::EEngine airplaneEngine = (*it_airplane)->getEngine();
+    for (AirportMap::const_iterator it_airport = allAirports.begin(); it_airport != allAirports.end(); it_airport++) {
+        Airport* airport = (*it_airport).second;
 
-        unsigned int offset = 00;
+        for (AirplaneMap::iterator it_airplane = airport->getAirplanes().begin(); it_airplane != airport->getAirplanes().end(); ) {
+            Airplane* airplane = (*it_airplane).second;
 
-        if (airplaneType == AirplaneEnums::kPrivate) {
-            if (airplaneSize == AirplaneEnums::kSmall) {
-                offset = 01;
-            }  else if (airplaneSize == AirplaneEnums::kMedium) {
-                if (airplaneEngine == AirplaneEnums::kJet) { offset = 01000; }
+            AirplaneEnums::EType airplaneType = airplane->getType();
+            AirplaneEnums::ESize airplaneSize = airplane->getSize();
+            AirplaneEnums::EEngine airplaneEngine = airplane->getEngine();
+
+            unsigned int offset = 00;
+
+            if (airplaneType == AirplaneEnums::kPrivate) {
+                if (airplaneSize == AirplaneEnums::kSmall) {
+                    offset = 01;
+                } else if (airplaneSize == AirplaneEnums::kMedium) {
+                    if (airplaneEngine == AirplaneEnums::kJet) { offset = 01000; }
+                }
+            } else if (airplaneType == AirplaneEnums::kAirline) {
+                if (airplaneSize == AirplaneEnums::kMedium) {
+                    if (airplaneEngine == AirplaneEnums::kPropeller) { offset = 02000; }
+                    else if (airplaneEngine == AirplaneEnums::kJet) { offset = 03000; }
+                } else if (airplaneSize == AirplaneEnums::kLarge) {
+                    if (airplaneEngine == AirplaneEnums::kJet) { offset = 04000; }
+                }
+            } else if (airplaneType == AirplaneEnums::kMilitary) {
+                if (airplaneSize == AirplaneEnums::kSmall) {
+                    if (airplaneEngine == AirplaneEnums::kJet) { offset = 05000; }
+                } else if (airplaneSize == AirplaneEnums::kLarge) {
+                    if (airplaneEngine == AirplaneEnums::kPropeller) { offset = 05000; }
+                }
+            } else if (airplaneType == AirplaneEnums::kEmergency) {
+                if (airplaneSize == AirplaneEnums::kSmall) {
+                    if (airplaneEngine == AirplaneEnums::kPropeller) { offset = 06000; }
+                }
             }
-        } else if (airplaneType == AirplaneEnums::kAirline) {
-            if (airplaneSize == AirplaneEnums::kMedium) {
-                if (airplaneEngine == AirplaneEnums::kPropeller) { offset = 02000; }
-                else if (airplaneEngine == AirplaneEnums::kJet) { offset = 03000; }
-            } else if (airplaneSize == AirplaneEnums::kLarge) {
-                if (airplaneEngine == AirplaneEnums::kJet) { offset = 04000; }
-            }
-        } else if (airplaneType == AirplaneEnums::kMilitary) {
-            if (airplaneSize == AirplaneEnums::kSmall) {
-                if (airplaneEngine == AirplaneEnums::kJet) { offset = 05000; }
-            } else if (airplaneSize == AirplaneEnums::kLarge) {
-                if (airplaneEngine == AirplaneEnums::kPropeller) { offset = 05000; }
-            }
-        } else if (airplaneType == AirplaneEnums::kEmergency) {
-            if (airplaneSize == AirplaneEnums::kSmall) {
-                if (airplaneEngine == AirplaneEnums::kPropeller) { offset = 06000; }
+
+            if (offset == 0) {
+                errorStream << "Invalid airplane combination: " << airplane->getCallsign() << " (" << airplane->getNumber() << ") " << std::endl;
+                errorStream << "  Type: " << AirplaneEnums::EnumToString(airplaneType) << "  Size: " << AirplaneEnums::EnumToString(airplaneSize) << "  Engine: "
+                            << AirplaneEnums::EnumToString(airplaneEngine) << std::endl;
+                parseResult = ParseEnum::kPartial;
+                delete (*it_airplane).second;
+                airport->getAirplanes().erase(it_airplane++);
+            } else {
+                airplane->setSquawk(offset + std::distance(airport->getAirplanes().begin(), it_airplane));
+                it_airplane++;
             }
         }
 
-        if (offset == 0) {
-            errorStream << "Invalid airplane combination: " << (*it_airplane)->getCallsign() << " (" << (*it_airplane)->getNumber() << ") " << std::endl;
-            errorStream << "  Type: " << AirplaneEnums::EnumToString(airplaneType) << "  Size: " << AirplaneEnums::EnumToString(airplaneSize) << "  Engine: " << AirplaneEnums::EnumToString(airplaneEngine) << std::endl;
-            parseResult = ParseEnum::kPartial;
-            it_airplane = airport->getModifiableAirplanes().erase(it_airplane);
-        } else {
-            (*it_airplane)->setSquawk(offset + std::distance(airport->getModifiableAirplanes().begin(), it_airplane));
-            it_airplane++;
+        if (!isAirportStartConsistent(airport)) {
+            errorStream << "Airport " << airport->getIata() << " is not consistent." << std::endl;
         }
-    }
-
-    if (!isAirportStartConsistent(airport)) {
-        errorStream << "Airport is not consistent." << std::endl;
     }
 
     xmlFile.Clear();
 
-    return std::pair<ParseEnum::EResult, Airport*>(parseResult, airport);
+    return std::pair<ParseEnum::EResult, std::map<std::string, Airport*> >(parseResult, allAirports);
 }
 
 
@@ -463,8 +416,8 @@ std::map<std::string, std::string> Parser::convertXmlNodeToMap(TiXmlElement* obj
     return xmltomap;
 }
 
-std::map<int, std::pair<bool, std::string> > Parser::extractTaxiRoute(TiXmlElement* object) {
-    std::map<int, std::pair<bool, std::string> > taxiroute;
+std::vector<std::pair<bool, std::string> > Parser::extractTaxiRoute(TiXmlElement* object) {
+    std::vector<std::pair<bool, std::string> > taxiroute;
     std::set<std::string> duplicateChecker;
 
     for (TiXmlElement* elem = object->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement()) {
@@ -479,9 +432,9 @@ std::map<int, std::pair<bool, std::string> > Parser::extractTaxiRoute(TiXmlEleme
                 std::string locationName = elemChildNodeAsText->Value();
                 if (duplicateChecker.insert(locationName).second) {
                     if (elemName == "taxipoint") {
-                        taxiroute[taxiroute.size()] = std::pair<bool, std::string>(true, locationName);
+                        taxiroute.push_back(std::pair<bool, std::string>(false, locationName));
                     } else if (elemName == "crossing") {
-                        taxiroute[taxiroute.size()] = std::pair<bool, std::string>(false, locationName);
+                        taxiroute.push_back(std::pair<bool, std::string>(true, locationName));
                     } else {
                         errorStream << object->Value() << ": Unrecognized node name. " << getRowAndColumnStr(elemChildNodeAsText) << std::endl;
                     }

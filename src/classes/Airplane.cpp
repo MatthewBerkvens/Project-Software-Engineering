@@ -146,6 +146,8 @@ Airplane::Airplane(const std::string& _number,
           airport(NULL),
           gate(-1),
           runway(NULL),
+          currentLocation(NULL),
+          takeoffRunway(NULL),
           init(this) {
     ENSURE(properlyInitialized(), "Airplane was not properly initialized");
 }
@@ -169,6 +171,8 @@ Airplane::Airplane(const Airplane* _airplane)
           airport(_airplane->getAirport()),
           gate(_airplane->getGate()),
           runway(_airplane->getRunway()),
+          currentLocation(_airplane->getCurrentLocation()),
+          takeoffRunway(_airplane->getTakeoffRunway()),
           init(this) {
     REQUIRE(_airplane->properlyInitialized(), "References Airplane was not properly initialized");
     ENSURE(properlyInitialized(), "Airplane was not properly initialized");
@@ -194,8 +198,7 @@ unsigned int Airplane::getSquawk() const {
     return squawk;
 }
 
-void Airplane::setSquawk(const unsigned int _squawk)
-{
+void Airplane::setSquawk(const unsigned int _squawk) {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
     squawk = _squawk;
     ENSURE(squawk == _squawk, "Property 'squawk' was not correctly set in Airplane.");
@@ -351,7 +354,7 @@ void Airplane::setRunway(Runway* _runway) {
     ENSURE(runway == _runway, "Property 'runway' was not correctly set.");
 }
 
-Location* Airplane::getCurrentLocation() {
+Location* Airplane::getCurrentLocation() const {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
     return currentLocation;
 }
@@ -362,6 +365,16 @@ void Airplane::setCurrentLocation(Location* _currentLocation) {
     ENSURE(currentLocation == _currentLocation, "Property 'currentLocation' was not correctly set.");
 }
 
+Runway* Airplane::getTakeoffRunway() const {
+    REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+    return takeoffRunway;
+}
+
+void Airplane::setTakeoffRunway(Runway* _takeoffRunway) {
+    REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+    takeoffRunway = _takeoffRunway;
+    ENSURE(takeoffRunway == _takeoffRunway, "Property 'currentLocation' was not correctly set.");
+}
 
 void Airplane::fly() {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");

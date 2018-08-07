@@ -32,11 +32,11 @@ private:
 public:
     Parser(std::ostream& _errorStream);
 
-    std::pair<ParseEnum::EResult, Airport*> parseFile(const char* fileName);
+    std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > parseFile(const char* fileName);
 
     std::map<std::string, std::string> convertXmlNodeToMap(TiXmlElement* object);
 
-    std::map<int, std::pair<bool, std::string> > extractTaxiRoute(TiXmlElement* object);
+    std::vector<std::pair<bool, std::string> > extractTaxiRoute(TiXmlElement* object);
 };
 
 #endif

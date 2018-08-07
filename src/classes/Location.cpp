@@ -18,23 +18,23 @@ const std::string& Location::getName() const {
     return name;
 }
 
-const Location* Location::getPreviousLocation() const {
+Location* Location::getPreviousLocation() const {
     REQUIRE(properlyInitialized(), "Location was not properly initialized.");
     return previousLocation;
 }
 
-void Location::setPreviousLocation(const Location* _previousLocation) {
+void Location::setPreviousLocation(Location* _previousLocation) {
     REQUIRE(properlyInitialized(), "Location was not properly initialized.");
     previousLocation = _previousLocation;
     ENSURE(previousLocation == _previousLocation, "Referenced Next Location was not properly set.");
 }
 
-const Location* Location::getNextLocation() const {
+Location* Location::getNextLocation() const {
     REQUIRE(properlyInitialized(), "Location was not properly initialized.");
     return nextLocation;
 }
 
-void Location::setNextLocation(const Location* _nextLocation) {
+void Location::setNextLocation(Location* _nextLocation) {
     REQUIRE(properlyInitialized(), "Location was not properly initialized.");
     nextLocation = _nextLocation;
     ENSURE(nextLocation == _nextLocation, "Referenced Next Location was not properly set.");

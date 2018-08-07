@@ -10,21 +10,23 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <map>
 
 class Airport;
 typedef std::vector<Airport*> AirportVector;
-typedef std::vector<Airport*>::iterator AirportVectorIterator;
-typedef std::vector<Airport*>::const_iterator AirportVectorConstIterator;
-
-class Runway;
-typedef std::vector<Runway*> RunwayVector;
-typedef std::vector<Runway*>::iterator RunwayVectorIterator;
-typedef std::vector<Runway*>::const_iterator RunwayVectorConstIterator;
+typedef std::map<std::string, Airport*> AirportMap;
 
 class Airplane;
 typedef std::vector<Airplane*> AirplaneVector;
-typedef std::vector<Airplane*>::iterator AirplaneVectorIterator;
-typedef std::vector<Airplane*>::const_iterator AirplaneVectorConstIterator;
+typedef std::map<std::string, Airplane*> AirplaneMap;
+
+class Runway;
+typedef std::vector<Runway*> RunwayVector;
+typedef std::map<std::string, Runway*> RunwayMap;
+
+class Location;
+typedef std::vector<Location*> LocationVector;
+typedef std::map<std::string, Location*> LocationMap;
 
 /**
  * Returns true if string only contains alphabetical characters (lower & uppercase), digits, or spaces

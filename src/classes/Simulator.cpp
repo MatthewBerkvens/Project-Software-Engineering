@@ -22,8 +22,8 @@ Simulator::~Simulator() {
 void Simulator::Simulate() {
     while (!SimulationFinished()) {
         std::priority_queue<Airplane*, std::vector<Airplane*>, CompareSquawk> airplaneQueue;
-        for (AirplaneVectorIterator it_airplane = airport->getModifiableAirplanes().begin(); it_airplane != airport->getModifiableAirplanes().end(); it_airplane++) {
-            airplaneQueue.push(*it_airplane);
+        for (AirplaneMap::iterator it_airplane = airport->getAirplanes().begin(); it_airplane != airport->getAirplanes().end(); it_airplane++) {
+            airplaneQueue.push((*it_airplane).second);
         }
 
         while (!airplaneQueue.empty()) {
@@ -40,14 +40,20 @@ void Simulator::Simulate() {
                 case AirplaneEnums::kDescendingTo3000ft:
                     DescendTo3000ft(airplane);
                     break;
+                case AirplaneEnums::kFlyingWaitPattern:
+                    FlyWaitingPattern(airplane);
+                    break;
                 case AirplaneEnums::kFinalApproach:
                     FinalApproach(airplane);
                     break;
                 case AirplaneEnums::kLanding:
                     Land(airplane);
                     break;
-                case AirplaneEnums::kFlyingWaitPattern:
-                    FlyWaitingPattern(airplane);
+                case AirplaneEnums::kTaxiingToGate:
+                    TaxiToGate(airplane);
+                    break;
+                case AirplaneEnums::kWaitingForEmptyGate:
+                    WaitForEmptyGate(airplane);
                     break;
                 case AirplaneEnums::kUnboarding:
                     UnboardAirplane(airplane);
@@ -60,6 +66,27 @@ void Simulator::Simulate() {
                     break;
                 case AirplaneEnums::kBoarding:
                     BoardAirplane(airplane);
+                    break;
+                case AirplaneEnums::kStandingAtGate:
+                    StandAtGate(airplane);
+                    break;
+                case AirplaneEnums::kPushingBack:
+                    Pushback(airplane);
+                    break;
+                case AirplaneEnums::kTaxiingToRunway:
+                    TaxiToRunway(airplane);
+                    break;
+                case AirplaneEnums::kHoldingShort:
+                    HoldShort(airplane);
+                    break;
+                case AirplaneEnums::kLiningUp:
+                    LineUp(airplane);
+                    break;
+                case AirplaneEnums::kReadyForTakeoff:
+                    ReadyForTakeoff(airplane);
+                    break;
+                case AirplaneEnums::kTakingOff:
+                    Takeoff(airplane);
                     break;
                 case AirplaneEnums::kAscending:
                     Ascend(airplane);
@@ -75,8 +102,8 @@ void Simulator::Simulate() {
 }
 
 bool Simulator::SimulationFinished() {
-    for (AirplaneVectorConstIterator it_airplane = airport->getAirplanes().begin(); it_airplane != airport->getAirplanes().end(); it_airplane++) {
-        if ((*it_airplane)->getStatus() != AirplaneEnums::kLeftAirport) return false;
+    for (AirplaneMap::iterator it_airplane = airport->getAirplanes().begin(); it_airplane != airport->getAirplanes().end(); it_airplane++) {
+        if ((*it_airplane).second->getStatus() != AirplaneEnums::kLeftAirport) return false;
     }
 
     return true;
@@ -111,7 +138,7 @@ void Simulator::Approach(Airplane* airplane) {
         airplane->setStatus(AirplaneEnums::kDescendingTo5000ft);
         airport->set5000ft(airplane);
 
-        outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " is flying in a waiting pattern at 5000 ft" << std::endl;
+        outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " is approaching " << airport->getAirportName() << std::endl;
 
         airplane->setInternalTimer(0);
     }
@@ -171,6 +198,7 @@ void Simulator::FlyWaitingPattern(Airplane* airplane) {
     if (airplane->getAltitude() == 5000) {
         if (airport->is3000ftVacant()) {
             airport->set3000ft(airplane);
+            airport->set5000ft(NULL);
             airplane->setStatus(AirplaneEnums::kDescendingTo3000ft);
 
             outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " has begun its descent to 3000 ft" << std::endl;
@@ -187,7 +215,7 @@ void Simulator::FlyWaitingPattern(Airplane* airplane) {
 
             airplane->setStatus(AirplaneEnums::kFinalApproach);
 
-            outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " has begun its final approach to " << runway->getName() << " at " << airport->getAirportName() << std::endl;
+            outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " has begun its final approach to runway " << runway->getName() << " at " << airport->getAirportName() << std::endl;
         }
     }
 }
@@ -219,8 +247,60 @@ void Simulator::Land(Airplane* airplane) {
     airplane->increaseInternalTimer();
     if (airplane->getInternalTimer() >= getTimeNeededForAction(airplane)) {
 
-        airplane->setStatus(AirplaneEnums::kUnboarding);
+        airplane->setStatus(AirplaneEnums::kTaxiingToGate);
+        airplane->setCurrentLocation(airplane->getRunway());
+        airplane->getRunway()->setAirplane(NULL);
+        airplane->getRunway()->setCrossingAirplane(airplane);
         airplane->setInternalTimer(0);
+        outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " has landed on runway " << airplane->getRunway()->getName() << std::endl;
+    }
+}
+
+void Simulator::TaxiToGate(Airplane* airplane) {
+    REQUIRE(properlyInitialized(), "Simulator was not properly initialized.");
+    REQUIRE(airplane->getStatus() == AirplaneEnums::kTaxiingToGate, "Airplane is not in the correct status.");
+
+    airplane->increaseInternalTimer();
+    if (airplane->getInternalTimer() >= getTimeNeededForAction(airplane)) {
+        Location* currentLocation = airplane->getCurrentLocation();
+        Location* nextTaxiStep = currentLocation->getPreviousLocation();
+
+        if (nextTaxiStep == NULL) {
+            airplane->setStatus(AirplaneEnums::kWaitingForEmptyGate);
+            airplane->setInternalTimer(0);
+            outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " has arrived at the apron and is waiting for an empty gate" << std::endl;
+        } else {
+            Runway* currentLocationAsRunway = airport->getRunwayByName(currentLocation->getName());
+            Runway* nextTaxiStepAsRunway = airport->getRunwayByName(nextTaxiStep->getName());
+
+            if (nextTaxiStepAsRunway != NULL) {
+                if (nextTaxiStepAsRunway->canCross()) {
+                    nextTaxiStepAsRunway->setCrossingAirplane(airplane);
+                    airplane->setCurrentLocation(nextTaxiStep);
+                    airplane->setInternalTimer(0);
+                    outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " is now crossing " << nextTaxiStepAsRunway->getName() << std::endl;
+                }
+            } else if (currentLocationAsRunway != NULL) {
+                currentLocationAsRunway->setCrossingAirplane(NULL);
+                airplane->setCurrentLocation(nextTaxiStep);
+                airplane->setInternalTimer(0);
+                outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " is now on taxipoint " << nextTaxiStep->getName() << std::endl;
+            } else {
+                errorStream << "???" << std::endl;
+            }
+        }
+    }
+}
+
+void Simulator::WaitForEmptyGate(Airplane* airplane) {
+    REQUIRE(properlyInitialized(), "Simulator was not properly initialized.");
+    REQUIRE(airplane->getStatus() == AirplaneEnums::kWaitingForEmptyGate, "Airplane is not in the correct status.");
+
+    if (airport->enterGate(airplane)) {
+        airplane->setCurrentLocation(NULL);
+        airplane->setInternalTimer(0);
+        airplane->setStatus(AirplaneEnums::kUnboarding);
+        outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " has entered gate " << airplane->getGate() << std::endl;
     }
 }
 
@@ -279,22 +359,129 @@ void Simulator::BoardAirplane(Airplane* airplane) {
     }
 }
 
-/*void Simulator::StandAtGate(Airplane* airplane) {
+void Simulator::StandAtGate(Airplane* airplane) {
     REQUIRE(properlyInitialized(), "Simulator was not properly initialized.");
-    REQUIRE(airplane->getStatus() == AirplaneEnums::kBoarding, "Airplane is not in the correct status.");
+    REQUIRE(airplane->getStatus() == AirplaneEnums::kStandingAtGate, "Airplane is not in the correct status.");
 
+    Runway* runway = airport->getFreeCompatibleRunway(airplane);
 
-}*/
+    if (runway != NULL) {
+        long oldgate = airplane->getGate();
+        airport->exitGate(airplane);
+        for (LocationMap::const_iterator it_location = airport->getLocations().begin(); it_location != airport->getLocations().end(); it_location++) {
+            if((*it_location).second->getPreviousLocation() == NULL) {
+                airplane->setCurrentLocation((*it_location).second);
+                break;
+            }
+        }
+
+        airplane->setTakeoffRunway(runway);
+        airplane->setInternalTimer(0);
+        airplane->setStatus(AirplaneEnums::kPushingBack);
+        outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " is pushing back from gate " << oldgate << std::endl;
+    }
+}
 
 void Simulator::Pushback(Airplane* airplane) {
     REQUIRE(properlyInitialized(), "Simulator was not properly initialized.");
     REQUIRE(airplane->getStatus() == AirplaneEnums::kPushingBack, "Airplane is not in the correct status.");
+
     airplane->increaseInternalTimer();
     if (airplane->getInternalTimer() >= getTimeNeededForAction(airplane)) {
         airplane->setPassengers(airplane->getPassengerCapacity());
-        outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " pushed back from gate "  << airplane->getGate() << " at " << airport->getAirportName() << std::endl;
+        outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " succesfully pushed back" << std::endl;
 
         airplane->setStatus(AirplaneEnums::kTaxiingToRunway);
+        airplane->setInternalTimer(0);
+    }
+}
+
+void Simulator::TaxiToRunway(Airplane* airplane) {
+    REQUIRE(properlyInitialized(), "Simulator was not properly initialized.");
+    REQUIRE(airplane->getStatus() == AirplaneEnums::kTaxiingToRunway, "Airplane is not in the correct status.");
+
+    airplane->increaseInternalTimer();
+    if (airplane->getInternalTimer() >= getTimeNeededForAction(airplane)) {
+        Location* currentLocation = airplane->getCurrentLocation();
+        Location* nextTaxiStep = currentLocation->getNextLocation();
+
+        if (nextTaxiStep == airplane->getTakeoffRunway()) {
+            airplane->setStatus(AirplaneEnums::kHoldingShort);
+            airplane->setInternalTimer(0);
+            outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " is holding short of runway " << nextTaxiStep->getName() << std::endl;
+        } else {
+            Runway* currentLocationAsRunway = airport->getRunwayByName(currentLocation->getName());
+            Runway* nextTaxiStepAsRunway = airport->getRunwayByName(nextTaxiStep->getName());
+
+            if (nextTaxiStepAsRunway != NULL) {
+                if (nextTaxiStepAsRunway->canCross()) {
+                    nextTaxiStepAsRunway->setCrossingAirplane(airplane);
+                    airplane->setCurrentLocation(nextTaxiStep);
+                    airplane->setInternalTimer(0);
+                    outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " is now crossing " << nextTaxiStepAsRunway->getName() << std::endl;
+                }
+            } else if (currentLocationAsRunway != NULL) {
+                currentLocationAsRunway->setCrossingAirplane(NULL);
+                airplane->setCurrentLocation(nextTaxiStep);
+                airplane->setInternalTimer(0);
+                outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " is now on taxipoint " << nextTaxiStep->getName() << std::endl;
+            } else {
+                errorStream << "???" << std::endl;
+            }
+        }
+    }
+}
+
+void Simulator::HoldShort(Airplane* airplane) {
+    REQUIRE(properlyInitialized(), "Simulator was not properly initialized.");
+    REQUIRE(airplane->getStatus() == AirplaneEnums::kHoldingShort, "Airplane is not in the correct status.");
+
+    airplane->increaseInternalTimer();
+    if (airplane->getTakeoffRunway()->isVacant()) {
+        airplane->setCurrentLocation(airplane->getTakeoffRunway());
+        airplane->setRunway(airplane->getTakeoffRunway());
+        airplane->getTakeoffRunway()->setAirplane(airplane);
+        airplane->setStatus(AirplaneEnums::kLiningUp);
+        airplane->setInternalTimer(0);
+
+        outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " is now lining up on runway " << airplane->getRunway()->getName() << std::endl;
+    }
+}
+
+void Simulator::LineUp(Airplane* airplane) {
+    REQUIRE(properlyInitialized(), "Simulator was not properly initialized.");
+    REQUIRE(airplane->getStatus() == AirplaneEnums::kLiningUp, "Airplane is not in the correct status.");
+
+    airplane->increaseInternalTimer();
+    if (airplane->getInternalTimer() >= getTimeNeededForAction(airplane)) {
+        outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " has lined up on runway " << airplane->getRunway()->getName() << " and is ready for take off" << std::endl;
+
+        airplane->setStatus(AirplaneEnums::kReadyForTakeoff);
+        airplane->setInternalTimer(0);
+    }
+}
+
+void Simulator::ReadyForTakeoff(Airplane* airplane) {
+    REQUIRE(properlyInitialized(), "Simulator was not properly initialized.");
+    REQUIRE(airplane->getStatus() == AirplaneEnums::kReadyForTakeoff, "Airplane is not in the correct status.");
+
+    airplane->setStatus(AirplaneEnums::kTakingOff);
+}
+
+void Simulator::Takeoff(Airplane* airplane) {
+    REQUIRE(properlyInitialized(), "Simulator was not properly initialized.");
+    REQUIRE(airplane->getStatus() == AirplaneEnums::kTakingOff, "Airplane is not in the correct status.");
+
+    airplane->increaseInternalTimer();
+    if (airplane->getInternalTimer() >= getTimeNeededForAction(airplane)) {
+        outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " has taken off from runway " << airplane->getRunway()->getName() << std::endl;
+
+        airplane->getRunway()->setAirplane(NULL);
+        airplane->setCurrentLocation(NULL);
+        airplane->setTakeoffRunway(NULL);
+        airplane->setRunway(NULL);
+
+        airplane->setStatus(AirplaneEnums::kAscending);
         airplane->setInternalTimer(0);
     }
 }
@@ -315,57 +502,10 @@ void Simulator::Ascend(Airplane* airplane) {
 
     if (airplane->getAltitude() >= 5000) {
         airplane->setStatus(AirplaneEnums::kLeftAirport);
-        outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " has left " << airport->getAirportName();
+        outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " has left " << airport->getAirportName() << std::endl;
 
         airplane->setInternalTimer(0);
     }
-}
-
-void Simulator::LineUp(Airplane* airplane) {
-    REQUIRE(properlyInitialized(), "Simulator was not properly initialized.");
-    REQUIRE(airplane->getStatus() == AirplaneEnums::kLiningUp, "Airplane is not in the correct status.");
-    airplane->increaseInternalTimer();
-    if (airplane->getInternalTimer() >= getTimeNeededForAction(airplane)) {
-        outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " has lined up on runway " << airplane->getRunway()->getName() << " and is ready for take off" << std::endl;
-
-        airplane->setStatus(AirplaneEnums::kReadyForTakeoff);
-        airplane->setInternalTimer(0);
-    }
-}
-
-/*void Simulator::TaxiingToGate(Airplane* airplane) {
-    REQUIRE(properlyInitialized(), "Simulator was not properly initialized.");
-    REQUIRE(airplane->getStatus() == AirplaneEnums::kTaxiingToGate, "Airplane is not in the correct status.");
-
-    airplane->increaseInternalTimer();
-    if (airplane->getInternalTimer() >= getTimeNeededForAction(airplane)) {
-        Location* nextStep = airplane->getCurrentLocation()->getPreviousLocation();
-
-        if (nextStep == NULL) {
-            long gate = airport->getEmptyGate();
-
-            outputStream << "[" << getRealisticTimeStamp() << "] " << airplane->getCallsign() << " has arrived at the gate " << std::endl;
-        } else {
-            if (nextStep != NULL) {
-                airplane->
-            }
-        }
-
-
-
-        airplane->setWaitingForInstructions(true);
-        airplane->setInternalTimer(0);
-    }
-}*/
-
-
-
-void Simulator::SendAirplaneToGate(Airplane* airplane) {
-
-}
-
-void Simulator::SendAirplaneToRunway(Airplane* airplane) {
-
 }
 
 unsigned int Simulator::getTimeNeededForAction(const Airplane* airplane) {

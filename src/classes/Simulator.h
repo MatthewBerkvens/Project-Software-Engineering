@@ -50,6 +50,10 @@ public:
 
     void Land(Airplane* airplane);
 
+    void TaxiToGate(Airplane* airplane);
+
+    void WaitForEmptyGate(Airplane* airplane);
+
     void UnboardAirplane(Airplane* airplane);
 
     void TechnicalCheckup(Airplane* airplane);
@@ -58,17 +62,21 @@ public:
 
     void BoardAirplane(Airplane* airplane);
 
-    void Ascend(Airplane* airplane);
+    void StandAtGate(Airplane* airplane);
 
     void Pushback(Airplane* airplane);
 
+    void TaxiToRunway(Airplane* airplane);
+
+    void HoldShort(Airplane* airplane);
+
     void LineUp(Airplane* airplane);
 
-    void Taxiing(Airplane* airplane);
+    void ReadyForTakeoff(Airplane* airplane);
 
-    void SendAirplaneToGate(Airplane* airplane);
+    void Takeoff(Airplane* airplane);
 
-    void SendAirplaneToRunway(Airplane* airplane);
+    void Ascend(Airplane* airplane);
 
     unsigned int getTimeNeededForAction(const Airplane* airplane);
 };

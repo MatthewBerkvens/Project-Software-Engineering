@@ -17,9 +17,10 @@ private:
     const std::string iata;
     const std::string callsign;
 
+    AirplaneMap airplanes;
+    RunwayMap runways;
+    LocationMap locations;
     AirplaneVector gates;
-    AirplaneVector airplanes;
-    RunwayVector runways;
 
     const Airplane* ft5000;
     const Airplane* ft3000;
@@ -48,121 +49,58 @@ public:
 
     ~Airport();
 
-    /**
-     * PRE: \n
-     * REQUIRE(this->properlyInitialized(), "Airport was not properly initialized.");
-     */
     const std::string& getAirportName() const;
 
-    /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-     */
     const std::string& getIata() const;
 
-    /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-     */
     const std::string& getCallsign() const;
 
-    /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-     */
-    const AirplaneVector& getGates() const;
 
-    /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-     */
-    AirplaneVector& getModifiableGates();
+    const AirplaneMap& getAirplanes() const;
 
-    /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-     */
-    const unsigned long getGateCount() const;
+    AirplaneMap& getAirplanes();
 
-    /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-     * POST: \n
-     *
-     */
-    const long getEmptyGate(Airplane* _airplane) const;
+    const Airplane* getAirplanesByRegistrationNumber(const std::string& number) const;
 
-    /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-     * POST: \n
-     *
-     */
-    void enterGate(Airplane* _airplane, unsigned long _gate);
+    Airplane* getAirplanesByRegistrationNumber(const std::string& number);
 
-    /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-     * POST: \n
-     *
-     */
-    void exitGate(Airplane* _airplane);
-
-    /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-     */
-    const RunwayVector& getRunways() const;
-
-    /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-     */
-    RunwayVector& getModifiableRunways();
-
-    /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-     */
-    const AirplaneVector& getAirplanes() const;
-
-    /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-     */
-    AirplaneVector& getModifiableAirplanes();
-
-    /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airport was not properly initialized."); \n
-     * REQUIRE(_airplane != NULL, "Referenced Airplane was a nullpointer."); \n
-     * REQUIRE(_airplane->getAirport() == this, "Referenced Airplane does not have a link to the current airport."); \n
-     * REQUIRE(!vectorContains<Runway*>(airplanes, _airplane), "Referenced Airplane already added to the airport."); \n
-     * POST: \n
-     * ENSURE(vectorContains<Runway*>(airplanes, _airplane), "Referenced Airplane was not properly added.");
-     */
     void addAirplane(Airplane* _airplane);
 
-    /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airport was not properly initialized."); \n
-     * REQUIRE(_runway != NULL, "Referenced Runway was a nullpointer."); \n
-     * REQUIRE(_runway->getAirport() == this, "Referenced Runway does not have a link to the current airport."); \n
-     * REQUIRE(!vectorContains<Runway*>(runways, _runway), "Referenced Runway already added to the airport."); \n
-     * POST: \n
-     * ENSURE(vectorContains<Runway*>(runways, _runway), "Referenced Runway was not properly added.");
-     */
+
+    const RunwayMap& getRunways() const;
+
+    RunwayMap& getRunways();
+
+    const Runway* getRunwayByName(const std::string& name) const;
+
+    Runway* getRunwayByName(const std::string& name);
+
+    Runway* getFreeCompatibleRunway(const Airplane* airplane);
+
     void addRunway(Runway* _runway);
 
-    /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airport was not properly initialized."); \n
-     * REQUIRE(vectorContains<Runway*>(runways, _runway), "Referenced Runway was not found, can't be deleted."); \n
-     * POST: \n
-     * ENSURE(!vectorContains<Runway*>(runways, _runway), "Referenced Runway was not properly deleted."); \n
-     * ENSURE(_runway->getAirport() == NULL, "Referenced Airport was not properly unlinked from this airport");
-     */
-    //void deleteRunway(Runway* _runway);
+
+    const LocationMap& getLocations() const;
+
+    LocationMap& getLocations();
+
+    const Location* getLocationByName(const std::string& name) const;
+
+    Location* getLocationByName(const std::string& name);
+
+    void addLocation(Location* _location);
+
+
+    const AirplaneVector& getGates() const;
+
+    AirplaneVector& getGates();
+
+    const unsigned long getGateCount() const;
+
+    bool enterGate(Airplane* _airplane);
+
+    void exitGate(Airplane* _airplane);
+
 
     const Airplane* get3000ft() const;
 
@@ -175,12 +113,6 @@ public:
     const Airplane* get5000ft() const;
 
     bool is5000ftVacant() const;
-
-    /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-     */
-    Runway* getFreeCompatibleRunway(const Airplane* airplane);
 
     /**
      * PRE: \n
