@@ -55,7 +55,7 @@ std::string getRowAndColumnStr(const TiXmlNode* node);
 
 std::string getRowAndColumnStr(const TiXmlText* text);
 
-std::string convertToNATOAlphabet(std::string& string);
+std::string convertToNATOAlphabet(const std::string& string);
 
 template<typename AType>
 bool vectorContains(std::vector<AType> vector, AType element)

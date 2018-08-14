@@ -3,7 +3,6 @@
 #include "Airport.h"
 #include "Airplane.h"
 #include "Runway.h"
-#include "AirTrafficController.h"
 
 #include <iomanip>
 #include <sstream>
@@ -19,7 +18,7 @@ private:
 
     Airport* airport;
 
-    AirTrafficController* airTrafficController;
+    std::ostream& airTrafficController;
 
     std::ostream& outputStream;
     std::ostream& errorStream;
@@ -50,9 +49,17 @@ public:
 
     void Land(Airplane* airplane);
 
-    void TaxiToGate(Airplane* airplane);
+    void Vacate(Airplane* airplane);
 
-    void WaitForEmptyGate(Airplane* airplane);
+    void TaxiToCrossing(Airplane* airplane);
+
+    void TaxiToRunway(Airplane* airplane);
+
+    void TaxiToApron(Airplane* airplane);
+
+    void WaitingAtCrossing(Airplane* airplane);
+
+    void CrossRunway(Airplane* airplane);
 
     void UnboardAirplane(Airplane* airplane);
 
@@ -66,8 +73,6 @@ public:
 
     void Pushback(Airplane* airplane);
 
-    void TaxiToRunway(Airplane* airplane);
-
     void HoldShort(Airplane* airplane);
 
     void LineUp(Airplane* airplane);
@@ -77,6 +82,18 @@ public:
     void Takeoff(Airplane* airplane);
 
     void Ascend(Airplane* airplane);
+
+    void Emergency(Airplane* airplane);
+
+    void EmergencyFinalApproach(Airplane* airplane);
+
+    void EmergencyLand(Airplane* airplane);
+
+    void EmergencyEvacuate(Airplane* airplane);
+
+    void EmergencyCheckup(Airplane* airplane);
+
+    void EmergencyRefuel(Airplane* airplane);
 
     unsigned int getTimeNeededForAction(const Airplane* airplane);
 };

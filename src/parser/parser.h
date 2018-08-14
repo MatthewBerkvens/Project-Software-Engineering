@@ -5,7 +5,6 @@
 #include "../lib/DesignByContract.h"
 
 #include "../utils/utils.h"
-#include "../utils/consistency_checker.h"
 
 #include "../classes/Airport.h"
 #include "../classes/Runway.h"

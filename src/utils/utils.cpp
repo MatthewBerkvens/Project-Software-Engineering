@@ -46,7 +46,7 @@ std::string getRowAndColumnStr(const TiXmlText* text)
 }
 
 
-std::string convertToNATOAlphabet(std::string& string) {
+std::string convertToNATOAlphabet(const std::string& string) {
     std::string result;
 
     for (std::string::const_iterator it_char = string.begin(); it_char != string.end(); it_char++) {

@@ -69,7 +69,12 @@ bool Runway::isVacant() const {
 
 bool Runway::canCross() const {
     REQUIRE(properlyInitialized(), "Runway was not properly initialized.");
-    return crossingAirplane == NULL && (airplane == NULL || airplane->getStatus() == AirplaneEnums::kEmergencyLanding || airplane->getStatus() == AirplaneEnums::kReadyForTakeoff);
+    return crossingAirplane == NULL &&
+            (airplane == NULL ||
+            airplane->getStatus() == AirplaneEnums::kStatus_ReadyForTakeoff ||
+            airplane->getStatus() == AirplaneEnums::kStatus_EmergencyEvacuation ||
+            airplane->getStatus() == AirplaneEnums::kStatus_EmergencyCheckup ||
+            airplane->getStatus() == AirplaneEnums::kStatus_EmergencyRefueling);
 }
 
 void Runway::printInfo(std::ostream& stream) const

@@ -16,12 +16,12 @@ int main() {
 
     std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > pairResult = parser.parseFile("simpleScenario.xml");
     std::map<std::string, Airport*> allAirports = pairResult.second;
-
+    
     for (int i = 0; i < 1; ++i) {
         ParseEnum::EResult parserResult = pairResult.first;
         if (parserResult == ParseEnum::kSuccess) {
             for (AirportMap::iterator it_airport = allAirports.begin(); it_airport != allAirports.end(); it_airport++) {
-                Airport* airport = (*it_airport).second;
+                Airport* airport = it_airport->second;
 
                 /*for (unsigned int i = 0; i < airport->getAirplanes().size(); ++i) {
                     airport->getAirplanes()[i]->printInfo(std::cout);
@@ -33,14 +33,31 @@ int main() {
 
                 airport->printInfo(std::cout);*/
 
-                Simulator simulator(airport, std::cout, std::cout, std::cout);
+                std::ofstream outputStream;
+                std::ofstream errorStream;
+                std::ofstream atcStream;
+
+
+                std::string outputName = "output_" + airport->getIata() + ".txt";
+                std::string errorName = "error_" + airport->getIata() + ".txt";
+                std::string atcName = "atc_" + airport->getIata() + ".txt";
+
+                outputStream.open(outputName.c_str());
+                errorStream.open(errorName.c_str());
+                atcStream.open(atcName.c_str());
+
+                Simulator simulator(airport, outputStream, errorStream, atcStream);
                 simulator.Simulate();
+
+                outputStream.close();
+                errorStream.close();
+                atcStream.close();
             }
         }
     }
 
     for (AirportMap::iterator it_airport = allAirports.begin(); it_airport != allAirports.end(); it_airport++) {
-        delete (*it_airport).second;
+        delete it_airport->second;
     }
 
     return 0;

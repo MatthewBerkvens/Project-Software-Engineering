@@ -200,10 +200,10 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
             unsigned int airplaneFuelCapacity = 0;
             unsigned int airplanePassengerCapacity = 0;
 
-            AirplaneEnums::EStatus airplaneStatus = AirplaneEnums::kInvalidStatus;
-            AirplaneEnums::EType airplaneType = AirplaneEnums::kInvalidType;
-            AirplaneEnums::ESize airplaneSize = AirplaneEnums::kInvalidSize;
-            AirplaneEnums::EEngine airplaneEngine = AirplaneEnums::kInvalidEngine;
+            AirplaneEnums::EStatus airplaneStatus = AirplaneEnums::kStatus_InvalidStatus;
+            AirplaneEnums::EType airplaneType = AirplaneEnums::kType_InvalidType;
+            AirplaneEnums::ESize airplaneSize = AirplaneEnums::kSize_InvalidSize;
+            AirplaneEnums::EEngine airplaneEngine = AirplaneEnums::kEngine_InvalidEngine;
 
             bool invalidAirplane = false;
 
@@ -258,7 +258,7 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
 
             if (!airplaneMap["status"].empty()) {
                 AirplaneEnums::EStatus tempStatus = AirplaneEnums::StringToStatusEnum(airplaneMap["status"].c_str());
-                if (tempStatus != AirplaneEnums::kInvalidStatus) {
+                if (tempStatus == AirplaneEnums::kStatus_Approaching || tempStatus == AirplaneEnums::kStatus_StandingAtGate) {
                     airplaneStatus = tempStatus;
                 } else {
                     invalidAirplane = true;
@@ -271,7 +271,7 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
 
             if (!airplaneMap["type"].empty()) {
                 AirplaneEnums::EType tempType = AirplaneEnums::StringToTypeEnum(airplaneMap["type"].c_str());
-                if (tempType != AirplaneEnums::kInvalidType) {
+                if (tempType != AirplaneEnums::kType_InvalidType) {
                     airplaneType = tempType;
                 } else {
                     invalidAirplane = true;
@@ -284,7 +284,7 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
 
             if (!airplaneMap["size"].empty()) {
                 AirplaneEnums::ESize tempSize = AirplaneEnums::StringToSizeEnum(airplaneMap["size"].c_str());
-                if (tempSize != AirplaneEnums::kInvalidSize) {
+                if (tempSize != AirplaneEnums::kSize_InvalidSize) {
                     airplaneSize = tempSize;
                 } else {
                     invalidAirplane = true;
@@ -297,7 +297,7 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
 
             if (!airplaneMap["engine"].empty()) {
                 AirplaneEnums::EEngine tempType = AirplaneEnums::StringToEngineEnum(airplaneMap["engine"].c_str());
-                if (tempType != AirplaneEnums::kInvalidEngine) {
+                if (tempType != AirplaneEnums::kEngine_InvalidEngine) {
                     airplaneEngine = tempType;
                 } else {
                     invalidAirplane = true;
@@ -308,18 +308,29 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
                 errorStream << objectName << ": 'engine' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
-
             if (invalidAirplane) {
                 parseResult = ParseEnum::kPartial;
-            } else {
-                unsigned int altitude = (airplaneStatus == AirplaneEnums::kApproaching ? 10000 : 0);
-                unsigned int fuel = airplaneFuelCapacity;
-                unsigned int passengers = (airplaneStatus == AirplaneEnums::kApproaching ? airplanePassengerCapacity : 0);
+            } else if (lastAirport != NULL) {
+                unsigned int altitude = (airplaneStatus == AirplaneEnums::kStatus_Approaching ? 10000 : 0);
 
-                Airplane* newAirplane = new Airplane(airplaneNumber, airplaneCallsign, airplaneModel, 0, altitude, fuel, airplaneFuelCapacity, passengers, airplanePassengerCapacity, airplaneStatus, airplaneType, airplaneSize, airplaneEngine);
+                Airplane* newAirplane = new Airplane(airplaneNumber, airplaneCallsign, airplaneModel, 0, altitude, airplaneFuelCapacity, airplaneFuelCapacity, airplanePassengerCapacity,
+                                                     airplanePassengerCapacity, airplaneStatus, airplaneType, airplaneSize, airplaneEngine);
 
                 newAirplane->setAirport(lastAirport);
                 lastAirport->addAirplane(newAirplane);
+
+                if (airplaneStatus == AirplaneEnums::kStatus_StandingAtGate) {
+                    AirplaneVector::iterator it_freeGate = std::find(lastAirport->getGates().begin(), lastAirport->getGates().end(), static_cast<Airplane*>(NULL));
+                    if (it_freeGate != lastAirport->getGates().end()) {
+                        *it_freeGate = newAirplane;
+                        newAirplane->setGate(std::distance(lastAirport->getGates().begin(), it_freeGate));
+                    } else {
+                        errorStream << objectName << ": no free gate for new airplane. " << getRowAndColumnStr(object) << std::endl;
+                        delete newAirplane;
+                    }
+                }
+            } else {
+                errorStream << objectName << ": No airport defined before this airplane. " << getRowAndColumnStr(object) << std::endl;
             }
         } else {
             errorStream << "Invalid object '" << objectName << "'. " << getRowAndColumnStr(object) << std::endl;
@@ -328,10 +339,10 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
     }
 
     for (AirportMap::const_iterator it_airport = allAirports.begin(); it_airport != allAirports.end(); it_airport++) {
-        Airport* airport = (*it_airport).second;
+        Airport* airport = it_airport->second;
 
         for (AirplaneMap::iterator it_airplane = airport->getAirplanes().begin(); it_airplane != airport->getAirplanes().end(); ) {
-            Airplane* airplane = (*it_airplane).second;
+            Airplane* airplane = it_airplane->second;
 
             AirplaneEnums::EType airplaneType = airplane->getType();
             AirplaneEnums::ESize airplaneSize = airplane->getSize();
@@ -339,28 +350,28 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
 
             unsigned int offset = 00;
 
-            if (airplaneType == AirplaneEnums::kPrivate) {
-                if (airplaneSize == AirplaneEnums::kSmall) {
+            if (airplaneType == AirplaneEnums::kType_Private) {
+                if (airplaneSize == AirplaneEnums::kSize_Small) {
                     offset = 01;
-                } else if (airplaneSize == AirplaneEnums::kMedium) {
-                    if (airplaneEngine == AirplaneEnums::kJet) { offset = 01000; }
+                } else if (airplaneSize == AirplaneEnums::kSize_Medium) {
+                    if (airplaneEngine == AirplaneEnums::kEngine_Jet) { offset = 01000; }
                 }
-            } else if (airplaneType == AirplaneEnums::kAirline) {
-                if (airplaneSize == AirplaneEnums::kMedium) {
-                    if (airplaneEngine == AirplaneEnums::kPropeller) { offset = 02000; }
-                    else if (airplaneEngine == AirplaneEnums::kJet) { offset = 03000; }
-                } else if (airplaneSize == AirplaneEnums::kLarge) {
-                    if (airplaneEngine == AirplaneEnums::kJet) { offset = 04000; }
+            } else if (airplaneType == AirplaneEnums::kType_Airline) {
+                if (airplaneSize == AirplaneEnums::kSize_Medium) {
+                    if (airplaneEngine == AirplaneEnums::kEngine_Propeller) { offset = 02000; }
+                    else if (airplaneEngine == AirplaneEnums::kEngine_Jet) { offset = 03000; }
+                } else if (airplaneSize == AirplaneEnums::kSize_Large) {
+                    if (airplaneEngine == AirplaneEnums::kEngine_Jet) { offset = 04000; }
                 }
-            } else if (airplaneType == AirplaneEnums::kMilitary) {
-                if (airplaneSize == AirplaneEnums::kSmall) {
-                    if (airplaneEngine == AirplaneEnums::kJet) { offset = 05000; }
-                } else if (airplaneSize == AirplaneEnums::kLarge) {
-                    if (airplaneEngine == AirplaneEnums::kPropeller) { offset = 05000; }
+            } else if (airplaneType == AirplaneEnums::kType_Military) {
+                if (airplaneSize == AirplaneEnums::kSize_Small) {
+                    if (airplaneEngine == AirplaneEnums::kEngine_Jet) { offset = 05000; }
+                } else if (airplaneSize == AirplaneEnums::kSize_Large) {
+                    if (airplaneEngine == AirplaneEnums::kEngine_Propeller) { offset = 05000; }
                 }
-            } else if (airplaneType == AirplaneEnums::kEmergency) {
-                if (airplaneSize == AirplaneEnums::kSmall) {
-                    if (airplaneEngine == AirplaneEnums::kPropeller) { offset = 06000; }
+            } else if (airplaneType == AirplaneEnums::kType_Emergency) {
+                if (airplaneSize == AirplaneEnums::kSize_Small) {
+                    if (airplaneEngine == AirplaneEnums::kEngine_Propeller) { offset = 06000; }
                 }
             }
 
@@ -369,16 +380,12 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
                 errorStream << "  Type: " << AirplaneEnums::EnumToString(airplaneType) << "  Size: " << AirplaneEnums::EnumToString(airplaneSize) << "  Engine: "
                             << AirplaneEnums::EnumToString(airplaneEngine) << std::endl;
                 parseResult = ParseEnum::kPartial;
-                delete (*it_airplane).second;
+                delete it_airplane->second;
                 airport->getAirplanes().erase(it_airplane++);
             } else {
                 airplane->setSquawk(offset + std::distance(airport->getAirplanes().begin(), it_airplane));
                 it_airplane++;
             }
-        }
-
-        if (!isAirportStartConsistent(airport)) {
-            errorStream << "Airport " << airport->getIata() << " is not consistent." << std::endl;
         }
     }
 

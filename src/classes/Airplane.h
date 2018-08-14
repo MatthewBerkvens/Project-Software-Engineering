@@ -13,31 +13,38 @@ namespace AirplaneEnums {
     #define ESTATUS \
         estatus(InvalidStatus), \
         estatus(Approaching), \
-        estatus(LeftAirport), \
-        estatus(StandingAtGate), \
-        estatus(TaxiingToGate), \
-        estatus(TaxiingToRunway), \
-        estatus(ReadyForTakeoff), \
-        estatus(WaitingForEmptyGate), \
-        estatus(Unboarding), \
-        estatus(Boarding), \
-        estatus(Refueling), \
-        estatus(TechnicalCheckup), \
-        estatus(PushingBack), \
-        estatus(HoldingShort), \
-        estatus(LiningUp), \
-        estatus(TakingOff), \
-        estatus(CrossingRunway), \
-        estatus(Ascending), \
         estatus(DescendingTo5000ft), \
         estatus(DescendingTo3000ft), \
         estatus(FlyingWaitPattern), \
         estatus(FinalApproach), \
-        estatus(EmergencyApproach), \
         estatus(Landing), \
-        estatus(EmergencyLanding)
+        estatus(Vacate), \
+        estatus(TaxiingToApron), \
+        estatus(TaxiingToRunway), \
+        estatus(TaxiingToCrossing), \
+        estatus(WaitingAtCrossing), \
+        estatus(CrossingRunway), \
+        estatus(Unboarding), \
+        estatus(TechnicalCheckup), \
+        estatus(Refueling), \
+        estatus(Boarding), \
+        estatus(StandingAtGate), \
+        estatus(PushingBack), \
+        estatus(HoldingShort), \
+        estatus(LiningUp), \
+        estatus(ReadyForTakeoff), \
+        estatus(TakingOff), \
+        estatus(Ascending), \
+        estatus(LeftAirport), \
+        estatus(Emergency), \
+        estatus(EmergencyFinalApproach), \
+        estatus(EmergencyLanding), \
+        estatus(EmergencyEvacuation), \
+        estatus(EmergencyCheckup), \
+        estatus(EmergencyRefueling), \
+        estatus(Crashed)
 
-    #define estatus(x) k##x
+    #define estatus(x) kStatus_##x
         enum EStatus { ESTATUS };
     #undef estatus
 
@@ -54,7 +61,7 @@ namespace AirplaneEnums {
         etype(Military), \
         etype(Emergency)
 
-    #define etype(x) k##x
+    #define etype(x) kType_##x
         enum EType { EAIRPLANETYPES };
     #undef etype
 
@@ -70,7 +77,7 @@ namespace AirplaneEnums {
         esize(Medium), \
         esize(Large)
 
-    #define esize(x) k##x
+    #define esize(x) kSize_##x
         enum ESize { ESIZES };
     #undef esize
 
@@ -85,50 +92,13 @@ namespace AirplaneEnums {
         eengine(Propeller), \
         eengine(Jet)
 
-    #define eengine(x) k##x
+    #define eengine(x) kEngine_##x
         enum EEngine { EENGINES };
     #undef eengine
 
     const char* EnumToString(EEngine f);
 
     EEngine StringToEngineEnum(const char *f);
-
-    /*enum EStatus {
-        kInvalidStatus,
-        kApproaching,
-        kStandingAtGate,
-        kTaxiingToGate,
-        kTaxiingToRunway,
-        kReadyForTakeoff,
-        kFinalApproach,
-        kWaitingForEmptyGate,
-        kFinishedBoarding
-    };
-
-    enum EType {
-        kInvalidType,
-        kPrivate,
-        kAirline,
-        kMilitary,
-        kEmergency
-    };
-
-    enum ESize {
-        kInvalidSize,
-        kSmall,
-        kMedium,
-        kLarge
-    };
-
-    enum EEngine {
-        kInvalidEngine,
-        kPropeller,
-        kJet
-    };
-
-    extern const std::map<std::string, EStatus> gStringToAirplaneStatus;
-
-    extern const std::map<EStatus, std::string> gAirplaneStatusToString;*/
 }
 
 
@@ -154,15 +124,16 @@ private:
     AirplaneEnums::ESize size;
     AirplaneEnums::EEngine engine;
 
-    bool waitingForInstructions;
-    unsigned int internalTimer;
+    bool permission;
+    unsigned int actionTimer;
+    unsigned int communicationTimer;
 
     Airport* airport;
     unsigned long gate;
 
     Runway* runway;
     Location* currentLocation;
-    Runway* takeoffRunway;
+    std::queue<Location*> taxiRoute;
 
     const Airplane* init;
 
@@ -277,15 +248,22 @@ public:
 
     unsigned int getPassengerCapacity() const;
 
-    bool getWaitingForInstructions() const;
+    bool hasPermission() const;
 
-    void setWaitingForInstructions(const bool _waitingForInstructions);
+    void setPermission(const bool t_permission);
 
-    unsigned int getInternalTimer() const;
+    unsigned int getActionTimer() const;
 
-    void setInternalTimer(const unsigned int _internalTimer);
+    void setActionTimer(const unsigned int t_actionTimer);
 
-    void increaseInternalTimer(const unsigned int addition = 1);
+    void increaseActionTimer(const unsigned int addition = 1);
+
+    unsigned int getCommunicationTimer() const;
+
+    void setCommunicationTimer(const unsigned int t_communicationTimer);
+
+    void increaseCommunicationTimer(const unsigned int addition = 1);
+
 
     /**
      * PRE: \n
@@ -343,15 +321,27 @@ public:
      * PRE: \n
      * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
      */
-    Runway* getTakeoffRunway() const;
+    std::queue<Location*>& getTaxiRoute();
 
     /**
      * PRE: \n
      * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
      */
-    void setTakeoffRunway(Runway* _runway);
+    std::queue<Location*> getTaxiRouteCopy() const;
 
-    void fly();
+    /**
+     * PRE: \n
+     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     */
+    void setTaxiRoute(const std::queue<Location*>& p_taxiRoute);
+
+    bool isFlying() const;
+
+    bool fly();
+
+    bool descend(const unsigned int t_subtraction);
+
+    void ascend(const unsigned int t_addition);
 
     /**
      * PRE: \n

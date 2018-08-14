@@ -88,6 +88,12 @@ public:
 
     Location* getLocationByName(const std::string& name);
 
+    Location* getConnectionToApron() const;
+
+    std::queue<Location*> createTaxiRouteToGates(const Location* airplane) const;
+
+    std::queue<Location*> createTaxiRouteToRunway(const Runway* runway) const;
+
     void addLocation(Location* _location);
 
 
@@ -97,7 +103,7 @@ public:
 
     const unsigned long getGateCount() const;
 
-    bool enterGate(Airplane* _airplane);
+    bool reserveGate(Airplane* _airplane);
 
     void exitGate(Airplane* _airplane);
 
@@ -119,6 +125,8 @@ public:
      * REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
      */
     void printInfo(std::ostream& stream) const;
+
+    void printGraphicalImpression(std::ostream& stream) const;
 };
 
 

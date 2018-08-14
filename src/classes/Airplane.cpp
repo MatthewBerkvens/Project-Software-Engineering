@@ -17,7 +17,7 @@ namespace AirplaneEnums {
         {
             if (strcasecmp(strEStatus[i], f) == 0) return (EStatus)i;
         }
-        return kInvalidStatus;
+        return kStatus_InvalidStatus;
     }
 
 
@@ -38,7 +38,7 @@ namespace AirplaneEnums {
         {
             if (strcasecmp(strEType[i], f) == 0) return (EType)i;
         }
-        return kInvalidType;
+        return kType_InvalidType;
     }
 
 
@@ -59,7 +59,7 @@ namespace AirplaneEnums {
         {
             if (strcasecmp(strESize[i], f) == 0) return (ESize)i;
         }
-        return kInvalidSize;
+        return kSize_InvalidSize;
     }
 
 
@@ -80,35 +80,8 @@ namespace AirplaneEnums {
         {
             if (strcasecmp(strEEngine[i], f) == 0) return (EEngine)i;
         }
-        return kInvalidEngine;
+        return kEngine_InvalidEngine;
     }
-
-    /*std::pair<std::string, EStatus> gStringToAirplaneStatusPairs[] =
-            {
-                    std::pair<std::string, EStatus>("Approaching", kApproaching),
-                    std::pair<std::string, EStatus>("Standing at Gate", kStandingAtGate)
-            };
-
-    std::pair<EStatus, std::string> gAirplaneStatusToStringPairs[] =
-            {
-                    std::pair<EStatus, std::string>(kApproaching, "Approaching"),
-                    std::pair<EStatus, std::string>(kStandingAtGate, "Standing at gate"),
-                    std::pair<EStatus, std::string>(kTaxiingToGate, "Taxiing to gate"),
-                    std::pair<EStatus, std::string>(kTaxiingToRunway, "Taxiing to runway"),
-                    std::pair<EStatus, std::string>(kReadyForTakeoff, "Ready for takeoff"),
-                    std::pair<EStatus, std::string>(kFinalApproach, "Final approach"),
-                    std::pair<EStatus, std::string>(kWaitingForEmptyGate, "Waiting for empty gate"),
-            };
-
-    const std::map<std::string, EStatus> gStringToAirplaneStatus(
-            &gStringToAirplaneStatusPairs[0],
-            &gStringToAirplaneStatusPairs[sizeof(gStringToAirplaneStatusPairs) / sizeof(gStringToAirplaneStatusPairs[0])]
-    );
-
-    const std::map<EStatus, std::string> gAirplaneStatusToString(
-            &gAirplaneStatusToStringPairs[0],
-            &gAirplaneStatusToStringPairs[sizeof(gAirplaneStatusToStringPairs) / sizeof(gAirplaneStatusToStringPairs[0])]
-    );*/
 }
 
 bool Airplane::properlyInitialized() const {
@@ -141,13 +114,14 @@ Airplane::Airplane(const std::string& _number,
           type(_type),
           size(_size),
           engine(_engine),
-          waitingForInstructions(false),
-          internalTimer(0),
+          permission(false),
+          actionTimer(0),
+          communicationTimer(0),
           airport(NULL),
           gate(-1),
           runway(NULL),
           currentLocation(NULL),
-          takeoffRunway(NULL),
+          taxiRoute(std::queue<Location*>()),
           init(this) {
     ENSURE(properlyInitialized(), "Airplane was not properly initialized");
 }
@@ -166,13 +140,14 @@ Airplane::Airplane(const Airplane* _airplane)
           type(_airplane->getType()),
           size(_airplane->getSize()),
           engine(_airplane->getEngine()),
-          waitingForInstructions(_airplane->getWaitingForInstructions()),
-          internalTimer(_airplane->getInternalTimer()),
+          permission(_airplane->hasPermission()),
+          actionTimer(_airplane->getActionTimer()),
+          communicationTimer(_airplane->getCommunicationTimer()),
           airport(_airplane->getAirport()),
           gate(_airplane->getGate()),
           runway(_airplane->getRunway()),
           currentLocation(_airplane->getCurrentLocation()),
-          takeoffRunway(_airplane->getTakeoffRunway()),
+          taxiRoute(std::queue<Location*>()),
           init(this) {
     REQUIRE(_airplane->properlyInitialized(), "References Airplane was not properly initialized");
     ENSURE(properlyInitialized(), "Airplane was not properly initialized");
@@ -198,10 +173,11 @@ unsigned int Airplane::getSquawk() const {
     return squawk;
 }
 
-void Airplane::setSquawk(const unsigned int _squawk) {
+void Airplane::setSquawk(const unsigned int p_squawk) {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
-    squawk = _squawk;
-    ENSURE(squawk == _squawk, "Property 'squawk' was not correctly set in Airplane.");
+    REQUIRE((p_squawk >= 001 && p_squawk <= 06777) || p_squawk == 07500 || p_squawk == 07600 || p_squawk == 07700, "Property 'squawk' has to lie between 0001-6777 (7500, 7600, 7700 included) in base 8.");
+    squawk = p_squawk;
+    ENSURE(squawk == p_squawk, "Property 'squawk' was not correctly set in Airplane.");
 }
 
 AirplaneEnums::EStatus Airplane::getStatus() const {
@@ -259,17 +235,17 @@ unsigned int Airplane::getFuelCapacity() const {
 
 unsigned int Airplane::getFuelConsumption() const {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
-    if (size == AirplaneEnums::kSmall) {
-        if (engine == AirplaneEnums::kPropeller) { return 10; }
-        else if (engine == AirplaneEnums::kJet) { return 25; }
+    if (size == AirplaneEnums::kSize_Small) {
+        if (engine == AirplaneEnums::kEngine_Propeller) { return 10; }
+        else if (engine == AirplaneEnums::kEngine_Jet) { return 25; }
         else { return 0; }
-    } else if (size == AirplaneEnums::kMedium) {
-        if (engine == AirplaneEnums::kPropeller) { return 50; }
-        else if (engine == AirplaneEnums::kJet) { return 175; }
+    } else if (size == AirplaneEnums::kSize_Medium) {
+        if (engine == AirplaneEnums::kEngine_Propeller) { return 50; }
+        else if (engine == AirplaneEnums::kEngine_Jet) { return 175; }
         else { return 0; }
-    } else if (size == AirplaneEnums::kLarge) {
-        if (engine == AirplaneEnums::kPropeller) { return 100; }
-        else if (engine == AirplaneEnums::kJet) { return 250; }
+    } else if (size == AirplaneEnums::kSize_Large) {
+        if (engine == AirplaneEnums::kEngine_Propeller) { return 100; }
+        else if (engine == AirplaneEnums::kEngine_Jet) { return 250; }
         else { return 0; }
     } else {
         return 0;
@@ -292,31 +268,47 @@ unsigned int Airplane::getPassengerCapacity() const {
     return passengerCapacity;
 }
 
-bool Airplane::getWaitingForInstructions() const {
+bool Airplane::hasPermission() const {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
-    return waitingForInstructions;
+    return permission;
 }
 
-void Airplane::setWaitingForInstructions(const bool _waitingForInstructions) {
+void Airplane::setPermission(const bool t_permission) {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
-    waitingForInstructions = _waitingForInstructions;
-    ENSURE(waitingForInstructions == _waitingForInstructions, "Property 'waitingForInstructions' was not correctly set in Airplane.");
+    permission = t_permission;
+    ENSURE(permission == t_permission, "Property 'permission' was not correctly set in Airplane.");
 }
 
-unsigned int Airplane::getInternalTimer() const {
+unsigned int Airplane::getActionTimer() const {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
-    return internalTimer;
+    return actionTimer;
 }
 
-void Airplane::setInternalTimer(const unsigned int _internalTimer) {
+void Airplane::setActionTimer(const unsigned int t_actionTimer) {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
-    internalTimer = _internalTimer;
-    ENSURE(internalTimer == _internalTimer, "Property 'internalTimer' was not correctly set in Airplane.");
+    actionTimer = t_actionTimer;
+    ENSURE(actionTimer == t_actionTimer, "Property 'actionTimer' was not correctly set in Airplane.");
 }
 
-void Airplane::increaseInternalTimer(const unsigned int _addition) {
+void Airplane::increaseActionTimer(const unsigned int t_addition) {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
-    internalTimer += _addition;
+    actionTimer += t_addition;
+};
+
+unsigned int Airplane::getCommunicationTimer() const {
+    REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+    return communicationTimer;
+}
+
+void Airplane::setCommunicationTimer(const unsigned int t_communicationTimer) {
+    REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+    communicationTimer = t_communicationTimer;
+    ENSURE(communicationTimer == t_communicationTimer, "Property 'communicationTimer' was not correctly set in Airplane.");
+}
+
+void Airplane::increaseCommunicationTimer(const unsigned int addition) {
+    REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+    communicationTimer += addition;
 };
 
 Airport* Airplane::getAirport() const {
@@ -365,26 +357,71 @@ void Airplane::setCurrentLocation(Location* _currentLocation) {
     ENSURE(currentLocation == _currentLocation, "Property 'currentLocation' was not correctly set.");
 }
 
-Runway* Airplane::getTakeoffRunway() const {
+std::queue<Location*>& Airplane::getTaxiRoute() {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
-    return takeoffRunway;
+    return taxiRoute;
 }
 
-void Airplane::setTakeoffRunway(Runway* _takeoffRunway) {
+std::queue<Location*> Airplane::getTaxiRouteCopy() const {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
-    takeoffRunway = _takeoffRunway;
-    ENSURE(takeoffRunway == _takeoffRunway, "Property 'currentLocation' was not correctly set.");
+    return taxiRoute;
 }
 
-void Airplane::fly() {
+void Airplane::setTaxiRoute(const std::queue<Location*>& p_taxiRoute) {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+    taxiRoute = p_taxiRoute;
+    ENSURE(taxiRoute == p_taxiRoute, "Property 'taxiRoute' was not correctly set.");
+}
+
+bool Airplane::isFlying() const {
+    return status == AirplaneEnums::kStatus_Approaching ||
+        status == AirplaneEnums::kStatus_DescendingTo5000ft ||
+        status == AirplaneEnums::kStatus_DescendingTo3000ft ||
+        status == AirplaneEnums::kStatus_FlyingWaitPattern ||
+        status == AirplaneEnums::kStatus_FinalApproach ||
+        status == AirplaneEnums::kStatus_Landing ||
+        status == AirplaneEnums::kStatus_LeftAirport ||
+        status == AirplaneEnums::kStatus_TakingOff ||
+        status == AirplaneEnums::kStatus_EmergencyLanding ||
+        status == AirplaneEnums::kStatus_EmergencyFinalApproach;
+}
+
+bool Airplane::fly() {
+    REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+    REQUIRE(isFlying(), "Airplane is currently not in the air");
     if (getFuel() > getFuelConsumption()) {
         setFuel(getFuel() - getFuelConsumption());
+        return true;
     } else {
-        setSquawk(7700);
+        setSquawk(07700);
         setFuel(0);
         altitude -= 500;
+        return false;
     }
+}
+
+bool Airplane::descend(const unsigned int t_subtraction) {
+    REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+
+    bool result = true;
+
+
+    if (altitude != 0) {
+        if (altitude > t_subtraction) {
+            altitude -= t_subtraction;
+        } else {
+            altitude = 0;
+        }
+    } else {
+        result = false;
+    }
+
+    return result;
+}
+
+void Airplane::ascend(const unsigned int t_addition) {
+    REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+    altitude += t_addition;
 }
 
 void Airplane::printInfo(std::ostream& stream) const
