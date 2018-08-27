@@ -486,6 +486,7 @@ void Airport::printGraphicalImpression(std::ostream& stream) const {
                     case AirplaneEnums::kStatus_EmergencyEvacuation:
                     case AirplaneEnums::kStatus_EmergencyCheckup:
                     case AirplaneEnums::kStatus_EmergencyRefueling:
+                    case AirplaneEnums::kStatus_Vacate:
                         busyCharacter = 'V';
                         break;
                     case AirplaneEnums::kStatus_FinalApproach:
@@ -556,7 +557,22 @@ void Airport::printGraphicalImpression(std::ostream& stream) const {
     stream << "Gates [ ";
 
     for (AirplaneVector::const_iterator it_gate = gates.begin(); it_gate != gates.end(); it_gate++) {
-        stream << ((*it_gate) == NULL ? "  " : "V " );
+        Airplane* airplane = *it_gate;
+        std::string occupiedString = "  ";
+
+        if (airplane != NULL) {
+            if (airplane->getStatus() == AirplaneEnums::kStatus_Unboarding ||
+                airplane->getStatus() == AirplaneEnums::kStatus_TechnicalCheckup ||
+                airplane->getStatus() == AirplaneEnums::kStatus_Refueling ||
+                airplane->getStatus() == AirplaneEnums::kStatus_Boarding ||
+                airplane->getStatus() == AirplaneEnums::kStatus_StandingAtGate ||
+                airplane->getStatus() == AirplaneEnums::kStatus_PushingBack
+            ) {
+                occupiedString = "V ";
+            }
+        }
+
+        stream << occupiedString;
     }
 
     stream << ']' <<  std::endl;

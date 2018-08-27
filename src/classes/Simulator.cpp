@@ -34,7 +34,9 @@ void Simulator::Simulate() {
     while (!SimulationFinished()) {
         std::priority_queue<Airplane*, std::vector<Airplane*>, CompareSquawk> airplaneQueue;
         for (AirplaneMap::iterator it_airplane = airport->getAirplanes().begin(); it_airplane != airport->getAirplanes().end(); it_airplane++) {
-            airplaneQueue.push(it_airplane->second);
+            if (it_airplane->second->getStatus() != AirplaneEnums::kStatus_LeftAirport) {
+                airplaneQueue.push(it_airplane->second);
+            }
         }
 
         while (!airplaneQueue.empty()) {
@@ -318,7 +320,7 @@ void Simulator::DescendTo3000ft(Airplane* airplane) {
                 airplane->setPermission(true);
             } else {
                 airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                airTrafficController << "$ " << airplane->getCallsign() << ", hold south on the one eighty radial, expect further clearance in 3 minutes." << std::endl;
+                airTrafficController << "$ " << airplane->getCallsign() << ", hold south on the one eighty radial, expect further clearance in 5 minutes." << std::endl;
 
                 airplane->setPermission(false);
             }
@@ -501,7 +503,7 @@ void Simulator::TaxiToCrossing(Airplane* airplane) {
                     airplane->setPermission(false);
                 } else {
                     airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                    airTrafficController << "$ " << airport->getCallsign() << ", hold position." << std::endl;
+                    airTrafficController << "$ " << airplane->getCallsign() << ", hold position." << std::endl;
 
                     airplane->setStatus(AirplaneEnums::kStatus_WaitingAtCrossing);
                     airplane->setCommunicationTimer(0);
@@ -555,7 +557,7 @@ void Simulator::CrossRunway(Airplane* airplane) {
     switch (airplane->getCommunicationTimer()) {
         case 0:
             airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-            airTrafficController << "$ Cleared to cross " << airplane->getTaxiRoute().front()->getName() << airplane->getCallsign() << '.' << std::endl;
+            airTrafficController << "$ Cleared to cross " << airplane->getTaxiRoute().front()->getName() << ", " << airplane->getCallsign() << '.' << std::endl;
             airplane->increaseCommunicationTimer();
             break;
         case 1:
@@ -579,9 +581,6 @@ void Simulator::CrossRunway(Airplane* airplane) {
 
                         airplane->setStatus(AirplaneEnums::kStatus_TaxiingToApron);
                     } else {
-                        airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                        airTrafficController << "$ " << airplane->getCallsign() << ", taxi to runway " << airplane->getRunway()->getName() << " via " << airplane->getCurrentLocation()->getName() << '.' << std::endl;
-
                         airplane->setStatus(AirplaneEnums::kStatus_TaxiingToRunway);
                     }
                 } else {
@@ -619,10 +618,16 @@ void Simulator::TaxiToApron(Airplane* airplane) {
             airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
             airTrafficController << "$ Taxi to gate " << airplane->getGate() + 1 << ", " << airplane->getCallsign() << '.' << std::endl;
 
-            outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " has entered gate " << airplane->getGate() + 1 << std::endl;
+            if (airplane->getSquawk() == 07700) {
+                outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " has entered gate " << airplane->getGate() + 1 << " after an emergency landing" << std::endl;
+                airplane->setStatus(AirplaneEnums::kStatus_Boarding);
+            } else {
+                outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " has entered gate " << airplane->getGate() + 1 << std::endl;
+                airplane->setStatus(AirplaneEnums::kStatus_Unboarding);
+            }
 
             airplane->setCurrentLocation(NULL);
-            airplane->setStatus(AirplaneEnums::kStatus_Unboarding);
+
             airplane->setCommunicationTimer(0);
             airplane->setActionTimer(0);
             airplane->setPermission(false);
@@ -1052,7 +1057,7 @@ void Simulator::EmergencyCheckup(Airplane* airplane) {
     REQUIRE(airplane->getStatus() == AirplaneEnums::kStatus_EmergencyCheckup, "Airplane is not in the correct status.");
     airplane->increaseActionTimer();
     if (airplane->getActionTimer() >= getTimeNeededForAction(airplane)) {
-        outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " has been checked for technical malfunctions on runway " << airplane->getRunway()->getName() << " after an emergency landing" << std::endl;
+        outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " has been checked for technical malfunctions after an emergency landing on runway " << airplane->getRunway()->getName() << std::endl;
 
         airplane->setStatus(AirplaneEnums::kStatus_EmergencyRefueling);
         airplane->setActionTimer(0);
@@ -1066,13 +1071,12 @@ void Simulator::EmergencyRefuel(Airplane* airplane) {
     airplane->increaseActionTimer();
     if (airplane->getActionTimer() >= getTimeNeededForAction(airplane)) {
         outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " has been refueled (" << airplane->getFuelCapacity() - airplane->getFuel()
-                     << " units) on runway " << airplane->getRunway()->getName() << " after an emergency landing" << std::endl;
+                     << " units) after an emergency landing on runway " << airplane->getRunway()->getName() << std::endl;
         airplane->setFuel(airplane->getFuelCapacity());
 
         airplane->setStatus(AirplaneEnums::kStatus_Vacate);
     }
 }
-
 
 unsigned int Simulator::getTimeNeededForAction(const Airplane* airplane) {
     switch (airplane->getStatus()) {

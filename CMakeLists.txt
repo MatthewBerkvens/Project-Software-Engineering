@@ -35,6 +35,15 @@ set(DEBUG_SOURCE_FILES
         ${SRC_TINYXML}
         ${SRC_CLASSES}
         ${SRC_PARSER}
+        ${SRC_UTILS})
+
+# Set source files for TESTS target
+set(TESTS_SOURCE_FILES
+        src/main_tests.cpp
+        ${SRC_LIBRARIES}
+        ${SRC_TINYXML}
+        ${SRC_CLASSES}
+        ${SRC_PARSER}
         ${SRC_UTILS}
         ${SRC_TESTS})
 
@@ -44,5 +53,8 @@ add_executable(PSE_Release ${RELEASE_SOURCE_FILES})
 # Create DEBUG target
 add_executable(PSE_Debug ${DEBUG_SOURCE_FILES})
 
+# Create DEBUG target
+add_executable(PSE_Tests ${TESTS_SOURCE_FILES})
+
 # Link library
-target_link_libraries(PSE_Debug gtest)
+target_link_libraries(PSE_Tests gtest)

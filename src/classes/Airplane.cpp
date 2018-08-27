@@ -224,6 +224,7 @@ unsigned int Airplane::getFuel() const {
 
 void Airplane::setFuel(const unsigned int _fuel) {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+    REQUIRE(_fuel <= fuelCapacity, "Airplane attempted to set property 'fuel' higher than the capacity");
     fuel = _fuel;
     ENSURE(fuel == _fuel, "Property 'fuel' was not correctly set in Airplane.");
 }
@@ -259,6 +260,7 @@ unsigned int Airplane::getPassengers() const {
 
 void Airplane::setPassengers(const unsigned int _passengers) {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+    REQUIRE(_passengers <= passengerCapacity, "Airplane attempted to set property 'passengers' higher than the capacity");
     passengers = _passengers;
     ENSURE(passengers == _passengers, "Property 'passengers' was not correctly set in Airplane.");
 }
@@ -404,7 +406,6 @@ bool Airplane::descend(const unsigned int t_subtraction) {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
 
     bool result = true;
-
 
     if (altitude != 0) {
         if (altitude > t_subtraction) {
