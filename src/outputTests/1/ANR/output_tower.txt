@@ -1,0 +1,208 @@
+[Monday 12:01][BAW466]
+$ Antwerp Tower, Speedbird Four Six Six, arriving at Antwerp International Airport.
+[Monday 12:01][N11842]
+$ Antwerp Tower, Cessna Eight Four Two, arriving at Antwerp International Airport.
+
+[Monday 12:02][ANR]
+$ Speedbird Four Six Six, radar contact, descend and maintain five thousand feet, squawk 4000.
+
+[Monday 12:03][BAW466]
+$ Descend and maintain five thousand feet, squawking 4000, Speedbird Four Six Six.
+
+
+
+
+
+[Monday 12:08][ANR]
+$ Speedbird Four Six Six, descend and maintain three thousand feet.
+
+[Monday 12:09][BAW466]
+$ Descend and maintain three thousand feet, Speedbird Four Six Six.
+[Monday 12:09][ANR]
+$ Cessna Eight Four Two, radar contact, descend and maintain five thousand feet, squawk 2.
+
+[Monday 12:10][N11842]
+$ Descend and maintain five thousand feet, squawking 2, Cessna Eight Four Two.
+
+[Monday 12:11][ANR]
+$ Speedbird Four Six Six, cleared ILS approach runway 11R.
+
+[Monday 12:12][BAW466]
+$ Cleared ILS approach runway 11R, Speedbird Four Six Six.
+
+
+
+
+
+
+[Monday 12:18][BAW466]
+$ Antwerp Tower, Speedbird Four Six Six runway 11R vacated.
+
+[Monday 12:19][BAW466]
+$ Taxi to apron via Alpha, Speedbird Four Six Six.
+
+[Monday 12:20][ANR]
+$ Cessna Eight Four Two, descend and maintain three thousand feet.
+
+[Monday 12:21][N11842]
+$ Descend and maintain three thousand feet, Cessna Eight Four Two.
+
+[Monday 12:22][ANR]
+$ Speedbird Four Six Six, taxi to gate 1.
+
+[Monday 12:23][BAW466]
+$ Taxi to gate 1, Speedbird Four Six Six.
+
+
+[Monday 12:25][ANR]
+$ Cessna Eight Four Two, cleared ILS approach runway 11L.
+
+[Monday 12:26][N11842]
+$ Cleared ILS approach runway 11L, Cessna Eight Four Two.
+
+
+
+
+
+
+
+
+
+[Monday 12:35][N11842]
+$ Antwerp Tower, Cessna Eight Four Two runway 11L vacated.
+
+
+
+[Monday 12:38][N11842]
+$ Antwerp Tower, Cessna Eight Four Two, holding short at 11R.
+
+[Monday 12:39][ANR]
+$ Cessna Eight Four Two, cleared to cross 11R.
+
+[Monday 12:40][N11842]
+$ Cleared to cross 11R, Cessna Eight Four Two.
+[Monday 12:40][ANR]
+$ Cessna Eight Four Two, taxi to apron via Alpha.
+
+[Monday 12:41][N11842]
+$ Taxi to apron via Alpha, Cessna Eight Four Two.
+
+
+
+
+
+[Monday 12:46][ANR]
+$ Cessna Eight Four Two, taxi to gate 2.
+
+[Monday 12:47][N11842]
+$ Taxi to gate 2, Cessna Eight Four Two.
+
+
+
+
+
+
+
+
+
+
+
+[Monday 12:58][BAW466]
+$ Antwerp Tower, Speedbird Four Six Six, requesting IFR clearancy to <my destination - no flightplan implemented>.
+
+[Monday 12:59][ANR]
+$ Speedbird Four Six Six, Antwerp Tower, cleared to <your destination - no flightplan implemented>, maintain five thousand, expect flight level one zero zero - ten minutes after departure, squawk 4000.
+
+[Monday 13:00][BAW466]
+$ Cleared to <my destination - no flightplan implemented>, initial altitude five thousand, expecting one zero zero in ten, squawking 4000.
+[Monday 13:00][N11842]
+$ Antwerp Tower, Cessna Eight Four Two, requesting IFR clearancy to <my destination - no flightplan implemented>.
+
+[Monday 13:01][BAW466]
+$ Antwerp Tower, Speedbird Four Six Six, at gate 1, requesting pushback.
+[Monday 13:01][ANR]
+$ Cessna Eight Four Two, Antwerp Tower, cleared to <your destination - no flightplan implemented>, maintain five thousand, expect flight level one zero zero - ten minutes after departure, squawk 2.
+
+[Monday 13:02][ANR]
+$ Speedbird Four Six Six, Antwerp Tower, pushback approved.
+[Monday 13:02][N11842]
+$ Cleared to <my destination - no flightplan implemented>, initial altitude five thousand, expecting one zero zero in ten, squawking 2.
+
+[Monday 13:03][BAW466]
+$ Pushback approved, Speedbird Four Six Six.
+[Monday 13:03][N11842]
+$ Antwerp Tower, Cessna Eight Four Two, at gate 2, requesting pushback.
+
+[Monday 13:04][ANR]
+$ Cessna Eight Four Two, Antwerp Tower, pushback approved.
+
+[Monday 13:05][N11842]
+$ Pushback approved, Cessna Eight Four Two.
+
+[Monday 13:06][BAW466]
+$ Speedbird Four Six Six is ready to taxi.
+[Monday 13:06][N11842]
+$ Cessna Eight Four Two is ready to taxi.
+
+[Monday 13:07][ANR]
+$ Speedbird Four Six Six, taxi to runway 11R via Alpha.
+[Monday 13:07][N11842]
+$ Taxi to holding point 11R via Alpha.
+
+[Monday 13:08][BAW466]
+$ Taxi to runway 11R via Alpha, Speedbird Four Six Six.
+
+
+
+[Monday 13:11][N11842]
+$ Antwerp Tower, Cessna Eight Four Two, holding short at 11R.
+
+[Monday 13:12][BAW466]
+$ Antwerp Tower, Speedbird Four Six Six, holding short at 11R.
+[Monday 13:12][ANR]
+$ Cessna Eight Four Two, cleared to cross 11R.
+
+[Monday 13:13][N11842]
+$ Cleared to cross 11R, Cessna Eight Four Two.
+
+[Monday 13:14][ANR]
+$ Speedbird Four Six Six, line-up at runway 11R and wait.
+[Monday 13:14][ANR]
+$ Cessna Eight Four Two, taxi to runway 11L via Bravo.
+
+[Monday 13:15][BAW466]
+$ Antwerp Tower, Speedbird Four Six Six, finished line-up at 11R and ready for take off.
+[Monday 13:15][N11842]
+$ Taxi to runway 11L via Bravo, Cessna Eight Four Two.
+
+[Monday 13:16][ANR]
+$ Speedbird Four Six Six, runway 11R cleared for take-off.
+
+[Monday 13:17][BAW466]
+$ Runway 11R cleared for take-off, Speedbird Four Six Six.
+
+
+[Monday 13:19][N11842]
+$ Antwerp Tower, Cessna Eight Four Two, holding short at 11L.
+
+[Monday 13:20][ANR]
+$ Cessna Eight Four Two, line-up at runway 11L and wait.
+
+[Monday 13:21][N11842]
+$ Antwerp Tower, Cessna Eight Four Two, finished line-up at 11L and ready for take off.
+
+[Monday 13:22][ANR]
+$ Cessna Eight Four Two, runway 11L cleared for take-off.
+
+[Monday 13:23][N11842]
+$ Runway 11L cleared for take-off, Cessna Eight Four Two.
+
+
+
+
+
+
+
+
+
+

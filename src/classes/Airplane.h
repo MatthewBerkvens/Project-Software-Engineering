@@ -141,6 +141,8 @@ private:
 
 public:
     /**
+     * POST: \n
+     * Airplane must be properly initialized
      * @param _number The Airplane number
      * @param _callsign The Airplane callsign
      * @param _model The Airplane model
@@ -154,8 +156,6 @@ public:
      * @param _type The Airplane type
      * @param _size The Airplane size
      * @param _engine The Airplane engine
-     * POST: \n
-     * Airplane must be properly initialized
      */
     Airplane(const std::string& _number,
              const std::string& _callsign,
@@ -181,133 +181,254 @@ public:
     explicit Airplane(const Airplane* _airplane);
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's number
      */
     const std::string& getNumber() const;
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's callsign
      */
     const std::string& getCallsign() const;
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's model
      */
     const std::string& getModel() const;
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's squawk
      */
     unsigned int getSquawk() const;
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
-     * POST: \n
-     * ENSURE(squawk == _squawk, "Property 'squawk' was not correctly set in Airplane.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * The new squawk must be valid (in octal: above or equal to 1, below or equal to 6777, including 7500, 7600, 7700)
+     * Post: \n
+     * The Airplane's squawk must match the new squawk
+     * @param _squawk The new squawk
      */
     void setSquawk(const unsigned int _squawk);
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's status not properly initialized.");
+>>>>>>> 6eb14750fdc607f884990d05ca429917a49fe81d
      */
     AirplaneEnums::EStatus getStatus() const;
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized."); \n
-     * POST: \n
-     * ENSURE(status == _status, "Property 'status' was not correctly set in Airplane.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * Post: \n
+     * The Airplane's status must match the new status
+     * @param _status The new status
      */
     void setStatus(const AirplaneEnums::EStatus _status);
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's type
      */
     AirplaneEnums::EType getType() const;
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's size
      */
     AirplaneEnums::ESize getSize() const;
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's engine
      */
     AirplaneEnums::EEngine getEngine() const;
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's altitude
+     */
     unsigned int getAltitude() const;
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * Post: \n
+     * The Airplane's altitude must match the new altitude \n
+     * @param _altitude The new altitude
+     */
     void setAltitude(const unsigned int _altitude);
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's fuel
+     */
     unsigned int getFuel() const;
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * The new Fuel must be under or above the fuel capacity \n
+     * Post: \n
+     * The Airplane's altitude must match the new altitude \n
+     * @param _fuel The new fuel
+     */
     void setFuel(const unsigned int _fuel);
 
+    /**
+     * Calculates the fuel consumption based on engine and size \n
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's consumption rate
+     */
     unsigned int getFuelConsumption() const;
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's fuel capacity
+     */
     unsigned int getFuelCapacity() const;
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's current passenger count
+     */
     unsigned int getPassengers() const;
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * The new passenger count must be under or equal to the passenger capacity \n
+     * Post: \n
+     * The Airplane's passenger must match the new passenger count \n
+     * @param _fuel The new passenger count
+     */
     void setPassengers(const unsigned int _passengers);
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's current passenger count
+     */
     unsigned int getPassengerCapacity() const;
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's current permission
+     */
     bool hasPermission() const;
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * Post: \n
+     * The Airplane's permission must match the new permission \n
+     * @param t_permission The new permission
+     */
     void setPermission(const bool t_permission);
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's action timer
+     */
     unsigned int getActionTimer() const;
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * Post: \n
+     * The Airplane's action timer must match the new action timer \n
+     * @param t_permission The new action timer
+     */
     void setActionTimer(const unsigned int t_actionTimer);
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * Post: \n
+     * @param addition The addition to the action timer
+     */
     void increaseActionTimer(const unsigned int addition = 1);
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's communication timer
+     */
     unsigned int getCommunicationTimer() const;
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * Post: \n
+     * The Airplane's communication timer must match the new communication timer \n
+     * @param t_communicationTimer The new communication timer
+     */
     void setCommunicationTimer(const unsigned int t_communicationTimer);
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * Post: \n
+     * @param addition The addition to the communication timer
+     */
     void increaseCommunicationTimer(const unsigned int addition = 1);
 
-
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's linked airport
      */
     Airport* getAirport() const;
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized."); \n
-     * POST: \n
-     * ENSURE(airport == _airport, "Property 'airport' was not correctly set in Airplane.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * Post: \n
+     * The Airplane's gate, current location, runway, must be reset \n
+     * The Airplane's linked airport must match the new linked airport \n
+     * @param t_communicationTimer The new linked airport
      */
     void setAirport(Airport* _airport);
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's gate number
      */
     const long getGate() const;
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * Post: \n
+     * The Airplane's new gate must match the new gate \n
+     * @param t_communicationTimer The new linked airport
      */
     void setGate(unsigned long _gate);
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's current runway
      */
     Runway* getRunway() const;
 
@@ -320,8 +441,9 @@ public:
     void setRunway(Runway* _runway);
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's current location
      */
     Location* getCurrentLocation() const;
 
@@ -332,14 +454,16 @@ public:
     void setCurrentLocation(Location* _location);
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's taxi route (pointer)
      */
     std::queue<Location*>& getTaxiRoute();
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's taxi route (copy)
      */
     std::queue<Location*> getTaxiRouteCopy() const;
 
@@ -349,17 +473,33 @@ public:
      */
     void setTaxiRoute(const std::queue<Location*>& p_taxiRoute);
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's flying status
+     */
     bool isFlying() const;
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's current location
+     */
     bool fly();
 
+    /**
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @return the Airplane's current location
+     */
     bool descend(const unsigned int t_subtraction);
 
     void ascend(const unsigned int t_addition);
 
     /**
-     * PRE: \n
-     * REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
+     * Pre: \n
+     * Airplane must be properly initialized \n
+     * @@param stream the output stream for the Airplan's information
      */
     void printInfo(std::ostream& stream) const;
 };
@@ -380,3 +520,4 @@ struct CompareSquawk {
 };
 
 #endif
+

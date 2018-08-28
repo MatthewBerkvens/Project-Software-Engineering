@@ -1,0 +1,11 @@
+Airplane: Airline Medium Propeller (N11843) 
+ -> model: Cessna 340
+ -> squawk: 2003
+ -> altitude: 10000
+ -> fuel: 50000/50000 consumption: 50
+ -> passengers: 259/259
+ -> status: Approaching
+ -> type: Airline
+ -> size: Medium
+ -> engine: Propeller
+

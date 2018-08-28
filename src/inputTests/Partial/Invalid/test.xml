@@ -1,0 +1,28 @@
+<AIRPORT>
+	<name>Antwerp International Airport</name>
+	<iata>ANR</iata>
+	<callsign>Antwerp Tower</callsign>
+    <gates>x</gates>
+</AIRPORT>
+
+<RUNWAY>
+    <name>11R</name>
+    <airport>ANR</airport>
+    <type>drywood</type>
+    <length>-1000</length>
+    <TAXIROUTE>
+        <taxipoint>Alpha</taxipoint>
+    </TAXIROUTE>
+</RUNWAY>
+
+<AIRPLANE>
+    <number>N11842</number>
+    <callsign>Cessna 842</callsign>
+    <model>Cessna 340</model>
+    <fuel>-10000</fuel>
+    <passengers>a5a</passengers>
+    <status>Dismantled</status>
+    <type>WW2 Era Bomber</type>
+    <size>Tiny</size>
+    <engine>Hyperdrive</engine>
+</AIRPLANE>

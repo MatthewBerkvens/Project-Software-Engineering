@@ -1,0 +1,11 @@
+Airplane: Airline Medium Jet (N11823) 
+ -> model: Cessna 340
+ -> squawk: 3001
+ -> altitude: 10000
+ -> fuel: 50000/50000 consumption: 175
+ -> passengers: 259/259
+ -> status: Approaching
+ -> type: Airline
+ -> size: Medium
+ -> engine: Jet
+

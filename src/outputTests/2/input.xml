@@ -1,0 +1,83 @@
+<AIRPORT>
+    <name>Antwerp International Airport</name>
+    <iata>ANR</iata>
+    <callsign>Antwerp Tower</callsign>
+    <gates>2</gates>
+</AIRPORT>
+
+<RUNWAY>
+    <name>11R</name>
+    <airport>ANR</airport>
+    <type>Asphalt</type>
+    <length>3000</length>
+    <TAXIROUTE>
+        <taxipoint>Alpha</taxipoint>
+    </TAXIROUTE>
+</RUNWAY>
+<RUNWAY>
+    <name>11L</name>
+    <airport>ANR</airport>
+    <type>grass</type>
+    <length>3000</length>
+    <TAXIROUTE>
+        <taxipoint>Alpha</taxipoint>
+        <crossing>11R</crossing>
+        <taxipoint>Bravo</taxipoint>
+    </TAXIROUTE>
+</RUNWAY>
+
+<AIRPLANE>
+    <number>N11200</number>
+    <callsign>Military Large Propeller</callsign>
+    <model>Cessna 340</model>
+    <fuel>50000</fuel>
+    <passengers>259</passengers>
+    <status>StandingAtGate</status>
+    <type>military</type>
+    <size>large</size>
+    <engine>Propeller</engine>
+</AIRPLANE>
+<AIRPLANE>
+    <number>N11842</number>
+    <callsign>Airline Medium Propeller</callsign>
+    <model>Cessna 340</model>
+    <fuel>200</fuel>
+    <passengers>259</passengers>
+    <status>Approaching</status>
+    <type>airline</type>
+    <size>medium</size>
+    <engine>propeller</engine>
+</AIRPLANE>
+<AIRPLANE>
+    <number>N2385</number>
+    <callsign>Emergency Small Propeller</callsign>
+    <model>Beechcraft B200T</model>
+    <fuel>50000</fuel>
+    <passengers>259</passengers>
+    <status>StandingAtGate</status>
+    <type>emergency</type>
+    <size>small</size>
+    <engine>propeller</engine>
+</AIRPLANE>
+<AIRPLANE>
+    <number>N11823</number>
+    <callsign>Airline Medium Jet</callsign>
+    <model>Cessna 340</model>
+    <fuel>50000</fuel>
+    <passengers>259</passengers>
+    <status>Approaching</status>
+    <type>airline</type>
+    <size>medium</size>
+    <engine>jet</engine>
+</AIRPLANE>
+<AIRPLANE>
+    <number>N11843</number>
+    <callsign>Airline Medium Propeller</callsign>
+    <model>Cessna 340</model>
+    <fuel>50000</fuel>
+    <passengers>259</passengers>
+    <status>Approaching</status>
+    <type>airline</type>
+    <size>medium</size>
+    <engine>propeller</engine>
+</AIRPLANE>

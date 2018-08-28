@@ -1,0 +1,11 @@
+Airplane: Emergency Small Propeller (N2385) 
+ -> model: Beechcraft B200T
+ -> squawk: 6004
+ -> altitude: 0
+ -> fuel: 50000/50000 consumption: 10
+ -> passengers: 259/259
+ -> status: StandingAtGate
+ -> type: Emergency
+ -> size: Small
+ -> engine: Propeller
+

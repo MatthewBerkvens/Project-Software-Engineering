@@ -1,0 +1,11 @@
+Airplane: Speedbird 466 (BAW466) 
+ -> model: Boeing 747
+ -> squawk: 4000
+ -> altitude: 10000
+ -> fuel: 50000/50000 consumption: 250
+ -> passengers: 259/259
+ -> status: Approaching
+ -> type: Airline
+ -> size: Large
+ -> engine: Jet
+

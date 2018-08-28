@@ -322,8 +322,12 @@ void Airplane::setAirport(Airport* _airport) {
     REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");
     airport = _airport;
     runway = NULL;
+    currentLocation = NULL;
+    gate = -1;
     ENSURE(airport == _airport, "Property 'airport' was not correctly set.");
     ENSURE(runway == NULL, "Property 'runway' was not correctly reset.");
+    ENSURE(gate == -1, "Property 'runway' was not correctly reset.");
+    ENSURE(currentLocation == NULL, "Property 'currentLocation' was not correctly reset.");
 }
 
 const long Airplane::getGate() const {

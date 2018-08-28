@@ -1,0 +1,28 @@
+<AIRPORT>
+    <name></name>
+    <iata></iata>
+    <callsign></callsign>
+    <gates></gates>
+</AIRPORT>
+
+<RUNWAY>
+    <name></name>
+    <airport></airport>
+    <type></type>
+    <length></length>
+    <TAXIROUTE>
+        <taxipoint></taxipoint>
+    </TAXIROUTE>
+</RUNWAY>
+
+<AIRPLANE>
+    <number></number>
+    <callsign></callsign>
+    <model></model>
+    <fuel></fuel>
+    <passengers></passengers>
+    <status></status>
+    <type></type>
+    <size></size>
+    <engine></engine>
+</AIRPLANE>
