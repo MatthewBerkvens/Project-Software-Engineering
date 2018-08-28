@@ -914,10 +914,6 @@ void Simulator::Emergency(Airplane* airplane) {
     switch (airplane->getCommunicationTimer()) {
         case 0:
             if (airplane->getAltitude() < 3000) {
-                if (airplane->getRunway() == NULL) {
-                    errorStream << "Shouldn't happen" << std::endl;
-                }
-
                 airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
                 airTrafficController << "$ Mayday mayday mayday, " << airport->getCallsign() << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", out of fuel, performing emergency landing, "
                                      << airplane->getPassengers() << " passengers on board." << std::endl;

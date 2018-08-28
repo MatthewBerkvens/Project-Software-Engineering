@@ -23,14 +23,13 @@ protected:
 TEST_F(OutputTests, outputs) {
     std::string path = "./outputTests/";
     std::vector<std::string> testNames = std::vector<std::string>();
-    //testNames.push_back("1/");
+    testNames.push_back("1/");
     testNames.push_back("2/");
-    //testNames.push_back("3/");
 
     for (unsigned int i = 0; i < testNames.size(); i++) {
         if (DirectoryExists(path + testNames[i])) {
             EXPECT_TRUE(FileExists(path + testNames[i] + "input.xml"));
-            EXPECT_TRUE(FileExists(path + testNames[i] + "parser_expected.txt"));
+            EXPECT_TRUE(FileExists(path + testNames[i] + "expected_parser.txt"));
 
             std::ofstream parserOutputStream;
             std::string paserOutputName = path + testNames[i] + "output_parser.txt";
@@ -41,7 +40,7 @@ TEST_F(OutputTests, outputs) {
             std::string completefilename = path + testNames[i] + "input.xml";
             std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > pairResult = parser.parseFile(completefilename.c_str());
 
-            EXPECT_TRUE(FileCompare(path + testNames[i] + "parser_expected.txt", path + testNames[i] + "output_parser.txt"));
+            EXPECT_TRUE(FileCompare(path + testNames[i] + "expected_parser.txt", path + testNames[i] + "output_parser.txt"));
 
             parserOutputStream.close();
 
@@ -51,9 +50,9 @@ TEST_F(OutputTests, outputs) {
 
                 std::string airportPath = path + testNames[i] + airport->getIata() + "/";
 
-                EXPECT_TRUE(FileExists(airportPath + "output_expected.txt"));
-                EXPECT_TRUE(FileExists(airportPath + "error_expected.txt"));
-                EXPECT_TRUE(FileExists(airportPath + "tower_expected.txt"));
+                EXPECT_TRUE(FileExists(airportPath + "expected_output.txt"));
+                EXPECT_TRUE(FileExists(airportPath + "expected_error.txt"));
+                EXPECT_TRUE(FileExists(airportPath + "expected_tower.txt"));
 
                 std::ofstream outputStream;
                 std::string outputStreamName = airportPath + "output_output.txt";
@@ -72,7 +71,7 @@ TEST_F(OutputTests, outputs) {
                 floorplanStream.open(floorplanStreamName.c_str());
 
                 std::ofstream airportInfoStream;
-                std::string fairportInfoStreamName = airportPath + "airport_info.txt";
+                std::string fairportInfoStreamName = airportPath + "output_airportinfo.txt";
                 airportInfoStream.open(fairportInfoStreamName.c_str());
 
                 airport->printInfo(airportInfoStream);
@@ -84,7 +83,7 @@ TEST_F(OutputTests, outputs) {
 
                     it_airplane->second->printInfo(airplaneStream);
 
-                    EXPECT_TRUE(FileCompare(airportPath + "airplanes/" + it_airplane->second->getNumber() + "_expected.txt", airplaneMap));
+                    EXPECT_TRUE(FileCompare(airportPath + "airplanes/expected_" + it_airplane->second->getNumber() + ".txt", airplaneMap));
 
                     airplaneStream.close();
                 }
@@ -92,11 +91,11 @@ TEST_F(OutputTests, outputs) {
                 Simulator simulator(airport, outputStream, errorStream, towerStream, floorplanStream);
                 simulator.Simulate();
 
-                EXPECT_TRUE(FileCompare(airportPath + "output_expected.txt", airportPath + "output_output.txt"));
-                EXPECT_TRUE(FileCompare(airportPath + "error_expected.txt", airportPath + "output_error.txt"));
-                EXPECT_TRUE(FileCompare(airportPath + "tower_expected.txt", airportPath + "output_tower.txt"));
-                EXPECT_TRUE(FileCompare(airportPath + "floorplan_expected.txt", airportPath + "output_floorplan.txt"));
-                EXPECT_TRUE(FileCompare(airportPath + "airport_info_expected.txt", airportPath + "airport_info.txt"));
+                EXPECT_TRUE(FileCompare(airportPath + "expected_output.txt", airportPath + "output_output.txt"));
+                EXPECT_TRUE(FileCompare(airportPath + "expected_error.txt", airportPath + "output_error.txt"));
+                EXPECT_TRUE(FileCompare(airportPath + "expected_tower.txt", airportPath + "output_tower.txt"));
+                EXPECT_TRUE(FileCompare(airportPath + "expected_floorplan.txt", airportPath + "output_floorplan.txt"));
+                EXPECT_TRUE(FileCompare(airportPath + "expected_airportinfo.txt", airportPath + "output_airportinfo.txt"));
 
                 outputStream.close();
                 errorStream.close();

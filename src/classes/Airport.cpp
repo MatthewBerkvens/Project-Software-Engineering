@@ -434,10 +434,9 @@ void Airport::printInfo(std::ostream& stream) const {
     stream << " -> runways: " << runways.size() << std::endl;
 
     for (RunwayMap::const_iterator it_runway = runways.begin(); it_runway != runways.end(); it_runway++) {
-        stream << "    ~ " << it_runway->second->getName() << std::endl;
+        stream << "    ~ ";
+        it_runway->second->printInfo(stream);
     }
-
-    stream << std::endl;
 }
 
 void Airport::printGraphicalImpression(std::ostream& stream) const {

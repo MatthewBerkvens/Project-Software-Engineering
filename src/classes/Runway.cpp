@@ -81,5 +81,4 @@ void Runway::printInfo(std::ostream& stream) const
 {
     REQUIRE(properlyInitialized(), "Runway was not properly initialized.");
     stream << "Runway " << getName() << ": " << getLength() << "m, " << (getType() == RunwayEnums::kGrass ? "Grass" : "Asphalt") << std::endl;
-    stream << std::endl;
 }

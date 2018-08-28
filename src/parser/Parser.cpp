@@ -164,43 +164,46 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
 
                     if (runwayAirport->getLocationByName(nodeName) == NULL) {
                         //if currentNode.first is true, node is a crossing of a runway
-                        if (!currentNode.first) {
+                        if (!currentNode.first && i % 2 == 0) {
                             Location* newLocation = new Location(nodeName);
                             newLocation->setAirport(runwayAirport);
                             runwayAirport->addLocation(newLocation);
                         } else {
                             invalidRunway = true;
                             errorStream << objectName << ": Runways added in wrong order, this one has defined runways before they were added. " << getRowAndColumnStr(object) << std::endl;
+                            break;
                         }
                     }
                 }
 
-                for (unsigned int i = 0; i < taxirouteMap.size(); i++) {
-                    std::pair<bool, std::string> currentNode = taxirouteMap[i];
-                    std::string nodeName = currentNode.second;
+                if (!invalidRunway) {
+                    for (unsigned int i = 0; i < taxirouteMap.size(); i++) {
+                        std::pair<bool, std::string> currentNode = taxirouteMap[i];
+                        std::string nodeName = currentNode.second;
 
-                    bool start_index = (i == 0);
-                    bool end_index = ((i + 1) == taxirouteMap.size());
+                        bool start_index = (i == 0);
+                        bool end_index = ((i + 1) == taxirouteMap.size());
 
 
-                    Location* previousLocation = NULL;
-                    Location* currentLocation = runwayAirport->getLocationByName(nodeName);
-                    Location* nextLocation = NULL;
+                        Location* previousLocation = NULL;
+                        Location* currentLocation = runwayAirport->getLocationByName(nodeName);
+                        Location* nextLocation = NULL;
 
-                    if (!start_index) {
-                        previousLocation = runwayAirport->getLocationByName(taxirouteMap[i-1].second);
-                        previousLocation->setNextLocation(currentLocation);
+                        if (!start_index) {
+                            previousLocation = runwayAirport->getLocationByName(taxirouteMap[i - 1].second);
+                            previousLocation->setNextLocation(currentLocation);
+                        }
+
+                        if (!end_index) {
+                            nextLocation = runwayAirport->getLocationByName(taxirouteMap[i + 1].second);
+                        } else {
+                            nextLocation = newRunway;
+                        }
+
+                        nextLocation->setPreviousLocation(currentLocation);
+                        currentLocation->setPreviousLocation(previousLocation);
+                        currentLocation->setNextLocation(nextLocation);
                     }
-
-                    if (!end_index) {
-                        nextLocation = runwayAirport->getLocationByName(taxirouteMap[i+1].second);
-                    } else {
-                        nextLocation = newRunway;
-                    }
-
-                    nextLocation->setPreviousLocation(currentLocation);
-                    currentLocation->setPreviousLocation(previousLocation);
-                    currentLocation->setNextLocation(nextLocation);
                 }
             }
         } else if (objectName == "AIRPLANE") {
@@ -355,6 +358,15 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
         for (AirplaneMap::iterator it_airplane = airport->getAirplanes().begin(); it_airplane != airport->getAirplanes().end(); ) {
             Airplane* airplane = it_airplane->second;
 
+            if (airport->getFreeCompatibleRunway(airplane) == NULL) {
+                errorStream << "Airplane has nowhere to land: " << airplane->getCallsign() << " (" << airplane->getNumber() << ") " << std::endl;
+                airplane->printInfo(errorStream);
+                parseResult = ParseEnum::kPartial;
+                for (RunwayMap::iterator it_runway = airport->getRunways().begin(); it_runway != airport->getRunways().end(); it_runway++) {
+                    it_runway->second->printInfo(errorStream);
+                }
+            };
+
             AirplaneEnums::EType airplaneType = airplane->getType();
             AirplaneEnums::ESize airplaneSize = airplane->getSize();
             AirplaneEnums::EEngine airplaneEngine = airplane->getEngine();
@@ -388,8 +400,7 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
 
             if (offset == 00) {
                 errorStream << "Invalid airplane combination: " << airplane->getCallsign() << " (" << airplane->getNumber() << ") " << std::endl;
-                errorStream << "  Type: " << AirplaneEnums::EnumToString(airplaneType) << "  Size: " << AirplaneEnums::EnumToString(airplaneSize) << "  Engine: "
-                            << AirplaneEnums::EnumToString(airplaneEngine) << std::endl;
+                airplane->printInfo(errorStream);
                 parseResult = ParseEnum::kPartial;
                 delete it_airplane->second;
                 airport->getAirplanes().erase(it_airplane++);

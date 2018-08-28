@@ -14,7 +14,7 @@ int main() {
 
     Parser parser(std::cout);
 
-    std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > pairResult = parser.parseFile("./inputTests/Partial/Invalid/test.xml");
+    std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > pairResult = parser.parseFile("./outputTests/1/input.xml");
     std::map<std::string, Airport*> allAirports = pairResult.second;
     
     for (int i = 0; i < 1; ++i) {
@@ -37,7 +37,6 @@ int main() {
                 std::ofstream errorStream;
                 std::ofstream atcStream;
                 std::ofstream floorplanStream;
-
 
                 std::string outputName = "output_" + airport->getIata() + ".txt";
                 std::string errorName = "error_" + airport->getIata() + ".txt";
