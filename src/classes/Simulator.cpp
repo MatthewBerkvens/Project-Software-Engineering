@@ -4,10 +4,11 @@ bool Simulator::properlyInitialized() const {
     return this == init;
 }
 
-Simulator::Simulator(const Airport* _airport, std::ostream& _outputStream, std::ostream& _errorStream, std::ostream& _airTrafficControllerStream)
+Simulator::Simulator(const Airport* _airport, std::ostream& _outputStream, std::ostream& _errorStream, std::ostream& _airTrafficControllerStream, std::ostream& _floorplanStream)
     : timer(0),
       airport(new Airport(_airport)),
       airTrafficController(_airTrafficControllerStream),
+      floorplanStream(_floorplanStream),
       outputStream(_outputStream),
       errorStream(_errorStream),
       init(this) {
@@ -150,7 +151,9 @@ void Simulator::Simulate() {
             }
         }
 
-        airport->printGraphicalImpression(outputStream);
+        floorplanStream << getRealisticTimeStamp() << std::endl;
+        airport->printGraphicalImpression(floorplanStream);
+        floorplanStream << std::endl;
 
         timer++;
         outputStream << std::endl;
@@ -195,20 +198,20 @@ void Simulator::Approach(Airplane* airplane) {
 
     if (airplane->getCommunicationTimer() == 0) {
         airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-        airTrafficController << "$ " << airport->getCallsign() << ", " << airplane->getCallsign() << ", arriving at " << airport->getAirportName() << '.' << std::endl;
+        airTrafficController << "$ " << airport->getCallsign() << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", arriving at " << airport->getAirportName() << '.' << std::endl;
 
         airplane->increaseCommunicationTimer();
     } else if (airplane->getCommunicationTimer() == 1) {
         if (airport->is5000ftVacant()) {
             airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-            airTrafficController << "$ " << airplane->getCallsign() << ", radar contact, descend and maintain five thousand feet, squawk " << std::oct << airplane->getSquawk() << std::dec << '.' << std::endl;
+            airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", radar contact, descend and maintain five thousand feet, squawk " << std::oct << airplane->getSquawk() << std::dec << '.' << std::endl;
 
             airport->set5000ft(airplane);
             airplane->increaseCommunicationTimer();
         }
     } else if (airplane->getCommunicationTimer() == 2) {
         airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-        airTrafficController << "$ Descend and maintain five thousand feet, squawking " << std::oct << airplane->getSquawk() << std::dec << ", " << airplane->getCallsign() << "." << std::endl;
+        airTrafficController << "$ Descend and maintain five thousand feet, squawking " << std::oct << airplane->getSquawk() << std::dec << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << "." << std::endl;
 
         outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " has begun its descent to 5000 ft." << std::endl;
 
@@ -245,12 +248,12 @@ void Simulator::DescendTo5000ft(Airplane* airplane) {
 
             if(airport->is3000ftVacant()) {
                 airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                airTrafficController << "$ " << airplane->getCallsign() << ", descend and maintain three thousand feet." << std::endl;
+                airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", descend and maintain three thousand feet." << std::endl;
 
                 airplane->setPermission(true);
             } else {
                 airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                airTrafficController << "$ " << airplane->getCallsign() << ", hold south on the one eighty radial, expect further clearance in " <<
+                airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", hold south on the one eighty radial, expect further clearance in " <<
                     static_cast<unsigned int>(std::floor(airport->get3000ft()->getAltitude() / (airport->get3000ft()->getEngine() == AirplaneEnums::kEngine_Jet ? 1000.0 : 500.0))) << " minutes." << std::endl;
 
                 airplane->setPermission(false);
@@ -258,7 +261,7 @@ void Simulator::DescendTo5000ft(Airplane* airplane) {
         } else if (airplane->getCommunicationTimer() == 1) {
             if (airplane->hasPermission()) {
                 airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-                airTrafficController << "$ Descend and maintain three thousand feet, " << airplane->getCallsign() << '.' << std::endl;
+                airTrafficController << "$ Descend and maintain three thousand feet, " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << '.' << std::endl;
 
                 outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " has begun its descent to 3000 ft." << std::endl;
 
@@ -272,7 +275,7 @@ void Simulator::DescendTo5000ft(Airplane* airplane) {
                 airplane->setPermission(false);
             } else {
                 airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-                airTrafficController << "$ Holding south on the one eighty radial, " << airplane->getCallsign() << '.' << std::endl;
+                airTrafficController << "$ Holding south on the one eighty radial, " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << '.' << std::endl;
 
                 outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " is flying in a waiting pattern at 5000 ft." << std::endl;
 
@@ -312,7 +315,7 @@ void Simulator::DescendTo3000ft(Airplane* airplane) {
 
             if(runway != NULL) {
                 airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                airTrafficController << "$ " << airplane->getCallsign() << ", cleared ILS approach runway " << runway->getName() << '.' << std::endl;
+                airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", cleared ILS approach runway " << runway->getName() << '.' << std::endl;
 
                 airplane->setRunway(runway);
                 runway->setAirplane(airplane);
@@ -320,14 +323,14 @@ void Simulator::DescendTo3000ft(Airplane* airplane) {
                 airplane->setPermission(true);
             } else {
                 airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                airTrafficController << "$ " << airplane->getCallsign() << ", hold south on the one eighty radial, expect further clearance in 5 minutes." << std::endl;
+                airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", hold south on the one eighty radial, expect further clearance in 5 minutes." << std::endl;
 
                 airplane->setPermission(false);
             }
         } else if (airplane->getCommunicationTimer() == 1) {
             if (airplane->hasPermission()) {
                 airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-                airTrafficController << "$ Cleared ILS approach runway " << airplane->getRunway()->getName() << ", " << airplane->getCallsign() << '.' << std::endl;
+                airTrafficController << "$ Cleared ILS approach runway " << airplane->getRunway()->getName() << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << '.' << std::endl;
 
                 outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " has begun its final approach to runway " << airplane->getRunway()->getName() << " at " << airport->getAirportName() << "." << std::endl;
 
@@ -339,7 +342,7 @@ void Simulator::DescendTo3000ft(Airplane* airplane) {
                 airplane->setPermission(false);
             } else {
                 airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-                airTrafficController << "$ Holding south on the one eighty radial, " << airplane->getCallsign() << '.' << std::endl;
+                airTrafficController << "$ Holding south on the one eighty radial, " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << '.' << std::endl;
 
                 outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " is flying in a waiting pattern at 3000 ft." << std::endl;
 
@@ -361,14 +364,14 @@ void Simulator::FlyWaitingPattern(Airplane* airplane) {
         if (airplane->getCommunicationTimer() == 0) {
             if (airport->is3000ftVacant()) {
                 airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                airTrafficController << "$ " << airplane->getCallsign() << ", descend and maintain three thousand feet." << std::endl;
+                airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", descend and maintain three thousand feet." << std::endl;
 
                 airplane->setPermission(true);
                 airplane->increaseCommunicationTimer();
             }
         } else if (airplane->getCommunicationTimer() == 1) {
             airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-            airTrafficController << "$ Descend and maintain three thousand feet, " << airplane->getCallsign() << '.' << std::endl;
+            airTrafficController << "$ Descend and maintain three thousand feet, " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << '.' << std::endl;
 
             outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " has begun its descent to 3000 ft" << std::endl;
 
@@ -388,7 +391,7 @@ void Simulator::FlyWaitingPattern(Airplane* airplane) {
 
             if (runway != NULL) {
                 airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                airTrafficController << "$ " << airplane->getCallsign() << ", cleared ILS approach runway " << runway->getName() << '.' << std::endl;
+                airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", cleared ILS approach runway " << runway->getName() << '.' << std::endl;
 
                 airport->set3000ft(NULL);
                 airplane->setRunway(runway);
@@ -399,7 +402,7 @@ void Simulator::FlyWaitingPattern(Airplane* airplane) {
             }
         } else if (airplane->getCommunicationTimer() == 1) {
             airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-            airTrafficController << "$ Cleared ILS approach runway " << airplane->getRunway()->getName() << ", " << airplane->getCallsign() << '.' << std::endl;
+            airTrafficController << "$ Cleared ILS approach runway " << airplane->getRunway()->getName() << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << '.' << std::endl;
 
             outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " has begun its final approach to runway " << airplane->getRunway()->getName() << " at " << airport->getAirportName() << "." << std::endl;
 
@@ -454,7 +457,7 @@ void Simulator::Vacate(Airplane* airplane) {
     outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " has vacated runway " << airplane->getRunway()->getName() << std::endl;
 
     airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-    airTrafficController << "$ " << airport->getCallsign() << ", " << airplane->getCallsign() << " runway " << airplane->getRunway()->getName() << " vacated." << std::endl;
+    airTrafficController << "$ " << airport->getCallsign() << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << " runway " << airplane->getRunway()->getName() << " vacated." << std::endl;
 
     airplane->setCurrentLocation(airplane->getRunway()->getPreviousLocation());
     airplane->getRunway()->setAirplane(NULL);
@@ -481,7 +484,7 @@ void Simulator::TaxiToCrossing(Airplane* airplane) {
             airplane->increaseActionTimer();
             if (airplane->getActionTimer() >= getTimeNeededForAction(airplane)) {
                 airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-                airTrafficController << "$ " << airport->getCallsign() << ", " << airplane->getCallsign() << ", holding short at " << airplane->getTaxiRoute().front()->getName() << '.' << std::endl;
+                airTrafficController << "$ " << airport->getCallsign() << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", holding short at " << airplane->getTaxiRoute().front()->getName() << '.' << std::endl;
                 airplane->increaseCommunicationTimer();
             }
             break;
@@ -491,7 +494,7 @@ void Simulator::TaxiToCrossing(Airplane* airplane) {
             if (crossingRunway != NULL) {
                 if (crossingRunway->canCross()) {
                     airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                    airTrafficController << "$ " << airplane->getCallsign() << ", cleared to cross " << airplane->getTaxiRoute().front()->getName() << '.' << std::endl;
+                    airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", cleared to cross " << airplane->getTaxiRoute().front()->getName() << '.' << std::endl;
 
                     crossingRunway->setCrossingAirplane(airplane);
                     airplane->setCurrentLocation(airplane->getTaxiRoute().front());
@@ -503,7 +506,7 @@ void Simulator::TaxiToCrossing(Airplane* airplane) {
                     airplane->setPermission(false);
                 } else {
                     airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                    airTrafficController << "$ " << airplane->getCallsign() << ", hold position." << std::endl;
+                    airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", hold position." << std::endl;
 
                     airplane->setStatus(AirplaneEnums::kStatus_WaitingAtCrossing);
                     airplane->setCommunicationTimer(0);
@@ -524,19 +527,22 @@ void Simulator::WaitingAtCrossing(Airplane* airplane) {
     switch (airplane->getCommunicationTimer()) {
         case 0:
             airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-            airTrafficController << "$ Holding position, " << airplane->getCallsign() << '.' << std::endl;
+            airTrafficController << "$ Holding position, " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << '.' << std::endl;
             airplane->increaseCommunicationTimer();
+            break;
         case 1:
             Runway* crossingRunway = airport->getRunwayByName(airplane->getTaxiRoute().front()->getName());
 
             if (crossingRunway != NULL) {
                 if (crossingRunway->canCross()) {
                     airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                    airTrafficController << "$ " << airplane->getCallsign() << ", cleared to cross " << airplane->getTaxiRoute().front()->getName() << '.' << std::endl;
+                    airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", cleared to cross " << airplane->getTaxiRoute().front()->getName() << '.'
+                                         << std::endl;
 
-                    crossingRunway->setCrossingAirplane(airplane);
                     airplane->setCurrentLocation(airplane->getTaxiRoute().front());
                     airplane->getTaxiRoute().pop();
+                    airplane->increaseCommunicationTimer();
+                    crossingRunway->setCrossingAirplane(airplane);
 
                     airplane->setStatus(AirplaneEnums::kStatus_CrossingRunway);
                     airplane->setCommunicationTimer(0);
@@ -554,43 +560,39 @@ void Simulator::CrossRunway(Airplane* airplane) {
     REQUIRE(properlyInitialized(), "Simulator was not properly initialized.");
     REQUIRE(airplane->getStatus() == AirplaneEnums::kStatus_CrossingRunway, "Airplane is not in the correct status.");
 
-    switch (airplane->getCommunicationTimer()) {
-        case 0:
-            airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-            airTrafficController << "$ Cleared to cross " << airplane->getTaxiRoute().front()->getName() << ", " << airplane->getCallsign() << '.' << std::endl;
-            airplane->increaseCommunicationTimer();
-            break;
-        case 1:
-            airplane->increaseActionTimer();
-            if (airplane->getActionTimer() >= getTimeNeededForAction(airplane)) {
-                Runway* crossingRunway = airport->getRunwayByName(airplane->getCurrentLocation()->getName());
+    if (airplane->getActionTimer() == 0) {
+        airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
+        airTrafficController << "$ Cleared to cross " << airplane->getCurrentLocation()->getName() << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << '.' << std::endl;
+    }
 
-                crossingRunway->setCrossingAirplane(NULL);
-                airplane->setCurrentLocation(airplane->getTaxiRoute().front());
-                outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " is now on taxipoint " << airplane->getCurrentLocation()->getName() << std::endl;
-                airplane->getTaxiRoute().pop();
+    airplane->increaseActionTimer();
+    if (airplane->getActionTimer() >= getTimeNeededForAction(airplane)) {
+        Runway* crossingRunway = airport->getRunwayByName(airplane->getCurrentLocation()->getName());
 
-                airplane->setCommunicationTimer(0);
-                airplane->setActionTimer(0);
-                airplane->setPermission(false);
+        crossingRunway->setCrossingAirplane(NULL);
+        airplane->setCurrentLocation(airplane->getTaxiRoute().front());
+        outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " is now on taxipoint " << airplane->getCurrentLocation()->getName() << std::endl;
+        airplane->getTaxiRoute().pop();
 
-                if (airplane->getTaxiRoute().empty()) {
-                    if (airplane->getRunway() == NULL) {
-                        airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                        airTrafficController << "$ " << airplane->getCallsign() << ", taxi to apron via " << airplane->getCurrentLocation()->getName() << '.' << std::endl;
+        airplane->setCommunicationTimer(0);
+        airplane->setActionTimer(0);
+        airplane->setPermission(false);
 
-                        airplane->setStatus(AirplaneEnums::kStatus_TaxiingToApron);
-                    } else {
-                        airplane->setStatus(AirplaneEnums::kStatus_TaxiingToRunway);
-                    }
-                } else {
-                    airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                    airTrafficController << "$ " << airplane->getCallsign() << ", taxi to holding point " << airplane->getTaxiRoute().front()->getName() << " via " << airplane->getCurrentLocation()->getName() << '.' << std::endl;
+        if (airplane->getTaxiRoute().empty()) {
+            if (airplane->getRunway() == NULL) {
+                airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
+                airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", taxi to apron via " << airplane->getCurrentLocation()->getName() << '.' << std::endl;
 
-                    airplane->setStatus(AirplaneEnums::kStatus_TaxiingToCrossing);
-                }
+                airplane->setStatus(AirplaneEnums::kStatus_TaxiingToApron);
+            } else {
+                airplane->setStatus(AirplaneEnums::kStatus_TaxiingToRunway);
             }
-            break;
+        } else {
+            airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
+            airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", taxi to holding point " << airplane->getTaxiRoute().front()->getName() << " via " << airplane->getCurrentLocation()->getName() << '.' << std::endl;
+
+            airplane->setStatus(AirplaneEnums::kStatus_TaxiingToCrossing);
+        }
     }
 }
 
@@ -601,7 +603,7 @@ void Simulator::TaxiToApron(Airplane* airplane) {
     switch (airplane->getCommunicationTimer()) {
         case 0:
             airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-            airTrafficController << "$ Taxi to apron via " << airplane->getCurrentLocation()->getName() << ", " << airplane->getCallsign() << '.' << std::endl;
+            airTrafficController << "$ Taxi to apron via " << airplane->getCurrentLocation()->getName() << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << '.' << std::endl;
             airplane->increaseCommunicationTimer();
             break;
         case 1:
@@ -609,14 +611,14 @@ void Simulator::TaxiToApron(Airplane* airplane) {
             if (airplane->getActionTimer() >= getTimeNeededForAction(airplane)) {
                 if (airport->reserveGate(airplane)) {
                     airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                    airTrafficController << "$ " << airplane->getCallsign() << ", taxi to gate " << airplane->getGate() + 1 << '.' << std::endl;
+                    airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", taxi to gate " << airplane->getGate() + 1 << '.' << std::endl;
                     airplane->increaseCommunicationTimer();
                 }
             }
             break;
         case 2:
             airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-            airTrafficController << "$ Taxi to gate " << airplane->getGate() + 1 << ", " << airplane->getCallsign() << '.' << std::endl;
+            airTrafficController << "$ Taxi to gate " << airplane->getGate() + 1 << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << '.' << std::endl;
 
             if (airplane->getSquawk() == 07700) {
                 outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " has entered gate " << airplane->getGate() + 1 << " after an emergency landing" << std::endl;
@@ -642,19 +644,19 @@ void Simulator::TaxiToRunway(Airplane* airplane) {
     switch (airplane->getCommunicationTimer()) {
         case 0:
             airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-            airTrafficController << "$ " << airplane->getCallsign() << ", taxi to runway " << airplane->getRunway()->getName() << " via " << airplane->getCurrentLocation()->getName() << '.' << std::endl;
+            airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", taxi to runway " << airplane->getRunway()->getName() << " via " << airplane->getCurrentLocation()->getName() << '.' << std::endl;
             airplane->increaseCommunicationTimer();
             break;
         case 1:
             if (airplane->getActionTimer() == 0) {
                 airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-                airTrafficController << "$ Taxi to runway " << airplane->getRunway()->getName() << " via " << airplane->getCurrentLocation()->getName() << ", " << airplane->getCallsign() << '.' << std::endl;
+                airTrafficController << "$ Taxi to runway " << airplane->getRunway()->getName() << " via " << airplane->getCurrentLocation()->getName() << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << '.' << std::endl;
             }
 
             airplane->increaseActionTimer();
             if (airplane->getActionTimer() >= getTimeNeededForAction(airplane)) {
                 airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-                airTrafficController << "$ " << airport->getCallsign() << ", " << airplane->getCallsign() << ", holding short at " << airplane->getRunway()->getName() << '.' << std::endl;
+                airTrafficController << "$ " << airport->getCallsign() << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", holding short at " << airplane->getRunway()->getName() << '.' << std::endl;
 
                 outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " is holding short at runway " << airplane->getRunway()->getName() << std::endl;
 
@@ -734,14 +736,14 @@ void Simulator::StandAtGate(Airplane* airplane) {
                     airplane->setTaxiRoute(airport->createTaxiRouteToRunway(runway));
                     airplane->setRunway(runway);
                     airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-                    airTrafficController << "$ " << airport->getCallsign() << ", " << airplane->getCallsign() << ", requesting IFR clearancy to <my destination - no flightplan implemented>." << std::endl;
+                    airTrafficController << "$ " << airport->getCallsign() << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", requesting IFR clearancy to <my destination - no flightplan implemented>." << std::endl;
                     airplane->increaseCommunicationTimer();
                 }
             }
             break;
         case 1:
             airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-            airTrafficController << "$ " << airplane->getCallsign() << ", " << airport->getCallsign()
+            airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", " << airport->getCallsign()
                                  << ", cleared to <your destination - no flightplan implemented>, maintain five thousand, expect flight level one zero zero - ten minutes after departure, squawk "
                                  << std::oct << airplane->getSquawk() << std::dec << '.' << std::endl;
 
@@ -767,18 +769,18 @@ void Simulator::Pushback(Airplane* airplane) {
     switch(airplane->getCommunicationTimer()) {
         case 0:
             airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-            airTrafficController << "$ " << airport->getCallsign() << ", " << airplane->getCallsign() << ", at gate " << airplane->getGate() + 1 << ", requesting pushback." << std::endl;
+            airTrafficController << "$ " << airport->getCallsign() << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", at gate " << airplane->getGate() + 1 << ", requesting pushback." << std::endl;
             airplane->increaseCommunicationTimer();
             break;
         case 1:
             airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-            airTrafficController << "$ " << airplane->getCallsign() << ", " << airport->getCallsign() << ", pushback approved." << std::endl;
+            airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", " << airport->getCallsign() << ", pushback approved." << std::endl;
             airplane->increaseCommunicationTimer();
             break;
         case 2:
             if (airplane->getActionTimer() == 0) {
                 airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-                airTrafficController << "$ Pushback approved, " << airplane->getCallsign() << '.' << std::endl;
+                airTrafficController << "$ Pushback approved, " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << '.' << std::endl;
 
                 outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " is pushing back from gate " << airplane->getGate() + 1 << std::endl;
             }
@@ -794,7 +796,7 @@ void Simulator::Pushback(Airplane* airplane) {
             break;
         case 3:
             airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-            airTrafficController << "$ " << airplane->getCallsign() << " is ready to taxi." << std::endl;
+            airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << " is ready to taxi." << std::endl;
 
             airplane->setActionTimer(0);
             airplane->setCommunicationTimer(0);
@@ -813,28 +815,19 @@ void Simulator::HoldShort(Airplane* airplane) {
     REQUIRE(properlyInitialized(), "Simulator was not properly initialized.");
     REQUIRE(airplane->getStatus() == AirplaneEnums::kStatus_HoldingShort, "Airplane is not in the correct status.");
 
-    switch(airplane->getCommunicationTimer()) {
-        case 0:
-            airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-            airTrafficController << "$ " << airport->getCallsign() << ", " << airplane->getCallsign() << ", holding short at " << airplane->getRunway()->getName() << '.' << std::endl;
-            airplane->increaseCommunicationTimer();
-            break;
-        case 1:
-            if (airplane->getRunway()->isVacant()) {
-                airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                airTrafficController << "$ " << airplane->getCallsign() << ", line-up at runway " << airplane->getRunway()->getName() << " and wait." << std::endl;
+    if (airplane->getRunway()->isVacant()) {
+        airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
+        airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", line-up at runway " << airplane->getRunway()->getName() << " and wait." << std::endl;
 
-                outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " is now lining up on runway " << airplane->getRunway()->getName() << std::endl;
+        outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " is now lining up on runway " << airplane->getRunway()->getName() << std::endl;
 
-                airplane->setCurrentLocation(airplane->getRunway());
-                airplane->getRunway()->setAirplane(airplane);
+        airplane->setCurrentLocation(airplane->getRunway());
+        airplane->getRunway()->setAirplane(airplane);
 
-                airplane->setStatus(AirplaneEnums::kStatus_LiningUp);
-                airplane->setCommunicationTimer(0);
-                airplane->setActionTimer(0);
-                airplane->setPermission(false);
-            }
-            break;
+        airplane->setStatus(AirplaneEnums::kStatus_LiningUp);
+        airplane->setCommunicationTimer(0);
+        airplane->setActionTimer(0);
+        airplane->setPermission(false);
     }
 }
 
@@ -842,16 +835,10 @@ void Simulator::LineUp(Airplane* airplane) {
     REQUIRE(properlyInitialized(), "Simulator was not properly initialized.");
     REQUIRE(airplane->getStatus() == AirplaneEnums::kStatus_LiningUp, "Airplane is not in the correct status.");
 
-    /*if (airplane->getActionTimer() == 0) {
-        airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-        airTrafficController << "$ " << airport->getCallsign() << ", " << airplane->getCallsign() << ", holding short at " << airplane->getRunway()->getName() << '.' << std::endl;
-    }*/
-    //?
-
     airplane->increaseActionTimer();
     if (airplane->getActionTimer() >= getTimeNeededForAction(airplane)) {
         airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-        airTrafficController << "$ " << airport->getCallsign() << ", " << airplane->getCallsign() << ", finished line-up at " << airplane->getRunway()->getName() << " and ready for take off." << std::endl;
+        airTrafficController << "$ " << airport->getCallsign() << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", finished line-up at " << airplane->getRunway()->getName() << " and ready for take off." << std::endl;
 
         outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " has lined up on runway " << airplane->getRunway()->getName() << std::endl;
 
@@ -869,12 +856,12 @@ void Simulator::ReadyForTakeoff(Airplane* airplane) {
     switch(airplane->getCommunicationTimer()) {
         case 0:
             airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-            airTrafficController << "$ " << airplane->getCallsign() << ", runway " << airplane->getRunway()->getName() << " cleared for take-off." << std::endl;
+            airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", runway " << airplane->getRunway()->getName() << " cleared for take-off." << std::endl;
             airplane->increaseCommunicationTimer();
             break;
         case 1:
             airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-            airTrafficController << "$ Runway " << airplane->getRunway()->getName() << " cleared for take-off, " << airplane->getCallsign() << '.' << std::endl;
+            airTrafficController << "$ Runway " << airplane->getRunway()->getName() << " cleared for take-off, " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << '.' << std::endl;
 
             outputStream << getRealisticTimeStamp() << ' ' << airplane->getCallsign() << " is taking off" << std::endl;
 
@@ -932,7 +919,7 @@ void Simulator::Emergency(Airplane* airplane) {
                 }
 
                 airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-                airTrafficController << "$ Mayday mayday mayday, " << airport->getCallsign() << ", " << airplane->getCallsign() << ", out of fuel, performing emergency landing, "
+                airTrafficController << "$ Mayday mayday mayday, " << airport->getCallsign() << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", out of fuel, performing emergency landing, "
                                      << airplane->getPassengers() << " passengers on board." << std::endl;
 
                 airplane->setStatus(AirplaneEnums::kStatus_FinalApproach);
@@ -941,7 +928,7 @@ void Simulator::Emergency(Airplane* airplane) {
                 airplane->setPermission(false);
             } else {
                 airTrafficController << getRealisticTimeStamp() << '[' << airplane->getNumber() << ']' << std::endl;
-                airTrafficController << "$ Mayday mayday mayday, " << airport->getCallsign() << ", " << airplane->getCallsign() << ", out of fuel, request immediate landing, "
+                airTrafficController << "$ Mayday mayday mayday, " << airport->getCallsign() << ", " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", out of fuel, request immediate landing, "
                                      << airplane->getPassengers() << " passengers on board." << std::endl;
                 airplane->increaseCommunicationTimer();
             }
@@ -952,7 +939,7 @@ void Simulator::Emergency(Airplane* airplane) {
 
                 if (runway != NULL) {
                     airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                    airTrafficController << "$ " << airplane->getCallsign() << " roger mayday, squawk seven seven zero zero, cleared ILS landing runway " << runway->getName() << '.' << std::endl;
+                    airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << " roger mayday, squawk seven seven zero zero, cleared ILS landing runway " << runway->getName() << '.' << std::endl;
 
                     airplane->setRunway(runway);
                     runway->setAirplane(airplane);
@@ -963,7 +950,7 @@ void Simulator::Emergency(Airplane* airplane) {
                     airplane->setPermission(false);
                 } else {
                     airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                    airTrafficController << "$ " << airplane->getCallsign() << " roger mayday, squawk seven seven zero zero, glide until a free runway is available." << std::endl;
+                    airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << " roger mayday, squawk seven seven zero zero, glide until a free runway is available." << std::endl;
                     airplane->increaseCommunicationTimer();
                 }
             }
@@ -982,7 +969,7 @@ void Simulator::Emergency(Airplane* airplane) {
 
             if (runway != NULL) {
                 airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-                airTrafficController << "$ " << airplane->getCallsign() << ", cleared ILS landing runway " << runway->getName() << '.' << std::endl;
+                airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", cleared ILS landing runway " << runway->getName() << '.' << std::endl;
 
                 airplane->setStatus(AirplaneEnums::kStatus_FinalApproach);
                 airplane->setCommunicationTimer(0);
@@ -1011,7 +998,7 @@ void Simulator::EmergencyFinalApproach(Airplane* airplane) {
 
     if (airplane->getCommunicationTimer() == 0) {
         airTrafficController << getRealisticTimeStamp() << '[' << airport->getIata() << ']' << std::endl;
-        airTrafficController << "$ " << airplane->getCallsign() << ", emergency personel on standby, good luck!" << std::endl;
+        airTrafficController << "$ " << convertPartialNumbersToNATOAlphabet(airplane->getCallsign()) << ", emergency personel on standby, good luck!" << std::endl;
         airplane->increaseCommunicationTimer();
     }
 
@@ -1075,6 +1062,45 @@ void Simulator::EmergencyRefuel(Airplane* airplane) {
         airplane->setFuel(airplane->getFuelCapacity());
 
         airplane->setStatus(AirplaneEnums::kStatus_Vacate);
+
+        AirplaneEnums::EType airplaneType = airplane->getType();
+        AirplaneEnums::ESize airplaneSize = airplane->getSize();
+        AirplaneEnums::EEngine airplaneEngine = airplane->getEngine();
+
+        unsigned int offset = 00;
+
+        if (airplaneType == AirplaneEnums::kType_Private) {
+            if (airplaneSize == AirplaneEnums::kSize_Small) {
+                offset = 01;
+            } else if (airplaneSize == AirplaneEnums::kSize_Medium) {
+                if (airplaneEngine == AirplaneEnums::kEngine_Jet) { offset = 01000; }
+            }
+        } else if (airplaneType == AirplaneEnums::kType_Airline) {
+            if (airplaneSize == AirplaneEnums::kSize_Medium) {
+                if (airplaneEngine == AirplaneEnums::kEngine_Propeller) { offset = 02000; }
+                else if (airplaneEngine == AirplaneEnums::kEngine_Jet) { offset = 03000; }
+            } else if (airplaneSize == AirplaneEnums::kSize_Large) {
+                if (airplaneEngine == AirplaneEnums::kEngine_Jet) { offset = 04000; }
+            }
+        } else if (airplaneType == AirplaneEnums::kType_Military) {
+            if (airplaneSize == AirplaneEnums::kSize_Small) {
+                if (airplaneEngine == AirplaneEnums::kEngine_Jet) { offset = 05000; }
+            } else if (airplaneSize == AirplaneEnums::kSize_Large) {
+                if (airplaneEngine == AirplaneEnums::kEngine_Propeller) { offset = 05000; }
+            }
+        } else if (airplaneType == AirplaneEnums::kType_Emergency) {
+            if (airplaneSize == AirplaneEnums::kSize_Small) {
+                if (airplaneEngine == AirplaneEnums::kEngine_Propeller) { offset = 06000; }
+            }
+        }
+
+        AirplaneMap::iterator it_airplane = airport->getAirplanes().find(airplane->getNumber());
+
+        if (it_airplane == airport->getAirplanes().end()) {
+            errorStream << "Shouldn't happen" << std::endl;
+        } else {
+            airplane->setSquawk(offset + std::distance(airport->getAirplanes().begin(), it_airplane));
+        }
     }
 }
 

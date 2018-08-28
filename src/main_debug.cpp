@@ -1,10 +1,10 @@
 #include <iostream>
-#include "parser/parser.h"
+#include "parser/Parser.h"
 #include "classes/Simulator.h"
 #include "classes/Airport.h"
 #include "classes/Runway.h"
 #include "classes/Airplane.h"
-#include "utils/utils.h"
+#include "utils/Utils.h"
 
 #include <iostream>
 #include <sstream>
@@ -14,7 +14,7 @@ int main() {
 
     Parser parser(std::cout);
 
-    std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > pairResult = parser.parseFile("simpleScenario.xml");
+    std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > pairResult = parser.parseFile("./inputTests/Partial/Invalid/test.xml");
     std::map<std::string, Airport*> allAirports = pairResult.second;
     
     for (int i = 0; i < 1; ++i) {
@@ -36,22 +36,26 @@ int main() {
                 std::ofstream outputStream;
                 std::ofstream errorStream;
                 std::ofstream atcStream;
+                std::ofstream floorplanStream;
 
 
                 std::string outputName = "output_" + airport->getIata() + ".txt";
                 std::string errorName = "error_" + airport->getIata() + ".txt";
                 std::string atcName = "atc_" + airport->getIata() + ".txt";
+                std::string floorplanName = "floorplan_" + airport->getIata() + ".txt";
 
                 outputStream.open(outputName.c_str());
                 errorStream.open(errorName.c_str());
                 atcStream.open(atcName.c_str());
+                floorplanStream.open(floorplanName.c_str());
 
-                Simulator simulator(airport, outputStream, errorStream, atcStream);
+                Simulator simulator(airport, outputStream, errorStream, atcStream, floorplanStream);
                 simulator.Simulate();
 
                 outputStream.close();
                 errorStream.close();
                 atcStream.close();
+                floorplanStream.close();
             }
         }
     }

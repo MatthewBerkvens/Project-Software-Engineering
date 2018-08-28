@@ -4,7 +4,7 @@
 #include "../lib/tinyxml/tinyxml.h"
 #include "../lib/DesignByContract.h"
 
-#include "../utils/utils.h"
+#include "../utils/Utils.h"
 
 #include "../classes/Airport.h"
 #include "../classes/Runway.h"

@@ -178,9 +178,9 @@ Airplane* Airport::getAirplanesByRegistrationNumber(const std::string& number) {
 
 void Airport::addAirplane(Airplane* airplane) {
     REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-    REQUIRE(airplane != NULL, "Referenced Airplane was a nullpointer.");
+    REQUIRE(airplane != NULL, "Referenced Airplane is a nullpointer.");
     REQUIRE(airplane->getAirport() == this, "Referenced Airplane does not have a link to the current airport.");
-    REQUIRE(airplanes[airplane->getNumber()] == NULL, "Referenced Airplane already added to the airport.");
+    REQUIRE(airplanes[airplane->getNumber()] == NULL, "Found Airplanes with duplicate registration.");
     airplanes[airplane->getNumber()] = airplane;
     ENSURE(airplanes[airplane->getNumber()] == airplane, "Referenced Airplane was not properly added.");
 }
@@ -257,7 +257,7 @@ Runway* Airport::getFreeCompatibleRunway(const Airplane* airplane) {
 
 void Airport::addRunway(Runway* _runway) {
     REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-    REQUIRE(_runway != NULL, "Referenced Runway was a nullpointer.");
+    REQUIRE(_runway != NULL, "Referenced Runway is a nullpointer.");
     REQUIRE(_runway->getAirport() == this, "Referenced Runway does not have a link to the current airport.");
     REQUIRE(runways[_runway->getName()] == NULL, "Referenced Runway already added to the airport.");
     runways[_runway->getName()] = _runway;
@@ -332,10 +332,10 @@ std::queue<Location*> Airport::createTaxiRouteToRunway(const Runway* runway) con
 
 void Airport::addLocation(Location* location) {
     REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-    REQUIRE(location != NULL, "Referenced Airplane was a nullpointer.");
-    REQUIRE(location->getAirport() == this, "Referenced Airplane does not have a link to the current airport.");
+    REQUIRE(location != NULL, "Referenced Location is a nullpointer.");
+    REQUIRE(location->getAirport() == this, "Referenced Location does not have a link to the current airport.");
     locations[location->getName()] = location;
-    ENSURE(locations[location->getName()] == location, "Referenced Airplane was not properly added.");
+    ENSURE(locations[location->getName()] == location, "Referenced Location was not properly added.");
 }
 
 const AirplaneVector& Airport::getGates() const {
@@ -353,41 +353,44 @@ const unsigned long Airport::getGateCount() const {
     return gates.size();
 }
 
-bool Airport::reserveGate(Airplane* airplane) {
+bool Airport::reserveGate(Airplane* _airplane) {
     REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-    REQUIRE(airplane != NULL, "Referenced Airplane was a nullpointer.");
-    REQUIRE(airplane->getAirport() == this, "Referenced Airplane is not linked to Airport.");
-    REQUIRE(airplane->getStatus() == AirplaneEnums::kStatus_TaxiingToApron, "Referenced Airplane is not waiting for a gate.");
-    REQUIRE(airplane->getGate() == -1, "Referenced Airplane already has a gate assigned.");
+    REQUIRE(_airplane != NULL, "Referenced Airplane is a nullpointer.");
+    REQUIRE(mapContains(airplanes, _airplane->getNumber(), _airplane), "Referenced airplane is not linked to Airport.");
+    REQUIRE(_airplane->getAirport() == this, "Referenced Airplane is not linked to Airport.");
+    REQUIRE(_airplane->getStatus() == AirplaneEnums::kStatus_TaxiingToApron, "Referenced Airplane is not waiting for a gate.");
+    REQUIRE(_airplane->getGate() == -1, "Referenced Airplane already has a gate assigned.");
 
     AirplaneVector::iterator it_freeGate = std::find(gates.begin(), gates.end(), static_cast<Airplane*>(NULL));
 
     if (it_freeGate != gates.end()) {
         long freeGate = std::distance(gates.begin(), it_freeGate);
-        airplane->setGate(freeGate);
-        gates[freeGate] = airplane;
-        ENSURE(airplane->getGate() == std::distance(gates.begin(), std::find(gates.begin(), gates.end(), airplane)), "Airplane was not properly given a gate.");
+        _airplane->setGate(freeGate);
+        gates[freeGate] = _airplane;
+        ENSURE(_airplane->getGate() == std::distance(gates.begin(), std::find(gates.begin(), gates.end(), _airplane)), "Airplane was not properly given a gate.");
         return true;
     } else {
         return false;
     }
 }
 
-void Airport::exitGate(Airplane* airplane) {
+void Airport::exitGate(Airplane* _airplane) {
     REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-    REQUIRE(airplane->getAirport() == this, "Airplane is not linked to Airport.");
-    REQUIRE(airplane->getStatus() == AirplaneEnums::kStatus_PushingBack, "Airplane is not ready to leave gate.");
-    REQUIRE(airplane->getGate() != -1, "Airplane is not properly linked to gate.");
-    REQUIRE(gates[airplane->getGate()] == airplane, "Airplane is not properly linked to gate.");
+    REQUIRE(_airplane != NULL, "Referenced Airplane is a nullpointer.");
+    REQUIRE(mapContains(airplanes, _airplane->getNumber(), _airplane), "Referenced airplane is not linked to Airport.");
+    REQUIRE(_airplane->getAirport() == this, "Airplane is not linked to Airport.");
+    REQUIRE(_airplane->getGate() != -1, "Airplane is not properly linked to gate.");
+    REQUIRE(gates[_airplane->getGate()] == _airplane, "Airplane is not properly linked to gate.");
+    REQUIRE(_airplane->getStatus() == AirplaneEnums::kStatus_PushingBack, "Airplane is not ready to leave gate.");
 
-    long old_gate = airplane->getGate();
+    long old_gate = _airplane->getGate();
     gates[old_gate] = NULL;
-    airplane->setGate(-1);
-    airplane->setStatus(AirplaneEnums::kStatus_PushingBack);
+    _airplane->setGate(-1);
+    _airplane->setStatus(AirplaneEnums::kStatus_PushingBack);
 
-    ENSURE(airplane->getGate() == -1, "Airplane was not properly ungated.");
+    ENSURE(_airplane->getGate() == -1, "Airplane was not properly ungated.");
     ENSURE(gates[old_gate] == NULL, "Airplane was not properly ungated.");
-    ENSURE(airplane->getStatus() == AirplaneEnums::kStatus_PushingBack, "Airplane was not properly ungated.");
+    ENSURE(_airplane->getStatus() == AirplaneEnums::kStatus_PushingBack, "Airplane was not properly ungated.");
 }
 
 const Airplane* Airport::get3000ft() const {
@@ -397,7 +400,7 @@ const Airplane* Airport::get3000ft() const {
 
 void Airport::set3000ft(Airplane* _airplane) {
     REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-    REQUIRE(_airplane == NULL || airplanes[_airplane->getNumber()] == _airplane, "Airplane is not recognized by this airport");
+    REQUIRE(_airplane == NULL || mapContains(airplanes, _airplane->getNumber(), _airplane), "Referenced Airplane is not recognized by this airport and not a nullpointer.");
     ft3000 = _airplane;
 }
 
@@ -413,7 +416,7 @@ const Airplane* Airport::get5000ft() const {
 
 void Airport::set5000ft(Airplane* _airplane) {
     REQUIRE(properlyInitialized(), "Airport was not properly initialized.");
-    REQUIRE(_airplane == NULL || airplanes[_airplane->getNumber()] == _airplane, "Airplane is not recognized by this airport");
+    REQUIRE(_airplane == NULL || mapContains(airplanes, _airplane->getNumber(), _airplane), "Referenced Airplane is not recognized by this airport and not a nullpointer.");
     ft5000 = _airplane;
 }
 

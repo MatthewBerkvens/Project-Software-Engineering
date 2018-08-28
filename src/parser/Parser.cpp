@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "Parser.h"
 
 Parser::Parser(std::ostream& _errorStream) : errorStream(_errorStream) {};
 
@@ -16,12 +16,12 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
     if (xmlFile.FirstChildElement() == NULL) {
         errorStream << "Error loading file: root missing" << std::endl;
         xmlFile.Clear();
-        return std::pair<ParseEnum::EResult, std::map<std::string, Airport*> >(ParseEnum::kPartial, allAirports);
+        return std::pair<ParseEnum::EResult, std::map<std::string, Airport*> >(ParseEnum::kAborted, allAirports);
     }
 
     ParseEnum::EResult parseResult = ParseEnum::kSuccess;
 
-    Airport* lastAirport;
+    Airport* lastAirport = NULL;
 
     for (TiXmlElement* object = xmlFile.FirstChildElement(); object != NULL; object = object->NextSiblingElement()) {
         std::string objectName = object->Value();
@@ -35,41 +35,43 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
 
             std::map<std::string, std::string> airportMap = convertXmlNodeToMap(object);
 
-            if (!airportMap["name"].empty()) {
-                airportName = airportMap["name"];
+            if (airportMap.find("name") != airportMap.end()) {
+                airportName = airportMap.at("name");
             } else {
                 invalidAirport = true;
                 errorStream << objectName << ": 'name' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
-            if (!airportMap["iata"].empty()) {
-                airportIATA = airportMap["iata"];
+            if (airportMap.find("iata") != airportMap.end()) {
+                airportIATA = airportMap.at("iata");
             } else {
                 invalidAirport = true;
                 errorStream << objectName << ": 'iata' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
-            if (!airportMap["callsign"].empty()) {
-                airportCallsign = airportMap["callsign"];
+            if (airportMap.find("callsign") != airportMap.end()) {
+                airportCallsign = airportMap.at("callsign");
             } else {
                 invalidAirport = true;
                 errorStream << objectName << ": 'callsign' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
-            if (!airportMap["gates"].empty()) {
-                unsigned int gatesAsInt;
-                if (tryCastStringToUnsignedInt(airportMap["gates"], &gatesAsInt)) {
-                    airportGates = gatesAsInt;
+            if (airportMap.find("gates") != airportMap.end()) {
+                int gatesAsInt = 0;
+                int* ptr = &gatesAsInt;
+                REQUIRE(ptr != NULL, "wtf");
+                if (tryCastStringToInt(airportMap.at("gates"), ptr) && gatesAsInt > 0) {
+                    airportGates = static_cast<unsigned int>(gatesAsInt);
                 } else {
                     invalidAirport = true;
-                    errorStream << objectName << ": 'gates' attribute is not an unsigned integer. " << getRowAndColumnStr(object) << std::endl;
+                    errorStream << objectName << ": 'gates' attribute is not an unsigned positive integer. " << getRowAndColumnStr(object) << std::endl;
                 }
             } else {
                 invalidAirport = true;
                 errorStream << objectName << ": 'gates' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
-            if (allAirports[airportIATA] != NULL) {
+            if (allAirports.find(airportIATA) != allAirports.end()) {
                 invalidAirport = true;
                 errorStream << objectName << ": duplicate airport IATA. " << getRowAndColumnStr(object) << std::endl;
             }
@@ -91,31 +93,40 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
 
             std::map<std::string, std::string> runwayMap = convertXmlNodeToMap(object);
 
-            std::vector<std::pair<bool, std::string> > taxirouteMap = extractTaxiRoute(object->FirstChildElement("TAXIROUTE"));
+            TiXmlElement* taxiRouteNode = object->FirstChildElement("TAXIROUTE");
+            std::vector<std::pair<bool, std::string> > taxirouteMap;
 
-            if (!runwayMap["name"].empty()) {
-                runwayName = runwayMap["name"];
+            if (taxiRouteNode != NULL) {
+                taxirouteMap = extractTaxiRoute(taxiRouteNode);
+            } else {
+                invalidRunway = true;
+                errorStream << objectName << ": 'taxiroute' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
+            }
+
+            if (runwayMap.find("name") != runwayMap.end()) {
+                runwayName = runwayMap.at("name");
             } else {
                 invalidRunway = true;
                 errorStream << objectName << ": 'name' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
-            if (!runwayMap["length"].empty()) {
-                unsigned int lengthAsInt;
-                if (tryCastStringToUnsignedInt(runwayMap["length"], &lengthAsInt)) {
-                    runwayLength = lengthAsInt;
+            if (runwayMap.find("length") != runwayMap.end()) {
+                int lengthAsInt = 0;
+                if (tryCastStringToInt(runwayMap.at("length"), &lengthAsInt) && lengthAsInt > 0) {
+                    runwayLength = static_cast<unsigned int>(lengthAsInt);
                 } else {
                     invalidRunway = true;
-                    errorStream << objectName << ": 'length' attribute is not an unsigned integer. " << getRowAndColumnStr(object) << std::endl;
+                    errorStream << objectName << ": 'length' attribute is not an unsigned positive integer. " << getRowAndColumnStr(object) << std::endl;
                 }
             } else {
                 invalidRunway = true;
                 errorStream << objectName << ": 'length' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
-            if (!runwayMap["airport"].empty()) {
-                runwayAirport = allAirports[runwayMap["airport"]];
-                if (runwayAirport == NULL) {
+            if (runwayMap.find("airport") != runwayMap.end()) {
+                if (allAirports.find(runwayMap.at("airport")) != allAirports.end()) {
+                    runwayAirport = allAirports.at(runwayMap.at("airport"));
+                } else {
                     invalidRunway = true;
                     errorStream << objectName << ": referenced airport does not exist, make sure to declare runways after the referenced airport. " << getRowAndColumnStr(object) << std::endl;
                 }
@@ -124,8 +135,8 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
                 errorStream << objectName << ": 'airport' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
-            if (!runwayMap["type"].empty()) {
-                RunwayEnums::EType tempType = RunwayEnums::StringToTypeEnum(runwayMap["type"].c_str());
+            if (runwayMap.find("type") != runwayMap.end()) {
+                RunwayEnums::EType tempType = RunwayEnums::StringToTypeEnum(runwayMap.at("type").c_str());
                 if (tempType != RunwayEnums::kInvalidType) {
                     runwayType = tempType;
                 } else {
@@ -209,55 +220,55 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
 
             std::map<std::string, std::string> airplaneMap = convertXmlNodeToMap(object);
 
-            if (!airplaneMap["number"].empty()) {
-                airplaneNumber = airplaneMap["number"];
+            if (airplaneMap.find("number") != airplaneMap.end()) {
+                airplaneNumber = airplaneMap.at("number");
             } else {
                 invalidAirplane = true;
                 errorStream << objectName << ": 'number' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
-            if (!airplaneMap["callsign"].empty()) {
-                airplaneCallsign = airplaneMap["callsign"];
+            if (airplaneMap.find("callsign") != airplaneMap.end()) {
+                airplaneCallsign = airplaneMap.at("callsign");
             } else {
                 invalidAirplane = true;
                 errorStream << objectName << ": 'callsign' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
-            if (!airplaneMap["model"].empty()) {
-                airplaneModel = airplaneMap["model"];
+            if (airplaneMap.find("model") != airplaneMap.end()) {
+                airplaneModel = airplaneMap.at("model");
             } else {
                 invalidAirplane = true;
                 errorStream << objectName << ": 'model' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
-            if (!airplaneMap["fuel"].empty()) {
-                unsigned int fuelCapacityAsInt;
-                if (tryCastStringToUnsignedInt(airplaneMap["fuel"], &fuelCapacityAsInt)) {
-                    airplaneFuelCapacity = fuelCapacityAsInt;
+            if (airplaneMap.find("fuel") != airplaneMap.end()) {
+                int fuelCapacityAsInt = 0;
+                if (tryCastStringToInt(airplaneMap.at("fuel"), &fuelCapacityAsInt) && fuelCapacityAsInt > 0) {
+                    airplaneFuelCapacity = static_cast<unsigned int>(fuelCapacityAsInt);
                 } else {
                     invalidAirplane = true;
-                    errorStream << objectName << ": 'fuel' attribute is not an unsigned integer. " << getRowAndColumnStr(object) << std::endl;
+                    errorStream << objectName << ": 'fuel' attribute is not an unsigned positive integer. " << getRowAndColumnStr(object) << std::endl;
                 }
             } else {
                 invalidAirplane = true;
                 errorStream << objectName << ": 'fuel' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
-            if (!airplaneMap["passengers"].empty()) {
-                unsigned int passengerCapacityAsInt;
-                if (tryCastStringToUnsignedInt(airplaneMap["passengers"], &passengerCapacityAsInt)) {
-                    airplanePassengerCapacity = passengerCapacityAsInt;
+            if (airplaneMap.find("passengers") != airplaneMap.end()) {
+                int passengerCapacityAsInt = 0;
+                if (tryCastStringToInt(airplaneMap.at("passengers"), &passengerCapacityAsInt) && passengerCapacityAsInt > 0) {
+                    airplanePassengerCapacity = static_cast<unsigned int>(passengerCapacityAsInt);
                 } else {
                     invalidAirplane = true;
-                    errorStream << objectName << ": 'passengers' attribute is not an unsigned integer. " << getRowAndColumnStr(object) << std::endl;
+                    errorStream << objectName << ": 'passengers' attribute is not an unsigned positive integer. " << getRowAndColumnStr(object) << std::endl;
                 }
             } else {
                 invalidAirplane = true;
                 errorStream << objectName << ": 'passengers' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
-            if (!airplaneMap["status"].empty()) {
-                AirplaneEnums::EStatus tempStatus = AirplaneEnums::StringToStatusEnum(airplaneMap["status"].c_str());
+            if (airplaneMap.find("status") != airplaneMap.end()) {
+                AirplaneEnums::EStatus tempStatus = AirplaneEnums::StringToStatusEnum(airplaneMap.at("status").c_str());
                 if (tempStatus == AirplaneEnums::kStatus_Approaching || tempStatus == AirplaneEnums::kStatus_StandingAtGate) {
                     airplaneStatus = tempStatus;
                 } else {
@@ -269,8 +280,8 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
                 errorStream << objectName << ": 'status' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
-            if (!airplaneMap["type"].empty()) {
-                AirplaneEnums::EType tempType = AirplaneEnums::StringToTypeEnum(airplaneMap["type"].c_str());
+            if (airplaneMap.find("type") != airplaneMap.end()) {
+                AirplaneEnums::EType tempType = AirplaneEnums::StringToTypeEnum(airplaneMap.at("type").c_str());
                 if (tempType != AirplaneEnums::kType_InvalidType) {
                     airplaneType = tempType;
                 } else {
@@ -282,8 +293,8 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
                 errorStream << objectName << ": 'type' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
-            if (!airplaneMap["size"].empty()) {
-                AirplaneEnums::ESize tempSize = AirplaneEnums::StringToSizeEnum(airplaneMap["size"].c_str());
+            if (airplaneMap.find("size") != airplaneMap.end()) {
+                AirplaneEnums::ESize tempSize = AirplaneEnums::StringToSizeEnum(airplaneMap.at("size").c_str());
                 if (tempSize != AirplaneEnums::kSize_InvalidSize) {
                     airplaneSize = tempSize;
                 } else {
@@ -295,8 +306,8 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
                 errorStream << objectName << ": 'size' required attribute is missing. " << getRowAndColumnStr(object) << std::endl;
             }
 
-            if (!airplaneMap["engine"].empty()) {
-                AirplaneEnums::EEngine tempType = AirplaneEnums::StringToEngineEnum(airplaneMap["engine"].c_str());
+            if (airplaneMap.find("engine") != airplaneMap.end()) {
+                AirplaneEnums::EEngine tempType = AirplaneEnums::StringToEngineEnum(airplaneMap.at("engine").c_str());
                 if (tempType != AirplaneEnums::kEngine_InvalidEngine) {
                     airplaneEngine = tempType;
                 } else {
@@ -375,7 +386,7 @@ std::pair<ParseEnum::EResult, std::map<std::string, Airport*> > Parser::parseFil
                 }
             }
 
-            if (offset == 0) {
+            if (offset == 00) {
                 errorStream << "Invalid airplane combination: " << airplane->getCallsign() << " (" << airplane->getNumber() << ") " << std::endl;
                 errorStream << "  Type: " << AirplaneEnums::EnumToString(airplaneType) << "  Size: " << AirplaneEnums::EnumToString(airplaneSize) << "  Engine: "
                             << AirplaneEnums::EnumToString(airplaneEngine) << std::endl;
@@ -406,11 +417,14 @@ std::map<std::string, std::string> Parser::convertXmlNodeToMap(TiXmlElement* obj
 
         if (elemChildElement == NULL) {
             if (elemChildNode != NULL) {
-                if (xmltomap[elemName].empty()) {
+                if (xmltomap.find(elemName) == xmltomap.end()) {
                     xmltomap[elemName] = elemChildNode->Value();
                 } else {
                     errorStream << object->Value() << ": Duplicate node found. " << getRowAndColumnStr(elem) << std::endl;
                 }
+            } else {
+                xmltomap[elemName] = "";
+                errorStream << object->Value() << ": Empty node found. " << getRowAndColumnStr(elem) << std::endl;
             }
         } else {
             if (elemName != "TAXIROUTE") {

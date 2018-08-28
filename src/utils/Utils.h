@@ -9,6 +9,9 @@
 #include <algorithm>
 #include <iostream>
 #include <fstream>
+#include <sys/stat.h>
+#include <cstdio>
+#include <fstream>
 #include <sstream>
 #include <map>
 
@@ -28,6 +31,14 @@ class Location;
 typedef std::vector<Location*> LocationVector;
 typedef std::map<std::string, Location*> LocationMap;
 
+bool DirectoryExists(const std::string dirname);
+
+bool FileExists(const std::string dirname);
+
+bool FileIsEmpty(const std::string filename);
+
+bool FileCompare(const std::string leftFileName, const std::string rightFileName);
+
 /**
  * Returns true if string only contains alphabetical characters (lower & uppercase), digits, or spaces
  * PRE:
@@ -35,14 +46,7 @@ typedef std::map<std::string, Location*> LocationMap;
  */
 bool isString(const std::string& str);
 
-/**
- * Returns true if string was succesfully cast, false if not.
- * If true, the referenced unsigned integer is the cast value.
- * PRE:
- * REQUIRE(i != NULL, "Referenced unsigned int was a NULLPTR");
- * REQUIRE(!str.empty(), "Referenced unsigned int was a NULLPTR");
- */
-bool tryCastStringToUnsignedInt(const std::string& str, unsigned int* i);
+bool tryCastStringToInt(const std::string& str, int* i);
 
 /**
  * Returns a string in the format of (row {ROW}, column {COLUMN}) of the referenced TiXmlElement \n
@@ -55,7 +59,21 @@ std::string getRowAndColumnStr(const TiXmlNode* node);
 
 std::string getRowAndColumnStr(const TiXmlText* text);
 
+std::string convertPartialNumbersToNATOAlphabet(const std::string& string);
+
 std::string convertToNATOAlphabet(const std::string& string);
+
+bool isRunwayCompatible(const Airplane* airplane, const Runway* runway);
+
+template<typename AType, typename BType>
+bool mapContains(std::map<AType, BType> map, AType key, BType element)
+{
+    if (map.find(key) != map.end()) {
+        return map.at(key) == element;
+    } else {
+        return false;
+    }
+}
 
 template<typename AType>
 bool vectorContains(std::vector<AType> vector, AType element)

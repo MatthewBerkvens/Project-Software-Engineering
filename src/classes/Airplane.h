@@ -141,8 +141,21 @@ private:
 
 public:
     /**
-     * PRE: \n
-     * ENSURE(properlyInitialized(), "Airplane was not properly initialized.");
+     * @param _number The Airplane number
+     * @param _callsign The Airplane callsign
+     * @param _model The Airplane model
+     * @param _squawk The Airplane starting squawk
+     * @param _altitude The Airplane starting altitude
+     * @param _fuel The Airplane starting fuel
+     * @param _fuelCapacity The Airplane starting fuel capacity
+     * @param _passengers The Airplane starting fuel
+     * @param _passengerCapacity The Airplane starting fuel
+     * @param _status The Airplane starting fuel
+     * @param _type The Airplane type
+     * @param _size The Airplane size
+     * @param _engine The Airplane engine
+     * POST: \n
+     * Airplane must be properly initialized
      */
     Airplane(const std::string& _number,
              const std::string& _callsign,
@@ -159,10 +172,11 @@ public:
              const AirplaneEnums::EEngine _engine);
 
     /**
+     * @param _airplane The Referenced airplane
      * PRE: \n
-     * REQUIRE(runway->properlyInitialized(), "Reference Airplane was not properly initialized."); \n
+     * Referenced Airplane must be properly initialized \n
      * POST: \n
-     * ENSURE(properlyInitialized(), "Airplane was not properly initialized.");
+     * New airplane must be properly initialized \n
      */
     explicit Airplane(const Airplane* _airplane);
 

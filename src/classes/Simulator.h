@@ -20,6 +20,7 @@ private:
 
     std::ostream& airTrafficController;
 
+    std::ostream& floorplanStream;
     std::ostream& outputStream;
     std::ostream& errorStream;
 
@@ -27,7 +28,7 @@ private:
 
     bool properlyInitialized() const;
 public:
-    Simulator(const Airport* _airport, std::ostream& _outputStream, std::ostream& _errorStream, std::ostream& _airTrafficControllerStream);
+    Simulator(const Airport* _airport, std::ostream& _outputStream, std::ostream& _errorStream, std::ostream& _airTrafficControllerStream, std::ostream& _floorplanStream);
 
     ~Simulator();
 
