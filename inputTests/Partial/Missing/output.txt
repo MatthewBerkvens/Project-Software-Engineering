@@ -1,0 +1,4 @@
+AIRPORT: 'gates' required attribute is missing. (row 1, column 1)
+RUNWAY: 'length' required attribute is missing. (row 7, column 1)
+RUNWAY: referenced airport does not exist, make sure to declare runways after the referenced airport. (row 7, column 1)
+AIRPLANE: 'passengers' required attribute is missing. (row 16, column 1)

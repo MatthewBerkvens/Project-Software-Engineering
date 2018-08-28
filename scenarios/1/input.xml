@@ -1,0 +1,50 @@
+<AIRPORT>
+    <name>Antwerp International Airport</name>
+    <iata>ANR</iata>
+    <callsign>Antwerp Tower</callsign>
+    <gates>4</gates>
+</AIRPORT>
+
+<RUNWAY>
+	<name>11R</name>
+	<airport>ANR</airport>
+	<type>asphalt</type>
+	<length>3010</length>
+	<TAXIROUTE>
+		<taxipoint>Alpha</taxipoint>
+	</TAXIROUTE>
+</RUNWAY>
+<RUNWAY>
+	<name>11L</name>
+	<airport>ANR</airport>
+	<type>grass</type>
+	<length>1010</length>
+	<TAXIROUTE>
+		<taxipoint>Alpha</taxipoint>
+		<taxipoint>11R</taxipoint>
+		<taxipoint>Bravo</taxipoint>
+	</TAXIROUTE>
+</RUNWAY>
+
+<AIRPLANE>
+	<number>N11842</number>
+	<callsign>Cessna 842</callsign>
+	<model>Cessna 340</model>
+	<type>private</type>
+	<engine>propeller</engine>
+	<size>small</size>
+    <fuel>1000</fuel>
+    <passengers>4</passengers>
+    <status>Approaching</status>
+</AIRPLANE>
+<AIRPLANE>
+	<number>BAW466</number>
+	<callsign>Speedbird 466</callsign>
+	<model>Boeing 747</model>
+	<type>airline</type>
+	<engine>jet</engine>
+	<size>large</size>
+    <fuel>50000</fuel>
+    <passengers>259</passengers>
+    <status>Approaching</status>
+</AIRPLANE>

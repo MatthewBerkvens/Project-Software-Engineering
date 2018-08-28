@@ -1,0 +1,160 @@
+[Monday 12:00] Speedbird 466 is approaching
+[Monday 12:00] Cessna 842 is approaching
+
+
+[Monday 12:03] Speedbird 466 has begun its descent to 5000 ft.
+
+[Monday 12:04] Speedbird 466 descended to 9000 ft.
+
+[Monday 12:05] Speedbird 466 descended to 8000 ft.
+
+[Monday 12:06] Speedbird 466 descended to 7000 ft.
+
+[Monday 12:07] Speedbird 466 descended to 6000 ft.
+
+[Monday 12:08] Speedbird 466 descended to 5000 ft.
+
+[Monday 12:09] Speedbird 466 has begun its descent to 3000 ft.
+
+[Monday 12:10] Speedbird 466 descended to 4000 ft.
+[Monday 12:10] Cessna 842 has begun its descent to 5000 ft.
+
+[Monday 12:11] Speedbird 466 descended to 3000 ft.
+
+[Monday 12:12] Speedbird 466 has begun its final approach to runway 11R at Antwerp International Airport.
+[Monday 12:12] Cessna 842 descended to 9000 ft.
+
+[Monday 12:13] Speedbird 466 has descended to 2000 ft
+
+[Monday 12:14] Speedbird 466 has descended to 1000 ft
+[Monday 12:14] Cessna 842 descended to 8000 ft.
+
+[Monday 12:15] Speedbird 466 has descended to 0 ft
+
+[Monday 12:16] Cessna 842 descended to 7000 ft.
+
+[Monday 12:17] Speedbird 466 has landed on runway 11R
+
+[Monday 12:18] Speedbird 466 has vacated runway 11R
+[Monday 12:18] Cessna 842 descended to 6000 ft.
+
+
+[Monday 12:20] Cessna 842 descended to 5000 ft.
+
+[Monday 12:21] Cessna 842 has begun its descent to 3000 ft.
+
+
+[Monday 12:23] Speedbird 466 has entered gate 1
+[Monday 12:23] Cessna 842 descended to 4000 ft.
+
+
+[Monday 12:25] Cessna 842 descended to 3000 ft.
+
+[Monday 12:26] Cessna 842 has begun its final approach to runway 11L at Antwerp International Airport.
+
+
+[Monday 12:28] Cessna 842 has descended to 2000 ft
+
+
+[Monday 12:30] Cessna 842 has descended to 1000 ft
+
+
+[Monday 12:32] Cessna 842 has descended to 0 ft
+
+
+[Monday 12:34] Cessna 842 has landed on runway 11L
+
+[Monday 12:35] Cessna 842 has vacated runway 11L
+
+
+
+[Monday 12:38] 259 passengers exited Speedbird 466 at gate 1 of Antwerp International Airport
+
+
+[Monday 12:40] Cessna 842 is now on taxipoint Alpha
+
+[Monday 12:41] Speedbird 466 has been checked for technical malfunctions
+
+[Monday 12:42] Speedbird 466 has been refueled (4250 units)
+
+
+
+
+
+[Monday 12:47] Cessna 842 has entered gate 2
+
+
+
+
+
+[Monday 12:52] 4 passengers exited Cessna 842 at gate 2 of Antwerp International Airport
+
+[Monday 12:53] Cessna 842 has been checked for technical malfunctions
+
+[Monday 12:54] Cessna 842 has been refueled (340 units)
+
+
+
+[Monday 12:57] 259 passengers boarded Speedbird 466 at gate 1 of Antwerp International Airport
+
+
+[Monday 12:59] 4 passengers boarded Cessna 842 at gate 2 of Antwerp International Airport
+
+
+
+
+[Monday 13:03] Speedbird 466 is pushing back from gate 1
+
+
+[Monday 13:05] Speedbird 466 succesfully pushed back from gate 1
+[Monday 13:05] Cessna 842 is pushing back from gate 2
+[Monday 13:05] Cessna 842 succesfully pushed back from gate 2
+
+
+
+
+
+
+
+[Monday 13:12] Speedbird 466 is holding short at runway 11R
+
+[Monday 13:13] Cessna 842 is now on taxipoint Bravo
+
+[Monday 13:14] Speedbird 466 is now lining up on runway 11R
+
+[Monday 13:15] Speedbird 466 has lined up on runway 11R
+
+
+[Monday 13:17] Speedbird 466 is taking off
+
+
+[Monday 13:19] Speedbird 466 has taken off from runway 11R
+[Monday 13:19] Cessna 842 is holding short at runway 11L
+
+[Monday 13:20] Speedbird 466 ascended to 1000 ft.
+[Monday 13:20] Cessna 842 is now lining up on runway 11L
+
+[Monday 13:21] Speedbird 466 ascended to 2000 ft.
+[Monday 13:21] Cessna 842 has lined up on runway 11L
+
+[Monday 13:22] Speedbird 466 ascended to 3000 ft.
+
+[Monday 13:23] Speedbird 466 ascended to 4000 ft.
+[Monday 13:23] Cessna 842 is taking off
+
+[Monday 13:24] Speedbird 466 ascended to 5000 ft. and has left Antwerp International Airport
+
+
+[Monday 13:26] Cessna 842 has taken off from runway 11L
+
+
+[Monday 13:28] Cessna 842 ascended to 1000 ft.
+
+[Monday 13:29] Cessna 842 ascended to 2000 ft.
+
+[Monday 13:30] Cessna 842 ascended to 3000 ft.
+
+[Monday 13:31] Cessna 842 ascended to 4000 ft.
+
+[Monday 13:32] Cessna 842 ascended to 5000 ft. and has left Antwerp International Airport
+

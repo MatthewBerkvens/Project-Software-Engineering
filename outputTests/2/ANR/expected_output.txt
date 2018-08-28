@@ -1,0 +1,247 @@
+[Monday 12:00] Military Large Propeller is standing at gate 1
+[Monday 12:00] Airline Medium Jet is approaching
+[Monday 12:00] Airline Medium Propeller is approaching
+[Monday 12:00] Airline Medium Propeller is approaching
+[Monday 12:00] Emergency Small Propeller is standing at gate 2
+
+
+[Monday 12:03] Airline Medium Jet has begun its descent to 5000 ft.
+
+[Monday 12:04] Airline Medium Jet descended to 9000 ft.
+
+[Monday 12:05] Airline Medium Jet descended to 8000 ft.
+
+[Monday 12:06] Emergency Small Propeller is pushing back from gate 2
+[Monday 12:06] Emergency Small Propeller succesfully pushed back from gate 2
+[Monday 12:06] Military Large Propeller is pushing back from gate 1
+[Monday 12:06] Airline Medium Jet descended to 7000 ft.
+
+[Monday 12:07] Airline Medium Jet descended to 6000 ft.
+
+[Monday 12:08] Military Large Propeller succesfully pushed back from gate 1
+[Monday 12:08] Airline Medium Jet descended to 5000 ft.
+
+[Monday 12:09] Airline Medium Jet has begun its descent to 3000 ft.
+
+[Monday 12:10] Airline Medium Jet descended to 4000 ft.
+[Monday 12:10] Airline Medium Propeller has begun its descent to 5000 ft.
+
+[Monday 12:11] Airline Medium Jet descended to 3000 ft.
+
+[Monday 12:12] Airline Medium Jet is flying in a waiting pattern at 3000 ft.
+[Monday 12:12] Airline Medium Propeller descended to 9000 ft.
+
+
+[Monday 12:14] Airline Medium Propeller descended to 8000 ft.
+
+[Monday 12:15] Military Large Propeller is holding short at runway 11R
+
+[Monday 12:16] Airline Medium Propeller descended to 7000 ft.
+
+
+[Monday 12:18] Airline Medium Propeller descended to 6000 ft.
+
+
+[Monday 12:20] Airline Medium Propeller descended to 5000 ft.
+
+[Monday 12:21] Airline Medium Propeller is flying in a waiting pattern at 5000 ft.
+
+
+
+[Monday 12:24] Airline Medium Propeller is making an emergency landing on 11R
+
+
+[Monday 12:26] Airline Medium Propeller has successfully performed an emergency landed on runway 11R
+
+[Monday 12:27] Emergency Small Propeller is now on taxipoint Bravo
+
+
+
+
+
+
+[Monday 12:33] Emergency Small Propeller is holding short at runway 11L
+
+[Monday 12:34] 259 passengers evacuated Airline Medium Propeller after an emergency landing on runway 11R
+[Monday 12:34] Emergency Small Propeller is now lining up on runway 11L
+
+[Monday 12:35] Emergency Small Propeller has lined up on runway 11L
+
+[Monday 12:36] Airline Medium Propeller has been checked for technical malfunctions after an emergency landing on runway 11R
+
+[Monday 12:37] Airline Medium Propeller has been refueled (200 units) after an emergency landing on runway 11R
+[Monday 12:37] Emergency Small Propeller is taking off
+
+[Monday 12:38] Airline Medium Propeller has vacated runway 11R
+
+[Monday 12:39] Military Large Propeller is now lining up on runway 11R
+
+[Monday 12:40] Emergency Small Propeller has taken off from runway 11L
+[Monday 12:40] Military Large Propeller has lined up on runway 11R
+
+
+[Monday 12:42] Emergency Small Propeller ascended to 1000 ft.
+[Monday 12:42] Military Large Propeller is taking off
+
+[Monday 12:43] Emergency Small Propeller ascended to 2000 ft.
+
+[Monday 12:44] Emergency Small Propeller ascended to 3000 ft.
+[Monday 12:44] Airline Medium Propeller has entered gate 1
+
+[Monday 12:45] Emergency Small Propeller ascended to 4000 ft.
+[Monday 12:45] Military Large Propeller has taken off from runway 11R
+
+[Monday 12:46] Emergency Small Propeller ascended to 5000 ft. and has left Antwerp International Airport
+[Monday 12:46] Airline Medium Jet has begun its final approach to runway 11R at Antwerp International Airport.
+[Monday 12:46] Airline Medium Propeller has begun its descent to 3000 ft
+
+[Monday 12:47] Military Large Propeller ascended to 1000 ft.
+[Monday 12:47] Airline Medium Jet has descended to 2000 ft
+
+[Monday 12:48] Military Large Propeller ascended to 2000 ft.
+[Monday 12:48] Airline Medium Jet has descended to 1000 ft
+[Monday 12:48] Airline Medium Propeller descended to 4000 ft.
+
+[Monday 12:49] Military Large Propeller ascended to 3000 ft.
+[Monday 12:49] Airline Medium Jet has descended to 0 ft
+
+[Monday 12:50] Military Large Propeller ascended to 4000 ft.
+[Monday 12:50] Airline Medium Propeller descended to 3000 ft.
+
+[Monday 12:51] Military Large Propeller ascended to 5000 ft. and has left Antwerp International Airport
+[Monday 12:51] Airline Medium Jet has landed on runway 11R
+[Monday 12:51] Airline Medium Propeller is flying in a waiting pattern at 3000 ft.
+
+[Monday 12:52] Airline Medium Jet has vacated runway 11R
+
+[Monday 12:53] Airline Medium Propeller has begun its final approach to runway 11R at Antwerp International Airport.
+
+[Monday 12:54] 0 passengers exited Airline Medium Propeller at gate 1 of Antwerp International Airport
+
+[Monday 12:55] Airline Medium Propeller has descended to 2000 ft
+
+[Monday 12:56] Airline Medium Propeller has been checked for technical malfunctions
+
+[Monday 12:57] Airline Medium Jet has entered gate 2
+[Monday 12:57] Airline Medium Propeller has descended to 1000 ft
+[Monday 12:57] Airline Medium Propeller has been refueled (0 units)
+
+
+[Monday 12:59] Airline Medium Propeller has descended to 0 ft
+
+
+[Monday 13:01] Airline Medium Propeller has landed on runway 11R
+
+[Monday 13:02] Airline Medium Propeller has vacated runway 11R
+
+
+
+
+
+[Monday 13:07] 259 passengers exited Airline Medium Jet at gate 2 of Antwerp International Airport
+[Monday 13:07] 259 passengers boarded Airline Medium Propeller at gate 1 of Antwerp International Airport
+
+
+[Monday 13:09] Airline Medium Jet has been checked for technical malfunctions
+
+[Monday 13:10] Airline Medium Jet has been refueled (8925 units)
+
+
+
+[Monday 13:13] Airline Medium Propeller is pushing back from gate 1
+
+[Monday 13:14] Airline Medium Propeller succesfully pushed back from gate 1
+
+
+[Monday 13:16] Airline Medium Propeller has entered gate 1
+
+
+
+
+[Monday 13:20] 259 passengers boarded Airline Medium Jet at gate 2 of Antwerp International Airport
+
+[Monday 13:21] Airline Medium Propeller is holding short at runway 11R
+
+[Monday 13:22] Airline Medium Propeller is now lining up on runway 11R
+
+[Monday 13:23] Airline Medium Propeller has lined up on runway 11R
+
+
+[Monday 13:25] Airline Medium Propeller is taking off
+
+[Monday 13:26] Airline Medium Jet is pushing back from gate 2
+[Monday 13:26] 259 passengers exited Airline Medium Propeller at gate 1 of Antwerp International Airport
+
+[Monday 13:27] Airline Medium Jet succesfully pushed back from gate 2
+
+[Monday 13:28] Airline Medium Propeller has been checked for technical malfunctions
+[Monday 13:28] Airline Medium Propeller has taken off from runway 11R
+
+[Monday 13:29] Airline Medium Propeller has been refueled (3050 units)
+
+[Monday 13:30] Airline Medium Propeller ascended to 0 ft.
+
+[Monday 13:31] Airline Medium Propeller ascended to 1000 ft.
+
+[Monday 13:32] Airline Medium Propeller ascended to 2000 ft.
+
+[Monday 13:33] Airline Medium Propeller ascended to 3000 ft.
+
+[Monday 13:34] Airline Medium Jet is holding short at runway 11R
+[Monday 13:34] Airline Medium Propeller ascended to 4000 ft.
+
+[Monday 13:35] Airline Medium Jet is now lining up on runway 11R
+[Monday 13:35] Airline Medium Propeller ascended to 5000 ft. and has left Antwerp International Airport
+
+[Monday 13:36] Airline Medium Jet has lined up on runway 11R
+
+
+[Monday 13:38] Airline Medium Jet is taking off
+
+[Monday 13:39] 259 passengers boarded Airline Medium Propeller at gate 1 of Antwerp International Airport
+
+[Monday 13:40] Airline Medium Jet has taken off from runway 11R
+
+[Monday 13:41] Airline Medium Jet ascended to 1000 ft.
+
+[Monday 13:42] Airline Medium Jet ascended to 2000 ft.
+
+[Monday 13:43] Airline Medium Jet ascended to 3000 ft.
+
+[Monday 13:44] Airline Medium Jet ascended to 4000 ft.
+
+[Monday 13:45] Airline Medium Jet ascended to 5000 ft. and has left Antwerp International Airport
+[Monday 13:45] Airline Medium Propeller is pushing back from gate 1
+
+[Monday 13:46] Airline Medium Propeller succesfully pushed back from gate 1
+
+
+
+
+
+
+
+[Monday 13:53] Airline Medium Propeller is holding short at runway 11R
+
+[Monday 13:54] Airline Medium Propeller is now lining up on runway 11R
+
+[Monday 13:55] Airline Medium Propeller has lined up on runway 11R
+
+
+[Monday 13:57] Airline Medium Propeller is taking off
+
+
+
+[Monday 14:00] Airline Medium Propeller has taken off from runway 11R
+
+
+[Monday 14:02] Airline Medium Propeller ascended to 1000 ft.
+
+[Monday 14:03] Airline Medium Propeller ascended to 2000 ft.
+
+[Monday 14:04] Airline Medium Propeller ascended to 3000 ft.
+
+[Monday 14:05] Airline Medium Propeller ascended to 4000 ft.
+
+[Monday 14:06] Airline Medium Propeller ascended to 5000 ft. and has left Antwerp International Airport
+

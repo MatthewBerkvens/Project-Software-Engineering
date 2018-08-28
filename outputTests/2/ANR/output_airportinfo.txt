@@ -1,0 +1,5 @@
+Airport: Antwerp International Airport (ANR)
+ -> gates: 2
+ -> runways: 2
+    ~ Runway 11L: 3000m, Grass
+    ~ Runway 11R: 3000m, Asphalt

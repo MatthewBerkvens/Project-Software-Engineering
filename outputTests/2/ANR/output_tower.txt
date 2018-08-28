@@ -1,0 +1,350 @@
+[Monday 12:01][N2385]
+$ Antwerp Tower, Emergency Small Propeller, requesting IFR clearancy to <my destination - no flightplan implemented>.
+[Monday 12:01][N11200]
+$ Antwerp Tower, Military Large Propeller, requesting IFR clearancy to <my destination - no flightplan implemented>.
+[Monday 12:01][N11823]
+$ Antwerp Tower, Airline Medium Jet, arriving at Antwerp International Airport.
+[Monday 12:01][N11843]
+$ Antwerp Tower, Airline Medium Propeller, arriving at Antwerp International Airport.
+[Monday 12:01][N11842]
+$ Antwerp Tower, Airline Medium Propeller, arriving at Antwerp International Airport.
+
+[Monday 12:02][ANR]
+$ Emergency Small Propeller, Antwerp Tower, cleared to <your destination - no flightplan implemented>, maintain five thousand, expect flight level one zero zero - ten minutes after departure, squawk 6004.
+[Monday 12:02][ANR]
+$ Military Large Propeller, Antwerp Tower, cleared to <your destination - no flightplan implemented>, maintain five thousand, expect flight level one zero zero - ten minutes after departure, squawk 5000.
+[Monday 12:02][ANR]
+$ Airline Medium Jet, radar contact, descend and maintain five thousand feet, squawk 3001.
+
+[Monday 12:03][N2385]
+$ Cleared to <my destination - no flightplan implemented>, initial altitude five thousand, expecting one zero zero in ten, squawking 6004.
+[Monday 12:03][N11200]
+$ Cleared to <my destination - no flightplan implemented>, initial altitude five thousand, expecting one zero zero in ten, squawking 5000.
+[Monday 12:03][N11823]
+$ Descend and maintain five thousand feet, squawking 3001, Airline Medium Jet.
+
+[Monday 12:04][N2385]
+$ Antwerp Tower, Emergency Small Propeller, at gate 2, requesting pushback.
+[Monday 12:04][N11200]
+$ Antwerp Tower, Military Large Propeller, at gate 1, requesting pushback.
+[Monday 12:04][N11842]
+$ Mayday mayday mayday, Antwerp Tower, Airline Medium Propeller, out of fuel, request immediate landing, 259 passengers on board.
+
+[Monday 12:05][ANR]
+$ Airline Medium Propeller roger mayday, squawk seven seven zero zero, cleared ILS landing runway 11R.
+[Monday 12:05][ANR]
+$ Emergency Small Propeller, Antwerp Tower, pushback approved.
+[Monday 12:05][ANR]
+$ Military Large Propeller, Antwerp Tower, pushback approved.
+
+[Monday 12:06][ANR]
+$ Airline Medium Propeller, emergency personel on standby, good luck!
+[Monday 12:06][N2385]
+$ Pushback approved, Emergency Small Propeller.
+[Monday 12:06][N11200]
+$ Pushback approved, Military Large Propeller.
+
+[Monday 12:07][N2385]
+$ Emergency Small Propeller is ready to taxi.
+
+[Monday 12:08][N2385]
+$ Taxi to holding point 11R via Alpha.
+[Monday 12:08][ANR]
+$ Airline Medium Jet, descend and maintain three thousand feet.
+
+[Monday 12:09][N11200]
+$ Military Large Propeller is ready to taxi.
+[Monday 12:09][N11823]
+$ Descend and maintain three thousand feet, Airline Medium Jet.
+[Monday 12:09][ANR]
+$ Airline Medium Propeller, radar contact, descend and maintain five thousand feet, squawk 2003.
+
+[Monday 12:10][ANR]
+$ Military Large Propeller, taxi to runway 11R via Alpha.
+[Monday 12:10][N11843]
+$ Descend and maintain five thousand feet, squawking 2003, Airline Medium Propeller.
+
+[Monday 12:11][N11200]
+$ Taxi to runway 11R via Alpha, Military Large Propeller.
+[Monday 12:11][ANR]
+$ Airline Medium Jet, hold south on the one eighty radial, expect further clearance in 5 minutes.
+
+[Monday 12:12][N2385]
+$ Antwerp Tower, Emergency Small Propeller, holding short at 11R.
+[Monday 12:12][N11823]
+$ Holding south on the one eighty radial, Airline Medium Jet.
+
+[Monday 12:13][ANR]
+$ Emergency Small Propeller, hold position.
+
+[Monday 12:14][N2385]
+$ Holding position, Emergency Small Propeller.
+
+[Monday 12:15][N11200]
+$ Antwerp Tower, Military Large Propeller, holding short at 11R.
+
+
+
+
+
+[Monday 12:20][ANR]
+$ Airline Medium Propeller, hold south on the one eighty radial, expect further clearance in 3 minutes.
+
+[Monday 12:21][N11843]
+$ Holding south on the one eighty radial, Airline Medium Propeller.
+
+
+
+
+
+[Monday 12:26][ANR]
+$ Emergency Small Propeller, cleared to cross 11R.
+
+[Monday 12:27][N2385]
+$ Cleared to cross 11R, Emergency Small Propeller.
+
+[Monday 12:28][ANR]
+$ Emergency Small Propeller, taxi to runway 11L via Bravo.
+
+[Monday 12:29][N2385]
+$ Taxi to runway 11L via Bravo, Emergency Small Propeller.
+
+
+
+
+[Monday 12:33][N2385]
+$ Antwerp Tower, Emergency Small Propeller, holding short at 11L.
+
+[Monday 12:34][ANR]
+$ Emergency Small Propeller, line-up at runway 11L and wait.
+
+[Monday 12:35][N2385]
+$ Antwerp Tower, Emergency Small Propeller, finished line-up at 11L and ready for take off.
+
+[Monday 12:36][ANR]
+$ Emergency Small Propeller, runway 11L cleared for take-off.
+
+[Monday 12:37][N2385]
+$ Runway 11L cleared for take-off, Emergency Small Propeller.
+
+[Monday 12:38][N11842]
+$ Antwerp Tower, Airline Medium Propeller runway 11R vacated.
+
+[Monday 12:39][ANR]
+$ Military Large Propeller, line-up at runway 11R and wait.
+[Monday 12:39][N11842]
+$ Taxi to apron via Alpha, Airline Medium Propeller.
+
+[Monday 12:40][N11200]
+$ Antwerp Tower, Military Large Propeller, finished line-up at 11R and ready for take off.
+
+[Monday 12:41][ANR]
+$ Military Large Propeller, runway 11R cleared for take-off.
+
+[Monday 12:42][N11200]
+$ Runway 11R cleared for take-off, Military Large Propeller.
+
+[Monday 12:43][ANR]
+$ Airline Medium Propeller, taxi to gate 1.
+
+[Monday 12:44][N11842]
+$ Taxi to gate 1, Airline Medium Propeller.
+
+[Monday 12:45][ANR]
+$ Airline Medium Jet, cleared ILS approach runway 11R.
+[Monday 12:45][ANR]
+$ Airline Medium Propeller, descend and maintain three thousand feet.
+
+[Monday 12:46][N11823]
+$ Cleared ILS approach runway 11R, Airline Medium Jet.
+[Monday 12:46][N11843]
+$ Descend and maintain three thousand feet, Airline Medium Propeller.
+
+
+
+
+[Monday 12:50][ANR]
+$ Airline Medium Propeller, hold south on the one eighty radial, expect further clearance in 5 minutes.
+
+[Monday 12:51][N11843]
+$ Holding south on the one eighty radial, Airline Medium Propeller.
+
+[Monday 12:52][N11823]
+$ Antwerp Tower, Airline Medium Jet runway 11R vacated.
+[Monday 12:52][ANR]
+$ Airline Medium Propeller, cleared ILS approach runway 11R.
+
+[Monday 12:53][N11823]
+$ Taxi to apron via Alpha, Airline Medium Jet.
+[Monday 12:53][N11843]
+$ Cleared ILS approach runway 11R, Airline Medium Propeller.
+
+
+
+[Monday 12:56][ANR]
+$ Airline Medium Jet, taxi to gate 2.
+
+[Monday 12:57][N11823]
+$ Taxi to gate 2, Airline Medium Jet.
+
+
+
+
+
+[Monday 13:02][N11843]
+$ Antwerp Tower, Airline Medium Propeller runway 11R vacated.
+
+[Monday 13:03][N11843]
+$ Taxi to apron via Alpha, Airline Medium Propeller.
+
+
+
+
+
+[Monday 13:08][N11842]
+$ Antwerp Tower, Airline Medium Propeller, requesting IFR clearancy to <my destination - no flightplan implemented>.
+
+[Monday 13:09][ANR]
+$ Airline Medium Propeller, Antwerp Tower, cleared to <your destination - no flightplan implemented>, maintain five thousand, expect flight level one zero zero - ten minutes after departure, squawk 2002.
+
+[Monday 13:10][N11842]
+$ Cleared to <my destination - no flightplan implemented>, initial altitude five thousand, expecting one zero zero in ten, squawking 2002.
+
+[Monday 13:11][N11842]
+$ Antwerp Tower, Airline Medium Propeller, at gate 1, requesting pushback.
+
+[Monday 13:12][ANR]
+$ Airline Medium Propeller, Antwerp Tower, pushback approved.
+
+[Monday 13:13][N11842]
+$ Pushback approved, Airline Medium Propeller.
+
+
+[Monday 13:15][ANR]
+$ Airline Medium Propeller, taxi to gate 1.
+[Monday 13:15][N11842]
+$ Airline Medium Propeller is ready to taxi.
+
+[Monday 13:16][N11843]
+$ Taxi to gate 1, Airline Medium Propeller.
+[Monday 13:16][ANR]
+$ Airline Medium Propeller, taxi to runway 11R via Alpha.
+
+[Monday 13:17][N11842]
+$ Taxi to runway 11R via Alpha, Airline Medium Propeller.
+
+
+
+
+[Monday 13:21][N11823]
+$ Antwerp Tower, Airline Medium Jet, requesting IFR clearancy to <my destination - no flightplan implemented>.
+[Monday 13:21][N11842]
+$ Antwerp Tower, Airline Medium Propeller, holding short at 11R.
+
+[Monday 13:22][ANR]
+$ Airline Medium Jet, Antwerp Tower, cleared to <your destination - no flightplan implemented>, maintain five thousand, expect flight level one zero zero - ten minutes after departure, squawk 3001.
+[Monday 13:22][ANR]
+$ Airline Medium Propeller, line-up at runway 11R and wait.
+
+[Monday 13:23][N11823]
+$ Cleared to <my destination - no flightplan implemented>, initial altitude five thousand, expecting one zero zero in ten, squawking 3001.
+[Monday 13:23][N11842]
+$ Antwerp Tower, Airline Medium Propeller, finished line-up at 11R and ready for take off.
+
+[Monday 13:24][N11823]
+$ Antwerp Tower, Airline Medium Jet, at gate 2, requesting pushback.
+[Monday 13:24][ANR]
+$ Airline Medium Propeller, runway 11R cleared for take-off.
+
+[Monday 13:25][ANR]
+$ Airline Medium Jet, Antwerp Tower, pushback approved.
+[Monday 13:25][N11842]
+$ Runway 11R cleared for take-off, Airline Medium Propeller.
+
+[Monday 13:26][N11823]
+$ Pushback approved, Airline Medium Jet.
+
+
+[Monday 13:28][N11823]
+$ Airline Medium Jet is ready to taxi.
+
+[Monday 13:29][ANR]
+$ Airline Medium Jet, taxi to runway 11R via Alpha.
+
+[Monday 13:30][N11823]
+$ Taxi to runway 11R via Alpha, Airline Medium Jet.
+
+
+
+
+[Monday 13:34][N11823]
+$ Antwerp Tower, Airline Medium Jet, holding short at 11R.
+
+[Monday 13:35][ANR]
+$ Airline Medium Jet, line-up at runway 11R and wait.
+
+[Monday 13:36][N11823]
+$ Antwerp Tower, Airline Medium Jet, finished line-up at 11R and ready for take off.
+
+[Monday 13:37][ANR]
+$ Airline Medium Jet, runway 11R cleared for take-off.
+
+[Monday 13:38][N11823]
+$ Runway 11R cleared for take-off, Airline Medium Jet.
+
+
+[Monday 13:40][N11843]
+$ Antwerp Tower, Airline Medium Propeller, requesting IFR clearancy to <my destination - no flightplan implemented>.
+
+[Monday 13:41][ANR]
+$ Airline Medium Propeller, Antwerp Tower, cleared to <your destination - no flightplan implemented>, maintain five thousand, expect flight level one zero zero - ten minutes after departure, squawk 2003.
+
+[Monday 13:42][N11843]
+$ Cleared to <my destination - no flightplan implemented>, initial altitude five thousand, expecting one zero zero in ten, squawking 2003.
+
+[Monday 13:43][N11843]
+$ Antwerp Tower, Airline Medium Propeller, at gate 1, requesting pushback.
+
+[Monday 13:44][ANR]
+$ Airline Medium Propeller, Antwerp Tower, pushback approved.
+
+[Monday 13:45][N11843]
+$ Pushback approved, Airline Medium Propeller.
+
+
+[Monday 13:47][N11843]
+$ Airline Medium Propeller is ready to taxi.
+
+[Monday 13:48][ANR]
+$ Airline Medium Propeller, taxi to runway 11R via Alpha.
+
+[Monday 13:49][N11843]
+$ Taxi to runway 11R via Alpha, Airline Medium Propeller.
+
+
+
+
+[Monday 13:53][N11843]
+$ Antwerp Tower, Airline Medium Propeller, holding short at 11R.
+
+[Monday 13:54][ANR]
+$ Airline Medium Propeller, line-up at runway 11R and wait.
+
+[Monday 13:55][N11843]
+$ Antwerp Tower, Airline Medium Propeller, finished line-up at 11R and ready for take off.
+
+[Monday 13:56][ANR]
+$ Airline Medium Propeller, runway 11R cleared for take-off.
+
+[Monday 13:57][N11843]
+$ Runway 11R cleared for take-off, Airline Medium Propeller.
+
+
+
+
+
+
+
+
+
+

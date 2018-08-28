@@ -1,0 +1,11 @@
+Airplane: Cessna 842 (N11842) 
+ -> model: Cessna 340
+ -> squawk: 2
+ -> altitude: 10000
+ -> fuel: 1000/1000 consumption: 10
+ -> passengers: 4/4
+ -> status: Approaching
+ -> type: Private
+ -> size: Small
+ -> engine: Propeller
+
