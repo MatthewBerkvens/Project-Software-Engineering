@@ -62,6 +62,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -91,78 +92,1274 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6e9865296aab29401fbcabb7c5ace4a3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6e9865296aab29401fbcabb7c5ace4a3"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a6e9865296aab29401fbcabb7c5ace4a3">Airplane</a> (const std::string &amp;_number, const std::string &amp;_callsign, const std::string &amp;_model, AirplaneEnums::EStatus _status=AirplaneEnums::kInvalidStatus)</td></tr>
-<tr class="memdesc:a6e9865296aab29401fbcabb7c5ace4a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-ENSURE(properlyInitialized(), "Airplane was not properly initialized.");. <br /></td></tr>
-<tr class="separator:a6e9865296aab29401fbcabb7c5ace4a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23a9ff56fa01d797950e63f8d237e706"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a23a9ff56fa01d797950e63f8d237e706"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a23a9ff56fa01d797950e63f8d237e706">Airplane</a> (const <a class="el" href="classAirplane.html">Airplane</a> *_airplane)</td></tr>
-<tr class="memdesc:a23a9ff56fa01d797950e63f8d237e706"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(runway-&gt;properlyInitialized(), "Reference Airplane was not properly initialized."); <br />
-POST: <br />
-ENSURE(properlyInitialized(), "Airplane was not properly initialized.");. <br /></td></tr>
+<tr class="memitem:a7dbd6bb4bc61fffc522e3cb3859e865b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a7dbd6bb4bc61fffc522e3cb3859e865b">Airplane</a> (const std::string &amp;_number, const std::string &amp;_callsign, const std::string &amp;_model, unsigned int _squawk, const unsigned int _altitude, const unsigned int _fuel, const unsigned int _fuelCapacity, const unsigned int _passengers, const unsigned int _passengerCapacity, const AirplaneEnums::EStatus _status, const AirplaneEnums::EType _type, const AirplaneEnums::ESize _size, const AirplaneEnums::EEngine _engine)</td></tr>
+<tr class="memdesc:a7dbd6bb4bc61fffc522e3cb3859e865b"><td class="mdescLeft">&#160;</td><td class="mdescRight">POST: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized.  <a href="#a7dbd6bb4bc61fffc522e3cb3859e865b">More...</a><br /></td></tr>
+<tr class="separator:a7dbd6bb4bc61fffc522e3cb3859e865b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23a9ff56fa01d797950e63f8d237e706"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a23a9ff56fa01d797950e63f8d237e706">Airplane</a> (const <a class="el" href="classAirplane.html">Airplane</a> *_airplane)</td></tr>
 <tr class="separator:a23a9ff56fa01d797950e63f8d237e706"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47215b95b2820db26e6333386bfd2e00"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a47215b95b2820db26e6333386bfd2e00"></a>
-const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a47215b95b2820db26e6333386bfd2e00">getNumber</a> () const </td></tr>
-<tr class="memdesc:a47215b95b2820db26e6333386bfd2e00"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");. <br /></td></tr>
+<tr class="memitem:a47215b95b2820db26e6333386bfd2e00"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a47215b95b2820db26e6333386bfd2e00">getNumber</a> () const </td></tr>
+<tr class="memdesc:a47215b95b2820db26e6333386bfd2e00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#a47215b95b2820db26e6333386bfd2e00">More...</a><br /></td></tr>
 <tr class="separator:a47215b95b2820db26e6333386bfd2e00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0db2c151a649c4d719ac8a7ea3be190d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0db2c151a649c4d719ac8a7ea3be190d"></a>
-const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a0db2c151a649c4d719ac8a7ea3be190d">getCallsign</a> () const </td></tr>
-<tr class="memdesc:a0db2c151a649c4d719ac8a7ea3be190d"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");. <br /></td></tr>
+<tr class="memitem:a0db2c151a649c4d719ac8a7ea3be190d"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a0db2c151a649c4d719ac8a7ea3be190d">getCallsign</a> () const </td></tr>
+<tr class="memdesc:a0db2c151a649c4d719ac8a7ea3be190d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#a0db2c151a649c4d719ac8a7ea3be190d">More...</a><br /></td></tr>
 <tr class="separator:a0db2c151a649c4d719ac8a7ea3be190d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25c7474fc7a4da15bb4aeec4fc995c10"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a25c7474fc7a4da15bb4aeec4fc995c10"></a>
-const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a25c7474fc7a4da15bb4aeec4fc995c10">getModel</a> () const </td></tr>
-<tr class="memdesc:a25c7474fc7a4da15bb4aeec4fc995c10"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");. <br /></td></tr>
+<tr class="memitem:a25c7474fc7a4da15bb4aeec4fc995c10"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a25c7474fc7a4da15bb4aeec4fc995c10">getModel</a> () const </td></tr>
+<tr class="memdesc:a25c7474fc7a4da15bb4aeec4fc995c10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#a25c7474fc7a4da15bb4aeec4fc995c10">More...</a><br /></td></tr>
 <tr class="separator:a25c7474fc7a4da15bb4aeec4fc995c10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49e8600d8c8a09396665d3d43bf9f017"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a49e8600d8c8a09396665d3d43bf9f017"></a>
-AirplaneEnums::EStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a49e8600d8c8a09396665d3d43bf9f017">getStatus</a> () const </td></tr>
-<tr class="memdesc:a49e8600d8c8a09396665d3d43bf9f017"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");. <br /></td></tr>
+<tr class="memitem:a0381d297609801e1b0883680cb00226f"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a0381d297609801e1b0883680cb00226f">getSquawk</a> () const </td></tr>
+<tr class="memdesc:a0381d297609801e1b0883680cb00226f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#a0381d297609801e1b0883680cb00226f">More...</a><br /></td></tr>
+<tr class="separator:a0381d297609801e1b0883680cb00226f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e837d4fb9aa4b9034e55ef2db049dc1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a5e837d4fb9aa4b9034e55ef2db049dc1">setSquawk</a> (const unsigned int _squawk)</td></tr>
+<tr class="memdesc:a5e837d4fb9aa4b9034e55ef2db049dc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+The new squawk must be valid (in octal: above or equal to 1, below or equal to 6777, including 7500, 7600, 7700) Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s squawk must match the new squawk.  <a href="#a5e837d4fb9aa4b9034e55ef2db049dc1">More...</a><br /></td></tr>
+<tr class="separator:a5e837d4fb9aa4b9034e55ef2db049dc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49e8600d8c8a09396665d3d43bf9f017"><td class="memItemLeft" align="right" valign="top">AirplaneEnums::EStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a49e8600d8c8a09396665d3d43bf9f017">getStatus</a> () const </td></tr>
+<tr class="memdesc:a49e8600d8c8a09396665d3d43bf9f017"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+ <a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#a49e8600d8c8a09396665d3d43bf9f017">More...</a><br /></td></tr>
 <tr class="separator:a49e8600d8c8a09396665d3d43bf9f017"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab359711b20fb5ba0b0aa445d828ca898"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab359711b20fb5ba0b0aa445d828ca898"></a>
-<a class="el" href="classAirport.html">Airport</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#ab359711b20fb5ba0b0aa445d828ca898">getAirport</a> () const </td></tr>
-<tr class="memdesc:ab359711b20fb5ba0b0aa445d828ca898"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");. <br /></td></tr>
+<tr class="memitem:a8c84b10624faef8bf95bb3ba527242a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a8c84b10624faef8bf95bb3ba527242a0">setStatus</a> (const AirplaneEnums::EStatus _status)</td></tr>
+<tr class="memdesc:a8c84b10624faef8bf95bb3ba527242a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s status must match the new status.  <a href="#a8c84b10624faef8bf95bb3ba527242a0">More...</a><br /></td></tr>
+<tr class="separator:a8c84b10624faef8bf95bb3ba527242a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaee32e066a8a05f790621ac56420d5bc"><td class="memItemLeft" align="right" valign="top">AirplaneEnums::EType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#aaee32e066a8a05f790621ac56420d5bc">getType</a> () const </td></tr>
+<tr class="memdesc:aaee32e066a8a05f790621ac56420d5bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#aaee32e066a8a05f790621ac56420d5bc">More...</a><br /></td></tr>
+<tr class="separator:aaee32e066a8a05f790621ac56420d5bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac23410ce8901e24ca7b6d612a77ada7"><td class="memItemLeft" align="right" valign="top">AirplaneEnums::ESize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#aac23410ce8901e24ca7b6d612a77ada7">getSize</a> () const </td></tr>
+<tr class="memdesc:aac23410ce8901e24ca7b6d612a77ada7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#aac23410ce8901e24ca7b6d612a77ada7">More...</a><br /></td></tr>
+<tr class="separator:aac23410ce8901e24ca7b6d612a77ada7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1a9f0c81204bd248d7da4515b65e9e3"><td class="memItemLeft" align="right" valign="top">AirplaneEnums::EEngine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#af1a9f0c81204bd248d7da4515b65e9e3">getEngine</a> () const </td></tr>
+<tr class="memdesc:af1a9f0c81204bd248d7da4515b65e9e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#af1a9f0c81204bd248d7da4515b65e9e3">More...</a><br /></td></tr>
+<tr class="separator:af1a9f0c81204bd248d7da4515b65e9e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae5e466b9d138ec4bd9ebd06f8e48def"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#aae5e466b9d138ec4bd9ebd06f8e48def">getAltitude</a> () const </td></tr>
+<tr class="memdesc:aae5e466b9d138ec4bd9ebd06f8e48def"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#aae5e466b9d138ec4bd9ebd06f8e48def">More...</a><br /></td></tr>
+<tr class="separator:aae5e466b9d138ec4bd9ebd06f8e48def"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c38be6400c78ad744425ff7fd21c66d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a3c38be6400c78ad744425ff7fd21c66d">setAltitude</a> (const unsigned int _altitude)</td></tr>
+<tr class="memdesc:a3c38be6400c78ad744425ff7fd21c66d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s altitude must match the new altitude <br />
+.  <a href="#a3c38be6400c78ad744425ff7fd21c66d">More...</a><br /></td></tr>
+<tr class="separator:a3c38be6400c78ad744425ff7fd21c66d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51970b24e901bca2dea36b2d16d62eb2"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a51970b24e901bca2dea36b2d16d62eb2">getFuel</a> () const </td></tr>
+<tr class="memdesc:a51970b24e901bca2dea36b2d16d62eb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#a51970b24e901bca2dea36b2d16d62eb2">More...</a><br /></td></tr>
+<tr class="separator:a51970b24e901bca2dea36b2d16d62eb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12e0c7b83d76690d8258388c41463fb6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a12e0c7b83d76690d8258388c41463fb6">setFuel</a> (const unsigned int _fuel)</td></tr>
+<tr class="memdesc:a12e0c7b83d76690d8258388c41463fb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+The new Fuel must be under or above the fuel capacity <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s altitude must match the new altitude <br />
+.  <a href="#a12e0c7b83d76690d8258388c41463fb6">More...</a><br /></td></tr>
+<tr class="separator:a12e0c7b83d76690d8258388c41463fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f67a50ecf2a9038d77a2511715d26a2"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a3f67a50ecf2a9038d77a2511715d26a2">getFuelConsumption</a> () const </td></tr>
+<tr class="memdesc:a3f67a50ecf2a9038d77a2511715d26a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the fuel consumption based on engine and size <br />
+Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#a3f67a50ecf2a9038d77a2511715d26a2">More...</a><br /></td></tr>
+<tr class="separator:a3f67a50ecf2a9038d77a2511715d26a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8786f310feb2154dabd4d3490531ab9"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#ac8786f310feb2154dabd4d3490531ab9">getFuelCapacity</a> () const </td></tr>
+<tr class="memdesc:ac8786f310feb2154dabd4d3490531ab9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#ac8786f310feb2154dabd4d3490531ab9">More...</a><br /></td></tr>
+<tr class="separator:ac8786f310feb2154dabd4d3490531ab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0ffa0ddf15da6857c8d31e92ef1a803"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#ad0ffa0ddf15da6857c8d31e92ef1a803">getPassengers</a> () const </td></tr>
+<tr class="memdesc:ad0ffa0ddf15da6857c8d31e92ef1a803"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#ad0ffa0ddf15da6857c8d31e92ef1a803">More...</a><br /></td></tr>
+<tr class="separator:ad0ffa0ddf15da6857c8d31e92ef1a803"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea18bbd26ee42a881d859bc0085c970a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#aea18bbd26ee42a881d859bc0085c970a">setPassengers</a> (const unsigned int _passengers)</td></tr>
+<tr class="memdesc:aea18bbd26ee42a881d859bc0085c970a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+The new passenger count must be under or equal to the passenger capacity <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s passenger must match the new passenger count <br />
+.  <a href="#aea18bbd26ee42a881d859bc0085c970a">More...</a><br /></td></tr>
+<tr class="separator:aea18bbd26ee42a881d859bc0085c970a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00ae46478d9b67d125197d22e9570968"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a00ae46478d9b67d125197d22e9570968">getPassengerCapacity</a> () const </td></tr>
+<tr class="memdesc:a00ae46478d9b67d125197d22e9570968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#a00ae46478d9b67d125197d22e9570968">More...</a><br /></td></tr>
+<tr class="separator:a00ae46478d9b67d125197d22e9570968"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affd6fbf625787162ae06bbfc7f977fca"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#affd6fbf625787162ae06bbfc7f977fca">hasPermission</a> () const </td></tr>
+<tr class="memdesc:affd6fbf625787162ae06bbfc7f977fca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#affd6fbf625787162ae06bbfc7f977fca">More...</a><br /></td></tr>
+<tr class="separator:affd6fbf625787162ae06bbfc7f977fca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa499f42813e1f1ce9a246815e877929"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#aaa499f42813e1f1ce9a246815e877929">setPermission</a> (const bool t_permission)</td></tr>
+<tr class="memdesc:aaa499f42813e1f1ce9a246815e877929"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s permission must match the new permission <br />
+.  <a href="#aaa499f42813e1f1ce9a246815e877929">More...</a><br /></td></tr>
+<tr class="separator:aaa499f42813e1f1ce9a246815e877929"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a013b29fcd1e87f37929d7cc4767166"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a7a013b29fcd1e87f37929d7cc4767166">getActionTimer</a> () const </td></tr>
+<tr class="memdesc:a7a013b29fcd1e87f37929d7cc4767166"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#a7a013b29fcd1e87f37929d7cc4767166">More...</a><br /></td></tr>
+<tr class="separator:a7a013b29fcd1e87f37929d7cc4767166"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afad21503b13963b04127930d31144eea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#afad21503b13963b04127930d31144eea">setActionTimer</a> (const unsigned int t_actionTimer)</td></tr>
+<tr class="memdesc:afad21503b13963b04127930d31144eea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s action timer must match the new action timer <br />
+.  <a href="#afad21503b13963b04127930d31144eea">More...</a><br /></td></tr>
+<tr class="separator:afad21503b13963b04127930d31144eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0ed482198cc8bd9b322eb9edbd16063"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#ab0ed482198cc8bd9b322eb9edbd16063">increaseActionTimer</a> (const unsigned int addition=1)</td></tr>
+<tr class="memdesc:ab0ed482198cc8bd9b322eb9edbd16063"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+.  <a href="#ab0ed482198cc8bd9b322eb9edbd16063">More...</a><br /></td></tr>
+<tr class="separator:ab0ed482198cc8bd9b322eb9edbd16063"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbebac432b4d555395f22e80b8e300a0"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#afbebac432b4d555395f22e80b8e300a0">getCommunicationTimer</a> () const </td></tr>
+<tr class="memdesc:afbebac432b4d555395f22e80b8e300a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#afbebac432b4d555395f22e80b8e300a0">More...</a><br /></td></tr>
+<tr class="separator:afbebac432b4d555395f22e80b8e300a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f6f002712c55f49e2013828f37fc586"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a4f6f002712c55f49e2013828f37fc586">setCommunicationTimer</a> (const unsigned int t_communicationTimer)</td></tr>
+<tr class="memdesc:a4f6f002712c55f49e2013828f37fc586"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s communication timer must match the new communication timer <br />
+.  <a href="#a4f6f002712c55f49e2013828f37fc586">More...</a><br /></td></tr>
+<tr class="separator:a4f6f002712c55f49e2013828f37fc586"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01c3f0452619bd9ca18aca39841c48c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a01c3f0452619bd9ca18aca39841c48c6">increaseCommunicationTimer</a> (const unsigned int addition=1)</td></tr>
+<tr class="memdesc:a01c3f0452619bd9ca18aca39841c48c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+.  <a href="#a01c3f0452619bd9ca18aca39841c48c6">More...</a><br /></td></tr>
+<tr class="separator:a01c3f0452619bd9ca18aca39841c48c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab359711b20fb5ba0b0aa445d828ca898"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classAirport.html">Airport</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#ab359711b20fb5ba0b0aa445d828ca898">getAirport</a> () const </td></tr>
+<tr class="memdesc:ab359711b20fb5ba0b0aa445d828ca898"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#ab359711b20fb5ba0b0aa445d828ca898">More...</a><br /></td></tr>
 <tr class="separator:ab359711b20fb5ba0b0aa445d828ca898"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6dda72f7cfd29a7334e0494d184bbfa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab6dda72f7cfd29a7334e0494d184bbfa"></a>
-<a class="el" href="classRunway.html">Runway</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#ab6dda72f7cfd29a7334e0494d184bbfa">getRunway</a> () const </td></tr>
-<tr class="memdesc:ab6dda72f7cfd29a7334e0494d184bbfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");. <br /></td></tr>
-<tr class="separator:ab6dda72f7cfd29a7334e0494d184bbfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a002d25d042380fc5056b18cae9a28a44"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a002d25d042380fc5056b18cae9a28a44"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a002d25d042380fc5056b18cae9a28a44">setStatus</a> (AirplaneEnums::EStatus _status)</td></tr>
-<tr class="memdesc:a002d25d042380fc5056b18cae9a28a44"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(properlyInitialized(), "Airplane was not properly initialized."); <br />
-POST: <br />
-ENSURE(status == _status, "Property 'status' was not correctly set in Airplane.");. <br /></td></tr>
-<tr class="separator:a002d25d042380fc5056b18cae9a28a44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a388222c486a8c4aa702917f4c496c662"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a388222c486a8c4aa702917f4c496c662"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a388222c486a8c4aa702917f4c496c662">setAirport</a> (<a class="el" href="classAirport.html">Airport</a> *_airport)</td></tr>
-<tr class="memdesc:a388222c486a8c4aa702917f4c496c662"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(properlyInitialized(), "Airplane was not properly initialized."); <br />
-POST: <br />
-ENSURE(airport == _airport, "Property 'airport' was not correctly set in Airplane.");. <br /></td></tr>
+<tr class="memitem:a388222c486a8c4aa702917f4c496c662"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a388222c486a8c4aa702917f4c496c662">setAirport</a> (<a class="el" href="classAirport.html">Airport</a> *_airport)</td></tr>
+<tr class="memdesc:a388222c486a8c4aa702917f4c496c662"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s gate, current location, runway, must be reset <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s linked airport must match the new linked airport <br />
+.  <a href="#a388222c486a8c4aa702917f4c496c662">More...</a><br /></td></tr>
 <tr class="separator:a388222c486a8c4aa702917f4c496c662"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3d4a7b2b4fb02cfe695cf621600d6d5"><td class="memItemLeft" align="right" valign="top">const long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#ab3d4a7b2b4fb02cfe695cf621600d6d5">getGate</a> () const </td></tr>
+<tr class="memdesc:ab3d4a7b2b4fb02cfe695cf621600d6d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#ab3d4a7b2b4fb02cfe695cf621600d6d5">More...</a><br /></td></tr>
+<tr class="separator:ab3d4a7b2b4fb02cfe695cf621600d6d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ef5de730e58fd5a864dae44ca1a6835"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a3ef5de730e58fd5a864dae44ca1a6835">setGate</a> (unsigned long _gate)</td></tr>
+<tr class="memdesc:a3ef5de730e58fd5a864dae44ca1a6835"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s new gate must match the new gate <br />
+.  <a href="#a3ef5de730e58fd5a864dae44ca1a6835">More...</a><br /></td></tr>
+<tr class="separator:a3ef5de730e58fd5a864dae44ca1a6835"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6dda72f7cfd29a7334e0494d184bbfa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRunway.html">Runway</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#ab6dda72f7cfd29a7334e0494d184bbfa">getRunway</a> () const </td></tr>
+<tr class="memdesc:ab6dda72f7cfd29a7334e0494d184bbfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#ab6dda72f7cfd29a7334e0494d184bbfa">More...</a><br /></td></tr>
+<tr class="separator:ab6dda72f7cfd29a7334e0494d184bbfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c851d5a547c4af142a9b661a713d91c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c851d5a547c4af142a9b661a713d91c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a9c851d5a547c4af142a9b661a713d91c">setRunway</a> (<a class="el" href="classRunway.html">Runway</a> *_runway)</td></tr>
 <tr class="memdesc:a9c851d5a547c4af142a9b661a713d91c"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
 REQUIRE(properlyInitialized(), "Airplane was not properly initialized."); <br />
-REQUIRE(_runway != NULL, "Referenced Runway is a NULLPTR."); <br />
-REQUIRE(runway-&gt;<a class="el" href="classAirplane.html#ab359711b20fb5ba0b0aa445d828ca898" title="PRE:  REQUIRE(properlyInitialized(), &quot;Airplane was not properly initialized.&quot;);. ">getAirport()</a> != NULL, "Referenced Runway is not linked to any airport."); <br />
-REQUIRE(runway-&gt;<a class="el" href="classAirplane.html#ab359711b20fb5ba0b0aa445d828ca898" title="PRE:  REQUIRE(properlyInitialized(), &quot;Airplane was not properly initialized.&quot;);. ">getAirport()</a> == <a class="el" href="classAirplane.html#ab359711b20fb5ba0b0aa445d828ca898" title="PRE:  REQUIRE(properlyInitialized(), &quot;Airplane was not properly initialized.&quot;);. ">getAirport()</a>, "Referenced Runway is not linked to Airplane's airport."); <br />
 POST: <br />
 ENSURE(runway == _runway, "Property 'runway' was not correctly set in Airplane.");. <br /></td></tr>
 <tr class="separator:a9c851d5a547c4af142a9b661a713d91c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a661f3aff3f7f69a2d161d3a8374cd673"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classLocation.html">Location</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a661f3aff3f7f69a2d161d3a8374cd673">getCurrentLocation</a> () const </td></tr>
+<tr class="memdesc:a661f3aff3f7f69a2d161d3a8374cd673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#a661f3aff3f7f69a2d161d3a8374cd673">More...</a><br /></td></tr>
+<tr class="separator:a661f3aff3f7f69a2d161d3a8374cd673"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9737f0113b035372ac0367a34e6798b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac9737f0113b035372ac0367a34e6798b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#ac9737f0113b035372ac0367a34e6798b">setCurrentLocation</a> (<a class="el" href="classLocation.html">Location</a> *_location)</td></tr>
+<tr class="memdesc:ac9737f0113b035372ac0367a34e6798b"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
+REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");. <br /></td></tr>
+<tr class="separator:ac9737f0113b035372ac0367a34e6798b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2630c99398fc2f8fe9bddaaa30c2720"><td class="memItemLeft" align="right" valign="top">std::queue&lt; <a class="el" href="classLocation.html">Location</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#ad2630c99398fc2f8fe9bddaaa30c2720">getTaxiRoute</a> ()</td></tr>
+<tr class="memdesc:ad2630c99398fc2f8fe9bddaaa30c2720"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#ad2630c99398fc2f8fe9bddaaa30c2720">More...</a><br /></td></tr>
+<tr class="separator:ad2630c99398fc2f8fe9bddaaa30c2720"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8f9c91e16450c0bbdfbf9b20e0e08af"><td class="memItemLeft" align="right" valign="top">std::queue&lt; <a class="el" href="classLocation.html">Location</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#aa8f9c91e16450c0bbdfbf9b20e0e08af">getTaxiRouteCopy</a> () const </td></tr>
+<tr class="memdesc:aa8f9c91e16450c0bbdfbf9b20e0e08af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#aa8f9c91e16450c0bbdfbf9b20e0e08af">More...</a><br /></td></tr>
+<tr class="separator:aa8f9c91e16450c0bbdfbf9b20e0e08af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7e5b76a60cc0c4bffdea6c2125fd8fb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab7e5b76a60cc0c4bffdea6c2125fd8fb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#ab7e5b76a60cc0c4bffdea6c2125fd8fb">setTaxiRoute</a> (const std::queue&lt; <a class="el" href="classLocation.html">Location</a> * &gt; &amp;p_taxiRoute)</td></tr>
+<tr class="memdesc:ab7e5b76a60cc0c4bffdea6c2125fd8fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
+REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");. <br /></td></tr>
+<tr class="separator:ab7e5b76a60cc0c4bffdea6c2125fd8fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9f1ded68ed0f7b5bf852683d475b5f1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#ae9f1ded68ed0f7b5bf852683d475b5f1">isFlying</a> () const </td></tr>
+<tr class="memdesc:ae9f1ded68ed0f7b5bf852683d475b5f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#ae9f1ded68ed0f7b5bf852683d475b5f1">More...</a><br /></td></tr>
+<tr class="separator:ae9f1ded68ed0f7b5bf852683d475b5f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51172f3b4ad420192d7f5bbac7faea1b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a51172f3b4ad420192d7f5bbac7faea1b">fly</a> ()</td></tr>
+<tr class="memdesc:a51172f3b4ad420192d7f5bbac7faea1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#a51172f3b4ad420192d7f5bbac7faea1b">More...</a><br /></td></tr>
+<tr class="separator:a51172f3b4ad420192d7f5bbac7faea1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09eb9bdfeb909bfcda2d5d64ed3c2d49"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a09eb9bdfeb909bfcda2d5d64ed3c2d49">descend</a> (const unsigned int t_subtraction)</td></tr>
+<tr class="memdesc:a09eb9bdfeb909bfcda2d5d64ed3c2d49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+.  <a href="#a09eb9bdfeb909bfcda2d5d64ed3c2d49">More...</a><br /></td></tr>
+<tr class="separator:a09eb9bdfeb909bfcda2d5d64ed3c2d49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6961e58c5083d0c18795ebcdada32143"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6961e58c5083d0c18795ebcdada32143"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ascend</b> (const unsigned int t_addition)</td></tr>
+<tr class="separator:a6961e58c5083d0c18795ebcdada32143"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0966d4dd25ca205f34a749d0fb770379"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0966d4dd25ca205f34a749d0fb770379"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirplane.html#a0966d4dd25ca205f34a749d0fb770379">printInfo</a> (std::ostream &amp;stream) const </td></tr>
-<tr class="memdesc:a0966d4dd25ca205f34a749d0fb770379"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(properlyInitialized(), "Airplane was not properly initialized.");. <br /></td></tr>
+<tr class="memdesc:a0966d4dd25ca205f34a749d0fb770379"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+@param stream the output stream for the Airplan's information. <br /></td></tr>
 <tr class="separator:a0966d4dd25ca205f34a749d0fb770379"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a7dbd6bb4bc61fffc522e3cb3859e865b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Airplane::Airplane </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_number</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_callsign</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_model</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>_squawk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>_altitude</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>_fuel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>_fuelCapacity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>_passengers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>_passengerCapacity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const AirplaneEnums::EStatus&#160;</td>
+          <td class="paramname"><em>_status</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const AirplaneEnums::EType&#160;</td>
+          <td class="paramname"><em>_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const AirplaneEnums::ESize&#160;</td>
+          <td class="paramname"><em>_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const AirplaneEnums::EEngine&#160;</td>
+          <td class="paramname"><em>_engine</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>POST: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_number</td><td>The <a class="el" href="classAirplane.html">Airplane</a> number </td></tr>
+    <tr><td class="paramname">_callsign</td><td>The <a class="el" href="classAirplane.html">Airplane</a> callsign </td></tr>
+    <tr><td class="paramname">_model</td><td>The <a class="el" href="classAirplane.html">Airplane</a> model </td></tr>
+    <tr><td class="paramname">_squawk</td><td>The <a class="el" href="classAirplane.html">Airplane</a> starting squawk </td></tr>
+    <tr><td class="paramname">_altitude</td><td>The <a class="el" href="classAirplane.html">Airplane</a> starting altitude </td></tr>
+    <tr><td class="paramname">_fuel</td><td>The <a class="el" href="classAirplane.html">Airplane</a> starting fuel </td></tr>
+    <tr><td class="paramname">_fuelCapacity</td><td>The <a class="el" href="classAirplane.html">Airplane</a> starting fuel capacity </td></tr>
+    <tr><td class="paramname">_passengers</td><td>The <a class="el" href="classAirplane.html">Airplane</a> starting fuel </td></tr>
+    <tr><td class="paramname">_passengerCapacity</td><td>The <a class="el" href="classAirplane.html">Airplane</a> starting fuel </td></tr>
+    <tr><td class="paramname">_status</td><td>The <a class="el" href="classAirplane.html">Airplane</a> starting fuel </td></tr>
+    <tr><td class="paramname">_type</td><td>The <a class="el" href="classAirplane.html">Airplane</a> type </td></tr>
+    <tr><td class="paramname">_size</td><td>The <a class="el" href="classAirplane.html">Airplane</a> size </td></tr>
+    <tr><td class="paramname">_engine</td><td>The <a class="el" href="classAirplane.html">Airplane</a> engine </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a23a9ff56fa01d797950e63f8d237e706"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Airplane::Airplane </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classAirplane.html">Airplane</a> *&#160;</td>
+          <td class="paramname"><em>_airplane</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_airplane</td><td>The Referenced airplane PRE: <br />
+Referenced <a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+POST: <br />
+New airplane must be properly initialized <br />
+</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a09eb9bdfeb909bfcda2d5d64ed3c2d49"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Airplane::descend </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>t_subtraction</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s current location </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a51172f3b4ad420192d7f5bbac7faea1b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Airplane::fly </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s current location </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7a013b29fcd1e87f37929d7cc4767166"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Airplane::getActionTimer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s action timer </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab359711b20fb5ba0b0aa445d828ca898"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classAirport.html">Airport</a> * Airplane::getAirport </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s linked airport </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aae5e466b9d138ec4bd9ebd06f8e48def"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Airplane::getAltitude </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s altitude </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0db2c151a649c4d719ac8a7ea3be190d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; Airplane::getCallsign </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s callsign </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afbebac432b4d555395f22e80b8e300a0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Airplane::getCommunicationTimer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s communication timer </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a661f3aff3f7f69a2d161d3a8374cd673"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classLocation.html">Location</a> * Airplane::getCurrentLocation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s current location </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af1a9f0c81204bd248d7da4515b65e9e3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AirplaneEnums::EEngine Airplane::getEngine </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s engine </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a51970b24e901bca2dea36b2d16d62eb2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Airplane::getFuel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s fuel </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac8786f310feb2154dabd4d3490531ab9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Airplane::getFuelCapacity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s fuel capacity </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3f67a50ecf2a9038d77a2511715d26a2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Airplane::getFuelConsumption </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the fuel consumption based on engine and size <br />
+Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s consumption rate </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab3d4a7b2b4fb02cfe695cf621600d6d5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const long Airplane::getGate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s gate number </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a25c7474fc7a4da15bb4aeec4fc995c10"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; Airplane::getModel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s model </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a47215b95b2820db26e6333386bfd2e00"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; Airplane::getNumber </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s number </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a00ae46478d9b67d125197d22e9570968"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Airplane::getPassengerCapacity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s current passenger count </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad0ffa0ddf15da6857c8d31e92ef1a803"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Airplane::getPassengers </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s current passenger count </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab6dda72f7cfd29a7334e0494d184bbfa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRunway.html">Runway</a> * Airplane::getRunway </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s current runway </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aac23410ce8901e24ca7b6d612a77ada7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AirplaneEnums::ESize Airplane::getSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s size </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0381d297609801e1b0883680cb00226f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Airplane::getSquawk </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s squawk </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a49e8600d8c8a09396665d3d43bf9f017"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AirplaneEnums::EStatus Airplane::getStatus </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+ <a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s status not properly initialized."); <blockquote class="doxtable">
+<blockquote class="doxtable">
+<blockquote class="doxtable">
+<blockquote class="doxtable">
+<blockquote class="doxtable">
+<blockquote class="doxtable">
+<blockquote class="doxtable">
+<p>6eb14750fdc607f884990d05ca429917a49fe81d</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad2630c99398fc2f8fe9bddaaa30c2720"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::queue&lt; <a class="el" href="classLocation.html">Location</a> * &gt; &amp; Airplane::getTaxiRoute </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s taxi route (pointer) </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa8f9c91e16450c0bbdfbf9b20e0e08af"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::queue&lt; <a class="el" href="classLocation.html">Location</a> * &gt; Airplane::getTaxiRouteCopy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s taxi route (copy) </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aaee32e066a8a05f790621ac56420d5bc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AirplaneEnums::EType Airplane::getType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s type </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="affd6fbf625787162ae06bbfc7f977fca"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Airplane::hasPermission </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s current permission </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab0ed482198cc8bd9b322eb9edbd16063"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Airplane::increaseActionTimer </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>addition</em> = <code>1</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addition</td><td>The addition to the action timer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a01c3f0452619bd9ca18aca39841c48c6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Airplane::increaseCommunicationTimer </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>addition</em> = <code>1</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addition</td><td>The addition to the communication timer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ae9f1ded68ed0f7b5bf852683d475b5f1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Airplane::isFlying </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+. </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="classAirplane.html">Airplane</a>'s flying status </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afad21503b13963b04127930d31144eea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Airplane::setActionTimer </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>t_actionTimer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s action timer must match the new action timer <br />
+. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t_permission</td><td>The new action timer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a388222c486a8c4aa702917f4c496c662"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Airplane::setAirport </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classAirport.html">Airport</a> *&#160;</td>
+          <td class="paramname"><em>_airport</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s gate, current location, runway, must be reset <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s linked airport must match the new linked airport <br />
+. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t_communicationTimer</td><td>The new linked airport </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a3c38be6400c78ad744425ff7fd21c66d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Airplane::setAltitude </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>_altitude</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s altitude must match the new altitude <br />
+. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_altitude</td><td>The new altitude </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a4f6f002712c55f49e2013828f37fc586"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Airplane::setCommunicationTimer </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>t_communicationTimer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s communication timer must match the new communication timer <br />
+. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t_communicationTimer</td><td>The new communication timer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a12e0c7b83d76690d8258388c41463fb6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Airplane::setFuel </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>_fuel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+The new Fuel must be under or above the fuel capacity <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s altitude must match the new altitude <br />
+. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_fuel</td><td>The new fuel </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a3ef5de730e58fd5a864dae44ca1a6835"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Airplane::setGate </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long&#160;</td>
+          <td class="paramname"><em>_gate</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s new gate must match the new gate <br />
+. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t_communicationTimer</td><td>The new linked airport </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aea18bbd26ee42a881d859bc0085c970a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Airplane::setPassengers </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>_passengers</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+The new passenger count must be under or equal to the passenger capacity <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s passenger must match the new passenger count <br />
+. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_fuel</td><td>The new passenger count </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aaa499f42813e1f1ce9a246815e877929"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Airplane::setPermission </td>
+          <td>(</td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>t_permission</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s permission must match the new permission <br />
+. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t_permission</td><td>The new permission </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a5e837d4fb9aa4b9034e55ef2db049dc1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Airplane::setSquawk </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>_squawk</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+The new squawk must be valid (in octal: above or equal to 1, below or equal to 6777, including 7500, 7600, 7700) Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s squawk must match the new squawk. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_squawk</td><td>The new squawk </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a8c84b10624faef8bf95bb3ba527242a0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Airplane::setStatus </td>
+          <td>(</td>
+          <td class="paramtype">const AirplaneEnums::EStatus&#160;</td>
+          <td class="paramname"><em>_status</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre: <br />
+<a class="el" href="classAirplane.html">Airplane</a> must be properly initialized <br />
+Post: <br />
+The <a class="el" href="classAirplane.html">Airplane</a>'s status must match the new status. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_status</td><td>The new status </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/classes/<a class="el" href="Airplane_8h_source.html">Airplane.h</a></li>
 <li>src/classes/Airplane.cpp</li>

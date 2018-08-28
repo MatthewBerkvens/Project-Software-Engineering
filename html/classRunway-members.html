@@ -62,6 +62,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -88,12 +89,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>This is the complete list of members for <a class="el" href="classRunway.html">Runway</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="classRunway.html#a0717a87cfe3c3a347deae95296007c83">getAirport</a>() const </td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classRunway.html#aa3f5350b16d9ffb5d83ba8e8528da769">getRunwayName</a>() const </td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classRunway.html#a81c9cc41ab141fbbbf5fd10d75363ef4">printInfo</a>(std::ostream &amp;stream) const </td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classRunway.html#a434a6f038721581857c7e290126322ef">Runway</a>(const std::string &amp;_runwayName)</td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classRunway.html#af250fedd8ca3dc8041d37d954a1d3473">Runway</a>(const Runway *_runway)</td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classRunway.html#a5ea9028062812b726c811208db924229">setAirport</a>(const Airport *_airport)</td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>airport</b> (defined in <a class="el" href="classLocation.html">Location</a>)</td><td class="entry"><a class="el" href="classLocation.html">Location</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>canCross</b>() const  (defined in <a class="el" href="classRunway.html">Runway</a>)</td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classRunway.html#a3229e9ead29521a77c0a9f435b6bfa34">getAirplane</a>() const </td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>getAirport</b>() const  (defined in <a class="el" href="classLocation.html">Location</a>)</td><td class="entry"><a class="el" href="classLocation.html">Location</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classRunway.html#afd46dc9b8cf2884b8219448c1d3a2c24">getCrossingAirplane</a>() const </td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classRunway.html#a16d5a23dabaa1a2d2d0596994f534734">getLength</a>() const </td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>getName</b>() const  (defined in <a class="el" href="classLocation.html">Location</a>)</td><td class="entry"><a class="el" href="classLocation.html">Location</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>getNextLocation</b>() const  (defined in <a class="el" href="classLocation.html">Location</a>)</td><td class="entry"><a class="el" href="classLocation.html">Location</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>getPreviousLocation</b>() const  (defined in <a class="el" href="classLocation.html">Location</a>)</td><td class="entry"><a class="el" href="classLocation.html">Location</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classRunway.html#ae78ab4ae27a3f13388502df4bcc5b4fc">getType</a>() const </td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>init</b> (defined in <a class="el" href="classLocation.html">Location</a>)</td><td class="entry"><a class="el" href="classLocation.html">Location</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>isVacant</b>() const  (defined in <a class="el" href="classRunway.html">Runway</a>)</td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Location</b>(const std::string &amp;_name) (defined in <a class="el" href="classLocation.html">Location</a>)</td><td class="entry"><a class="el" href="classLocation.html">Location</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>Location</b>(const Location *_location) (defined in <a class="el" href="classLocation.html">Location</a>)</td><td class="entry"><a class="el" href="classLocation.html">Location</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>name</b> (defined in <a class="el" href="classLocation.html">Location</a>)</td><td class="entry"><a class="el" href="classLocation.html">Location</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>nextLocation</b> (defined in <a class="el" href="classLocation.html">Location</a>)</td><td class="entry"><a class="el" href="classLocation.html">Location</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>previousLocation</b> (defined in <a class="el" href="classLocation.html">Location</a>)</td><td class="entry"><a class="el" href="classLocation.html">Location</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classRunway.html#a81c9cc41ab141fbbbf5fd10d75363ef4">printInfo</a>(std::ostream &amp;stream) const </td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>properlyInitialized</b>() const  (defined in <a class="el" href="classLocation.html">Location</a>)</td><td class="entry"><a class="el" href="classLocation.html">Location</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classRunway.html#a257121772db9088804603de74df3652d">Runway</a>(const std::string &amp;_name, const unsigned int length, const RunwayEnums::EType type)</td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classRunway.html#a776c80a32036121ddc70ddb7159c4e27">Runway</a>(const Runway *const _runway)</td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classRunway.html#ab3bda045e7c3e075e639dccbb53df142">setAirplane</a>(Airplane *_airplane)</td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>setAirport</b>(const Airport *_airport) (defined in <a class="el" href="classLocation.html">Location</a>)</td><td class="entry"><a class="el" href="classLocation.html">Location</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classRunway.html#a8f881ceeaf3e2e1eb02906b7ee8281c5">setCrossingAirplane</a>(Airplane *_crossingAirplane)</td><td class="entry"><a class="el" href="classRunway.html">Runway</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>setNextLocation</b>(Location *_nextLocation) (defined in <a class="el" href="classLocation.html">Location</a>)</td><td class="entry"><a class="el" href="classLocation.html">Location</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>setPreviousLocation</b>(Location *_previousLocation) (defined in <a class="el" href="classLocation.html">Location</a>)</td><td class="entry"><a class="el" href="classLocation.html">Location</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

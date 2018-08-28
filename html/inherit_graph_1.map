@@ -1,0 +1,8 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$classAirplaneDomainTests.html" title="AirplaneDomainTests" alt="" coords="103,5,249,32"/>
+<area shape="rect" id="node3" href="$classAirportDomainTests.html" title="AirportDomainTests" alt="" coords="107,56,245,83"/>
+<area shape="rect" id="node4" href="$classInputTests.html" title="InputTests" alt="" coords="134,107,218,133"/>
+<area shape="rect" id="node5" href="$classLocationDomainTests.html" title="LocationDomainTests" alt="" coords="101,157,251,184"/>
+<area shape="rect" id="node6" href="$classOutputTests.html" title="OutputTests" alt="" coords="129,208,223,235"/>
+<area shape="rect" id="node7" href="$classRunwayDomainTests.html" title="RunwayDomainTests" alt="" coords="102,259,250,285"/>
+</map>

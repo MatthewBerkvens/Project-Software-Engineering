@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['parser',['Parser',['../classParser.html',1,'']]]
+  ['comparesquawk',['CompareSquawk',['../structCompareSquawk.html',1,'']]]
 ];

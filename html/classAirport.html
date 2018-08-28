@@ -62,6 +62,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -91,83 +92,126 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a12d4fc8f6375a6aede4ded304c9cd763"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a12d4fc8f6375a6aede4ded304c9cd763"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirport.html#a12d4fc8f6375a6aede4ded304c9cd763">Airport</a> (const std::string &amp;_airportName, const std::string &amp;_iata, const std::string &amp;_callsign, const unsigned int _gates)</td></tr>
-<tr class="memdesc:a12d4fc8f6375a6aede4ded304c9cd763"><td class="mdescLeft">&#160;</td><td class="mdescRight">POST: <br />
+<tr class="memitem:a574283882c857f5452a4991f8911c3cf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a574283882c857f5452a4991f8911c3cf"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirport.html#a574283882c857f5452a4991f8911c3cf">Airport</a> (const std::string &amp;_airportName, const std::string &amp;_iata, const std::string &amp;_callsign, unsigned int _gateCount)</td></tr>
+<tr class="memdesc:a574283882c857f5452a4991f8911c3cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">POST: <br />
 ENSURE(properlyInitialized(), "Airport was not properly initialized.");. <br /></td></tr>
-<tr class="separator:a12d4fc8f6375a6aede4ded304c9cd763"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f52f34ace2f2a382fe9a0a9f4de54ef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6f52f34ace2f2a382fe9a0a9f4de54ef"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirport.html#a6f52f34ace2f2a382fe9a0a9f4de54ef">Airport</a> (<a class="el" href="classAirport.html">Airport</a> *_airport)</td></tr>
-<tr class="memdesc:a6f52f34ace2f2a382fe9a0a9f4de54ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
+<tr class="separator:a574283882c857f5452a4991f8911c3cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2be508f95913fd08a6266f0238045630"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2be508f95913fd08a6266f0238045630"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirport.html#a2be508f95913fd08a6266f0238045630">Airport</a> (const <a class="el" href="classAirport.html">Airport</a> *_airport)</td></tr>
+<tr class="memdesc:a2be508f95913fd08a6266f0238045630"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
 REQUIRE(airport-&gt;properlyInitialized(), "Reference Airport was not properly initialized."); <br />
 POST: <br />
 ENSURE(properlyInitialized(), "Airport was not properly initialized.");. <br /></td></tr>
-<tr class="separator:a6f52f34ace2f2a382fe9a0a9f4de54ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a2be508f95913fd08a6266f0238045630"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad914506e5edfa8def52f5ab7b8a2fc47"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad914506e5edfa8def52f5ab7b8a2fc47"></a>
-const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirport.html#ad914506e5edfa8def52f5ab7b8a2fc47">getAirportName</a> () const </td></tr>
-<tr class="memdesc:ad914506e5edfa8def52f5ab7b8a2fc47"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(this-&gt;properlyInitialized(), "Airport was not properly initialized.");. <br /></td></tr>
+const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getAirportName</b> () const </td></tr>
 <tr class="separator:ad914506e5edfa8def52f5ab7b8a2fc47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1aa4ad16376cc327f543938a6704c42a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1aa4ad16376cc327f543938a6704c42a"></a>
-const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirport.html#a1aa4ad16376cc327f543938a6704c42a">getIata</a> () const </td></tr>
-<tr class="memdesc:a1aa4ad16376cc327f543938a6704c42a"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(properlyInitialized(), "Airport was not properly initialized.");. <br /></td></tr>
+const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getIata</b> () const </td></tr>
 <tr class="separator:a1aa4ad16376cc327f543938a6704c42a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ac58e5ade1ad2a38a56c26db46b5233"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9ac58e5ade1ad2a38a56c26db46b5233"></a>
-const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirport.html#a9ac58e5ade1ad2a38a56c26db46b5233">getCallsign</a> () const </td></tr>
-<tr class="memdesc:a9ac58e5ade1ad2a38a56c26db46b5233"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(properlyInitialized(), "Airport was not properly initialized.");. <br /></td></tr>
+const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getCallsign</b> () const </td></tr>
 <tr class="separator:a9ac58e5ade1ad2a38a56c26db46b5233"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97006a477d89d23865293ca86bea37d2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a97006a477d89d23865293ca86bea37d2"></a>
-const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirport.html#a97006a477d89d23865293ca86bea37d2">getGates</a> () const </td></tr>
-<tr class="memdesc:a97006a477d89d23865293ca86bea37d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(properlyInitialized(), "Airport was not properly initialized.");. <br /></td></tr>
-<tr class="separator:a97006a477d89d23865293ca86bea37d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe59600b44dbb17e0b4abcaea20082c3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afe59600b44dbb17e0b4abcaea20082c3"></a>
+const AirplaneMap &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getAirplanes</b> () const </td></tr>
+<tr class="separator:afe59600b44dbb17e0b4abcaea20082c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36e261bf74b4e3ad0cab5ffa40612270"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a36e261bf74b4e3ad0cab5ffa40612270"></a>
+AirplaneMap &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getAirplanes</b> ()</td></tr>
+<tr class="separator:a36e261bf74b4e3ad0cab5ffa40612270"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bf2af68a4246b741e85fe55017e03c1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7bf2af68a4246b741e85fe55017e03c1"></a>
+const <a class="el" href="classAirplane.html">Airplane</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getAirplanesByRegistrationNumber</b> (const std::string &amp;number) const </td></tr>
+<tr class="separator:a7bf2af68a4246b741e85fe55017e03c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a118151b7b7f53ae48d62d3c843283b37"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a118151b7b7f53ae48d62d3c843283b37"></a>
+<a class="el" href="classAirplane.html">Airplane</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getAirplanesByRegistrationNumber</b> (const std::string &amp;number)</td></tr>
+<tr class="separator:a118151b7b7f53ae48d62d3c843283b37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1220bc02259744f19603d659f1102183"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1220bc02259744f19603d659f1102183"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addAirplane</b> (<a class="el" href="classAirplane.html">Airplane</a> *_airplane)</td></tr>
+<tr class="separator:a1220bc02259744f19603d659f1102183"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88a8c2e7c5a1076a94eebd8c8ccc2422"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a88a8c2e7c5a1076a94eebd8c8ccc2422"></a>
+const RunwayMap &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getRunways</b> () const </td></tr>
+<tr class="separator:a88a8c2e7c5a1076a94eebd8c8ccc2422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a238766b4fe83e8712940241747e7a5da"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a238766b4fe83e8712940241747e7a5da"></a>
+RunwayMap &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getRunways</b> ()</td></tr>
+<tr class="separator:a238766b4fe83e8712940241747e7a5da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa87d57abd5c0cf2e7e8c0a39e7e0206"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afa87d57abd5c0cf2e7e8c0a39e7e0206"></a>
+const <a class="el" href="classRunway.html">Runway</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getRunwayByName</b> (const std::string &amp;name) const </td></tr>
+<tr class="separator:afa87d57abd5c0cf2e7e8c0a39e7e0206"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc7816f8ea012b5b47cf30f983213446"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acc7816f8ea012b5b47cf30f983213446"></a>
+<a class="el" href="classRunway.html">Runway</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getRunwayByName</b> (const std::string &amp;name)</td></tr>
+<tr class="separator:acc7816f8ea012b5b47cf30f983213446"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a358c3d818b706e37ab3af5185eafc6d3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a358c3d818b706e37ab3af5185eafc6d3"></a>
+<a class="el" href="classRunway.html">Runway</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getFreeCompatibleRunway</b> (const <a class="el" href="classAirplane.html">Airplane</a> *airplane)</td></tr>
+<tr class="separator:a358c3d818b706e37ab3af5185eafc6d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a140b827690bfcb04889d0a1163a00539"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a140b827690bfcb04889d0a1163a00539"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirport.html#a140b827690bfcb04889d0a1163a00539">addRunway</a> (<a class="el" href="classRunway.html">Runway</a> *_runway)</td></tr>
-<tr class="memdesc:a140b827690bfcb04889d0a1163a00539"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(properlyInitialized(), "Airport was not properly initialized."); <br />
-REQUIRE(_runway != NULL, "Referenced Runway was a nullpointer."); <br />
-REQUIRE(_runway-&gt;getAirport() == this, "Referenced Runway does not have a link to the current airport."); <br />
-REQUIRE(!vectorContains&lt;Runway*&gt;(runways, _runway), "Referenced Runway already added to the airport."); <br />
-POST: <br />
-ENSURE(vectorContains&lt;Runway*&gt;(runways, _runway), "Referenced Runway was not properly added.");. <br /></td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addRunway</b> (<a class="el" href="classRunway.html">Runway</a> *_runway)</td></tr>
 <tr class="separator:a140b827690bfcb04889d0a1163a00539"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07c43d95a11bb281bb18e7b27a6ed9ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirport.html#a07c43d95a11bb281bb18e7b27a6ed9ec">printInfo</a> (std::ostream &amp;stream) const </td></tr>
+<tr class="memitem:a6956931dfc924b4e84cf1dd27a6151af"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6956931dfc924b4e84cf1dd27a6151af"></a>
+const LocationMap &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getLocations</b> () const </td></tr>
+<tr class="separator:a6956931dfc924b4e84cf1dd27a6151af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f83ef78d61fad2f4ef9ca2808154fab"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3f83ef78d61fad2f4ef9ca2808154fab"></a>
+LocationMap &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getLocations</b> ()</td></tr>
+<tr class="separator:a3f83ef78d61fad2f4ef9ca2808154fab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a483d56d4d84371325bfe217acf9e9db7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a483d56d4d84371325bfe217acf9e9db7"></a>
+const <a class="el" href="classLocation.html">Location</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getLocationByName</b> (const std::string &amp;name) const </td></tr>
+<tr class="separator:a483d56d4d84371325bfe217acf9e9db7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c4b78bae5362b9e40d892d3361d4d63"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4c4b78bae5362b9e40d892d3361d4d63"></a>
+<a class="el" href="classLocation.html">Location</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getLocationByName</b> (const std::string &amp;name)</td></tr>
+<tr class="separator:a4c4b78bae5362b9e40d892d3361d4d63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d9732a6232a3a862157dc8797e6ee9d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d9732a6232a3a862157dc8797e6ee9d"></a>
+<a class="el" href="classLocation.html">Location</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getConnectionToApron</b> () const </td></tr>
+<tr class="separator:a8d9732a6232a3a862157dc8797e6ee9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a349edbdeb01df0ab024f9c0f89333b12"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a349edbdeb01df0ab024f9c0f89333b12"></a>
+std::queue&lt; <a class="el" href="classLocation.html">Location</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>createTaxiRouteToGates</b> (const <a class="el" href="classLocation.html">Location</a> *airplane) const </td></tr>
+<tr class="separator:a349edbdeb01df0ab024f9c0f89333b12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf6621a25bece58124dd003e3d624024"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf6621a25bece58124dd003e3d624024"></a>
+std::queue&lt; <a class="el" href="classLocation.html">Location</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>createTaxiRouteToRunway</b> (const <a class="el" href="classRunway.html">Runway</a> *runway) const </td></tr>
+<tr class="separator:aaf6621a25bece58124dd003e3d624024"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66dfca0814f6c9206db04a2bb52eeea0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a66dfca0814f6c9206db04a2bb52eeea0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addLocation</b> (<a class="el" href="classLocation.html">Location</a> *_location)</td></tr>
+<tr class="separator:a66dfca0814f6c9206db04a2bb52eeea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa87b3105bf17dfa65ab9d21d23c20675"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa87b3105bf17dfa65ab9d21d23c20675"></a>
+const AirplaneVector &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getGates</b> () const </td></tr>
+<tr class="separator:aa87b3105bf17dfa65ab9d21d23c20675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04bf741650b491fb56bfffb868197023"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a04bf741650b491fb56bfffb868197023"></a>
+AirplaneVector &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getGates</b> ()</td></tr>
+<tr class="separator:a04bf741650b491fb56bfffb868197023"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61568b70720843443900020bdf43f8e7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a61568b70720843443900020bdf43f8e7"></a>
+const unsigned long&#160;</td><td class="memItemRight" valign="bottom"><b>getGateCount</b> () const </td></tr>
+<tr class="separator:a61568b70720843443900020bdf43f8e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd69e5e4ea8548ca834b691eb4a48393"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acd69e5e4ea8548ca834b691eb4a48393"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>reserveGate</b> (<a class="el" href="classAirplane.html">Airplane</a> *_airplane)</td></tr>
+<tr class="separator:acd69e5e4ea8548ca834b691eb4a48393"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6900cfb963d1ac66c17536fcc8e36bbd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6900cfb963d1ac66c17536fcc8e36bbd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>exitGate</b> (<a class="el" href="classAirplane.html">Airplane</a> *_airplane)</td></tr>
+<tr class="separator:a6900cfb963d1ac66c17536fcc8e36bbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5a235f9b484197de3a4bb538d38887e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae5a235f9b484197de3a4bb538d38887e"></a>
+const <a class="el" href="classAirplane.html">Airplane</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>get3000ft</b> () const </td></tr>
+<tr class="separator:ae5a235f9b484197de3a4bb538d38887e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae034f976a0488369ec68181f78590782"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae034f976a0488369ec68181f78590782"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set3000ft</b> (<a class="el" href="classAirplane.html">Airplane</a> *_airplane)</td></tr>
+<tr class="separator:ae034f976a0488369ec68181f78590782"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a396222da73d2a638b9d82d61a00b89e4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a396222da73d2a638b9d82d61a00b89e4"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>is3000ftVacant</b> () const </td></tr>
+<tr class="separator:a396222da73d2a638b9d82d61a00b89e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b657ce73f3f871d7689e1f0524fa1cd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9b657ce73f3f871d7689e1f0524fa1cd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set5000ft</b> (<a class="el" href="classAirplane.html">Airplane</a> *_airplane)</td></tr>
+<tr class="separator:a9b657ce73f3f871d7689e1f0524fa1cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa02a37931070e1fa332689e86fdd7a13"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa02a37931070e1fa332689e86fdd7a13"></a>
+const <a class="el" href="classAirplane.html">Airplane</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>get5000ft</b> () const </td></tr>
+<tr class="separator:aa02a37931070e1fa332689e86fdd7a13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5b672c4f5cefe589fbcc1f0dc972a5e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae5b672c4f5cefe589fbcc1f0dc972a5e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>is5000ftVacant</b> () const </td></tr>
+<tr class="separator:ae5b672c4f5cefe589fbcc1f0dc972a5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07c43d95a11bb281bb18e7b27a6ed9ec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a07c43d95a11bb281bb18e7b27a6ed9ec"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAirport.html#a07c43d95a11bb281bb18e7b27a6ed9ec">printInfo</a> (std::ostream &amp;stream) const </td></tr>
 <tr class="memdesc:a07c43d95a11bb281bb18e7b27a6ed9ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(properlyInitialized(), "Airport was not properly initialized."); <br />
-REQUIRE(vectorContains&lt;Runway*&gt;(runways, _runway), "Referenced Runway was not found, can't be deleted."); <br />
-POST: <br />
-ENSURE(!vectorContains&lt;Runway*&gt;(runways, _runway), "Referenced Runway was not properly deleted."); <br />
-ENSURE(_runway-&gt;getAirport() == NULL, "Referenced Airport was not properly unlinked from this airport");.  <a href="#a07c43d95a11bb281bb18e7b27a6ed9ec">More...</a><br /></td></tr>
+REQUIRE(properlyInitialized(), "Airport was not properly initialized.");. <br /></td></tr>
 <tr class="separator:a07c43d95a11bb281bb18e7b27a6ed9ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c8d1b2f20b2cab345e0b306b0f84d8a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6c8d1b2f20b2cab345e0b306b0f84d8a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>printGraphicalImpression</b> (std::ostream &amp;stream) const </td></tr>
+<tr class="separator:a6c8d1b2f20b2cab345e0b306b0f84d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a07c43d95a11bb281bb18e7b27a6ed9ec"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Airport::printInfo </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>PRE: <br />
-REQUIRE(properlyInitialized(), "Airport was not properly initialized."); <br />
-REQUIRE(vectorContains&lt;Runway*&gt;(runways, _runway), "Referenced Runway was not found, can't be deleted."); <br />
-POST: <br />
-ENSURE(!vectorContains&lt;Runway*&gt;(runways, _runway), "Referenced Runway was not properly deleted."); <br />
-ENSURE(_runway-&gt;getAirport() == NULL, "Referenced Airport was not properly unlinked from this airport");. </p>
-<p>PRE: <br />
-REQUIRE(properlyInitialized(), "Airport was not properly initialized."); </p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/classes/<a class="el" href="Airport_8h_source.html">Airport.h</a></li>
 <li>src/classes/Airport.cpp</li>

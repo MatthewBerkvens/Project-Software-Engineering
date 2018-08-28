@@ -1,4 +1,28 @@
 var searchData=
 [
-  ['runway',['Runway',['../classRunway.html#a434a6f038721581857c7e290126322ef',1,'Runway::Runway(const std::string &amp;_runwayName)'],['../classRunway.html#af250fedd8ca3dc8041d37d954a1d3473',1,'Runway::Runway(const Runway *_runway)']]]
+  ['getactiontimer',['getActionTimer',['../classAirplane.html#a7a013b29fcd1e87f37929d7cc4767166',1,'Airplane']]],
+  ['getairplane',['getAirplane',['../classRunway.html#a3229e9ead29521a77c0a9f435b6bfa34',1,'Runway']]],
+  ['getairport',['getAirport',['../classAirplane.html#ab359711b20fb5ba0b0aa445d828ca898',1,'Airplane']]],
+  ['getaltitude',['getAltitude',['../classAirplane.html#aae5e466b9d138ec4bd9ebd06f8e48def',1,'Airplane']]],
+  ['getcallsign',['getCallsign',['../classAirplane.html#a0db2c151a649c4d719ac8a7ea3be190d',1,'Airplane']]],
+  ['getcommunicationtimer',['getCommunicationTimer',['../classAirplane.html#afbebac432b4d555395f22e80b8e300a0',1,'Airplane']]],
+  ['getcrossingairplane',['getCrossingAirplane',['../classRunway.html#afd46dc9b8cf2884b8219448c1d3a2c24',1,'Runway']]],
+  ['getcurrentlocation',['getCurrentLocation',['../classAirplane.html#a661f3aff3f7f69a2d161d3a8374cd673',1,'Airplane']]],
+  ['getengine',['getEngine',['../classAirplane.html#af1a9f0c81204bd248d7da4515b65e9e3',1,'Airplane']]],
+  ['getfuel',['getFuel',['../classAirplane.html#a51970b24e901bca2dea36b2d16d62eb2',1,'Airplane']]],
+  ['getfuelcapacity',['getFuelCapacity',['../classAirplane.html#ac8786f310feb2154dabd4d3490531ab9',1,'Airplane']]],
+  ['getfuelconsumption',['getFuelConsumption',['../classAirplane.html#a3f67a50ecf2a9038d77a2511715d26a2',1,'Airplane']]],
+  ['getgate',['getGate',['../classAirplane.html#ab3d4a7b2b4fb02cfe695cf621600d6d5',1,'Airplane']]],
+  ['getlength',['getLength',['../classRunway.html#a16d5a23dabaa1a2d2d0596994f534734',1,'Runway']]],
+  ['getmodel',['getModel',['../classAirplane.html#a25c7474fc7a4da15bb4aeec4fc995c10',1,'Airplane']]],
+  ['getnumber',['getNumber',['../classAirplane.html#a47215b95b2820db26e6333386bfd2e00',1,'Airplane']]],
+  ['getpassengercapacity',['getPassengerCapacity',['../classAirplane.html#a00ae46478d9b67d125197d22e9570968',1,'Airplane']]],
+  ['getpassengers',['getPassengers',['../classAirplane.html#ad0ffa0ddf15da6857c8d31e92ef1a803',1,'Airplane']]],
+  ['getrunway',['getRunway',['../classAirplane.html#ab6dda72f7cfd29a7334e0494d184bbfa',1,'Airplane']]],
+  ['getsize',['getSize',['../classAirplane.html#aac23410ce8901e24ca7b6d612a77ada7',1,'Airplane']]],
+  ['getsquawk',['getSquawk',['../classAirplane.html#a0381d297609801e1b0883680cb00226f',1,'Airplane']]],
+  ['getstatus',['getStatus',['../classAirplane.html#a49e8600d8c8a09396665d3d43bf9f017',1,'Airplane']]],
+  ['gettaxiroute',['getTaxiRoute',['../classAirplane.html#ad2630c99398fc2f8fe9bddaaa30c2720',1,'Airplane']]],
+  ['gettaxiroutecopy',['getTaxiRouteCopy',['../classAirplane.html#aa8f9c91e16450c0bbdfbf9b20e0e08af',1,'Airplane']]],
+  ['gettype',['getType',['../classAirplane.html#aaee32e066a8a05f790621ac56420d5bc',1,'Airplane::getType()'],['../classRunway.html#ae78ab4ae27a3f13388502df4bcc5b4fc',1,'Runway::getType()']]]
 ];

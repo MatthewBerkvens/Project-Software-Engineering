@@ -62,6 +62,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -88,43 +89,130 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Runway Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Inheritance diagram for Runway:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRunway__inherit__graph.png" border="0" usemap="#Runway_inherit__map" alt="Inheritance graph"/></div>
+<map name="Runway_inherit__map" id="Runway_inherit__map">
+<area shape="rect" id="node2" href="classLocation.html" title="Location" alt="" coords="5,5,76,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for Runway:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRunway__coll__graph.png" border="0" usemap="#Runway_coll__map" alt="Collaboration graph"/></div>
+<map name="Runway_coll__map" id="Runway_coll__map">
+<area shape="rect" id="node2" href="classLocation.html" title="Location" alt="" coords="5,103,76,130"/>
+<area shape="rect" id="node3" href="classAirport.html" title="Airport" alt="" coords="11,5,71,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a434a6f038721581857c7e290126322ef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a434a6f038721581857c7e290126322ef"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunway.html#a434a6f038721581857c7e290126322ef">Runway</a> (const std::string &amp;_runwayName)</td></tr>
-<tr class="memdesc:a434a6f038721581857c7e290126322ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">POST: <br />
+<tr class="memitem:a257121772db9088804603de74df3652d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a257121772db9088804603de74df3652d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunway.html#a257121772db9088804603de74df3652d">Runway</a> (const std::string &amp;_name, const unsigned int length, const RunwayEnums::EType type)</td></tr>
+<tr class="memdesc:a257121772db9088804603de74df3652d"><td class="mdescLeft">&#160;</td><td class="mdescRight">POST: <br />
 ENSURE(properlyInitialized(), "Runway was not properly initialized.");. <br /></td></tr>
-<tr class="separator:a434a6f038721581857c7e290126322ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af250fedd8ca3dc8041d37d954a1d3473"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af250fedd8ca3dc8041d37d954a1d3473"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunway.html#af250fedd8ca3dc8041d37d954a1d3473">Runway</a> (const <a class="el" href="classRunway.html">Runway</a> *_runway)</td></tr>
-<tr class="memdesc:af250fedd8ca3dc8041d37d954a1d3473"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
+<tr class="separator:a257121772db9088804603de74df3652d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a776c80a32036121ddc70ddb7159c4e27"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a776c80a32036121ddc70ddb7159c4e27"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunway.html#a776c80a32036121ddc70ddb7159c4e27">Runway</a> (const <a class="el" href="classRunway.html">Runway</a> *const _runway)</td></tr>
+<tr class="memdesc:a776c80a32036121ddc70ddb7159c4e27"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
 REQUIRE(runway-&gt;properlyInitialized(), "Reference Runway was not properly initialized."); <br />
 POST: <br />
 ENSURE(properlyInitialized(), "Runway was not properly initialized.");. <br /></td></tr>
-<tr class="separator:af250fedd8ca3dc8041d37d954a1d3473"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3f5350b16d9ffb5d83ba8e8528da769"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa3f5350b16d9ffb5d83ba8e8528da769"></a>
-const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunway.html#aa3f5350b16d9ffb5d83ba8e8528da769">getRunwayName</a> () const </td></tr>
-<tr class="memdesc:aa3f5350b16d9ffb5d83ba8e8528da769"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
+<tr class="separator:a776c80a32036121ddc70ddb7159c4e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16d5a23dabaa1a2d2d0596994f534734"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16d5a23dabaa1a2d2d0596994f534734"></a>
+const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunway.html#a16d5a23dabaa1a2d2d0596994f534734">getLength</a> () const </td></tr>
+<tr class="memdesc:a16d5a23dabaa1a2d2d0596994f534734"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
 REQUIRE(properlyInitialized(), "Runway was not properly initialized.");. <br /></td></tr>
-<tr class="separator:aa3f5350b16d9ffb5d83ba8e8528da769"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0717a87cfe3c3a347deae95296007c83"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0717a87cfe3c3a347deae95296007c83"></a>
-const <a class="el" href="classAirport.html">Airport</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunway.html#a0717a87cfe3c3a347deae95296007c83">getAirport</a> () const </td></tr>
-<tr class="memdesc:a0717a87cfe3c3a347deae95296007c83"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
+<tr class="separator:a16d5a23dabaa1a2d2d0596994f534734"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae78ab4ae27a3f13388502df4bcc5b4fc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae78ab4ae27a3f13388502df4bcc5b4fc"></a>
+const RunwayEnums::EType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunway.html#ae78ab4ae27a3f13388502df4bcc5b4fc">getType</a> () const </td></tr>
+<tr class="memdesc:ae78ab4ae27a3f13388502df4bcc5b4fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
 REQUIRE(properlyInitialized(), "Runway was not properly initialized.");. <br /></td></tr>
-<tr class="separator:a0717a87cfe3c3a347deae95296007c83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ea9028062812b726c811208db924229"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5ea9028062812b726c811208db924229"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunway.html#a5ea9028062812b726c811208db924229">setAirport</a> (const <a class="el" href="classAirport.html">Airport</a> *_airport)</td></tr>
-<tr class="memdesc:a5ea9028062812b726c811208db924229"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
-REQUIRE(properlyInitialized(), "Runway was not properly initialized."); <br />
-POST: <br />
-ENSURE(airport == _airport, "Referenced Airport was not properly set.");. <br /></td></tr>
-<tr class="separator:a5ea9028062812b726c811208db924229"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:ae78ab4ae27a3f13388502df4bcc5b4fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3229e9ead29521a77c0a9f435b6bfa34"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3229e9ead29521a77c0a9f435b6bfa34"></a>
+<a class="el" href="classAirplane.html">Airplane</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunway.html#a3229e9ead29521a77c0a9f435b6bfa34">getAirplane</a> () const </td></tr>
+<tr class="memdesc:a3229e9ead29521a77c0a9f435b6bfa34"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
+REQUIRE(properlyInitialized(), "Runway was not properly initialized.");. <br /></td></tr>
+<tr class="separator:a3229e9ead29521a77c0a9f435b6bfa34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3bda045e7c3e075e639dccbb53df142"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab3bda045e7c3e075e639dccbb53df142"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunway.html#ab3bda045e7c3e075e639dccbb53df142">setAirplane</a> (<a class="el" href="classAirplane.html">Airplane</a> *_airplane)</td></tr>
+<tr class="memdesc:ab3bda045e7c3e075e639dccbb53df142"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
+REQUIRE(properlyInitialized(), "Runway was not properly initialized.");. <br /></td></tr>
+<tr class="separator:ab3bda045e7c3e075e639dccbb53df142"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd46dc9b8cf2884b8219448c1d3a2c24"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afd46dc9b8cf2884b8219448c1d3a2c24"></a>
+<a class="el" href="classAirplane.html">Airplane</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunway.html#afd46dc9b8cf2884b8219448c1d3a2c24">getCrossingAirplane</a> () const </td></tr>
+<tr class="memdesc:afd46dc9b8cf2884b8219448c1d3a2c24"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
+REQUIRE(properlyInitialized(), "Runway was not properly initialized.");. <br /></td></tr>
+<tr class="separator:afd46dc9b8cf2884b8219448c1d3a2c24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f881ceeaf3e2e1eb02906b7ee8281c5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8f881ceeaf3e2e1eb02906b7ee8281c5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunway.html#a8f881ceeaf3e2e1eb02906b7ee8281c5">setCrossingAirplane</a> (<a class="el" href="classAirplane.html">Airplane</a> *_crossingAirplane)</td></tr>
+<tr class="memdesc:a8f881ceeaf3e2e1eb02906b7ee8281c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
+REQUIRE(properlyInitialized(), "Runway was not properly initialized.");. <br /></td></tr>
+<tr class="separator:a8f881ceeaf3e2e1eb02906b7ee8281c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fa0e9f4804e1da1f82c9892aeb59e5c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5fa0e9f4804e1da1f82c9892aeb59e5c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isVacant</b> () const </td></tr>
+<tr class="separator:a5fa0e9f4804e1da1f82c9892aeb59e5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca46ec2234bac684a9cc68ec4696cc0c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aca46ec2234bac684a9cc68ec4696cc0c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>canCross</b> () const </td></tr>
+<tr class="separator:aca46ec2234bac684a9cc68ec4696cc0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81c9cc41ab141fbbbf5fd10d75363ef4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a81c9cc41ab141fbbbf5fd10d75363ef4"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRunway.html#a81c9cc41ab141fbbbf5fd10d75363ef4">printInfo</a> (std::ostream &amp;stream) const </td></tr>
 <tr class="memdesc:a81c9cc41ab141fbbbf5fd10d75363ef4"><td class="mdescLeft">&#160;</td><td class="mdescRight">PRE: <br />
 REQUIRE(properlyInitialized(), "Runway was not properly initialized.");. <br /></td></tr>
 <tr class="separator:a81c9cc41ab141fbbbf5fd10d75363ef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classLocation"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classLocation')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classLocation.html">Location</a></td></tr>
+<tr class="memitem:a409b984c978071cb38fea1e36aff964f inherit pub_methods_classLocation"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a409b984c978071cb38fea1e36aff964f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Location</b> (const std::string &amp;_name)</td></tr>
+<tr class="separator:a409b984c978071cb38fea1e36aff964f inherit pub_methods_classLocation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4de60676839a4a8095e17eeeb05667c2 inherit pub_methods_classLocation"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4de60676839a4a8095e17eeeb05667c2"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Location</b> (const <a class="el" href="classLocation.html">Location</a> *_location)</td></tr>
+<tr class="separator:a4de60676839a4a8095e17eeeb05667c2 inherit pub_methods_classLocation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa12b367aa83b50370277431e4748aab8 inherit pub_methods_classLocation"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa12b367aa83b50370277431e4748aab8"></a>
+const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getName</b> () const </td></tr>
+<tr class="separator:aa12b367aa83b50370277431e4748aab8 inherit pub_methods_classLocation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5a6afc15398816e817d8dec26d01f8a inherit pub_methods_classLocation"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab5a6afc15398816e817d8dec26d01f8a"></a>
+<a class="el" href="classLocation.html">Location</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getPreviousLocation</b> () const </td></tr>
+<tr class="separator:ab5a6afc15398816e817d8dec26d01f8a inherit pub_methods_classLocation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af69cdc59d14f9148d34dba19f876db7c inherit pub_methods_classLocation"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af69cdc59d14f9148d34dba19f876db7c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setPreviousLocation</b> (<a class="el" href="classLocation.html">Location</a> *_previousLocation)</td></tr>
+<tr class="separator:af69cdc59d14f9148d34dba19f876db7c inherit pub_methods_classLocation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc2000644aab9483512d4e64e4b9f093 inherit pub_methods_classLocation"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adc2000644aab9483512d4e64e4b9f093"></a>
+<a class="el" href="classLocation.html">Location</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getNextLocation</b> () const </td></tr>
+<tr class="separator:adc2000644aab9483512d4e64e4b9f093 inherit pub_methods_classLocation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a243b770a7fafe4f8e3ba59f8e7b57db5 inherit pub_methods_classLocation"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a243b770a7fafe4f8e3ba59f8e7b57db5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setNextLocation</b> (<a class="el" href="classLocation.html">Location</a> *_nextLocation)</td></tr>
+<tr class="separator:a243b770a7fafe4f8e3ba59f8e7b57db5 inherit pub_methods_classLocation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a913f9baa2ac10c2a8041773718f3287d inherit pub_methods_classLocation"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a913f9baa2ac10c2a8041773718f3287d"></a>
+const <a class="el" href="classAirport.html">Airport</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getAirport</b> () const </td></tr>
+<tr class="separator:a913f9baa2ac10c2a8041773718f3287d inherit pub_methods_classLocation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac31c1552f821a450580ba91d3d2fed0 inherit pub_methods_classLocation"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aac31c1552f821a450580ba91d3d2fed0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setAirport</b> (const <a class="el" href="classAirport.html">Airport</a> *_airport)</td></tr>
+<tr class="separator:aac31c1552f821a450580ba91d3d2fed0 inherit pub_methods_classLocation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_classLocation"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classLocation')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classLocation.html">Location</a></td></tr>
+<tr class="memitem:a93bffefe32e80fc06eb2a3507f972497 inherit pro_methods_classLocation"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a93bffefe32e80fc06eb2a3507f972497"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>properlyInitialized</b> () const </td></tr>
+<tr class="separator:a93bffefe32e80fc06eb2a3507f972497 inherit pro_methods_classLocation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classLocation"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classLocation')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classLocation.html">Location</a></td></tr>
+<tr class="memitem:ad1bdf504630ea115cc3a208290548cb4 inherit pro_attribs_classLocation"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad1bdf504630ea115cc3a208290548cb4"></a>
+const std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b></td></tr>
+<tr class="separator:ad1bdf504630ea115cc3a208290548cb4 inherit pro_attribs_classLocation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5af0e5dbb10385b0b6b69174eb4d5c6e inherit pro_attribs_classLocation"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5af0e5dbb10385b0b6b69174eb4d5c6e"></a>
+<a class="el" href="classLocation.html">Location</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>previousLocation</b></td></tr>
+<tr class="separator:a5af0e5dbb10385b0b6b69174eb4d5c6e inherit pro_attribs_classLocation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f02cee87b5871f97efcbe8cdc94ac99 inherit pro_attribs_classLocation"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4f02cee87b5871f97efcbe8cdc94ac99"></a>
+<a class="el" href="classLocation.html">Location</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>nextLocation</b></td></tr>
+<tr class="separator:a4f02cee87b5871f97efcbe8cdc94ac99 inherit pro_attribs_classLocation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e21c211f85c055bcd8addd3b545324e inherit pro_attribs_classLocation"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1e21c211f85c055bcd8addd3b545324e"></a>
+const <a class="el" href="classAirport.html">Airport</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>airport</b></td></tr>
+<tr class="separator:a1e21c211f85c055bcd8addd3b545324e inherit pro_attribs_classLocation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7be0f7c47e92761c734efc685bd76f33 inherit pro_attribs_classLocation"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7be0f7c47e92761c734efc685bd76f33"></a>
+<a class="el" href="classLocation.html">Location</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>init</b></td></tr>
+<tr class="separator:a7be0f7c47e92761c734efc685bd76f33 inherit pro_attribs_classLocation"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/classes/<a class="el" href="Runway_8h_source.html">Runway.h</a></li>
